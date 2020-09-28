@@ -22,7 +22,7 @@ import game
 #################
 
 def createTeam(firstIndex, secondIndex, isRed,
-               first = 'DummyAgent', second = 'DummyAgent'):
+               first = 'QlearningAgent', second = 'DummyAgent'):
   """
   This function should return a list of two agents that will form the
   team, initialized using firstIndex and secondIndex as their agent
@@ -45,7 +45,7 @@ def createTeam(firstIndex, secondIndex, isRed,
 # Agents #
 ##########
 
-class DummyAgent(CaptureAgent):
+class QlearningAgent(CaptureAgent):
   """
   A Dummy agent to serve as an example of the necessary agent structure.
   You should look at baselineTeam.py for more details about how to
@@ -88,5 +88,67 @@ class DummyAgent(CaptureAgent):
     You should change this in your own agent.
     '''
 
-    return random.choice(actions)
+    foodLeft = len(self.getFood(gameState).asList())
 
+    # Case 1: food left <= 2
+    if foodLeft <= 2:
+      bestDist = 9999
+      for action in actions:
+        successor = self.getSuccessor(gameState, action)
+        pos2 = successor.getAgentPosition(self.index)
+        dist = self.getMazeDistance(self.start, pos2)
+        if dist < bestDist:
+          ToAct = action
+          bestDist = dist
+
+    # Case 2: Otherwise
+    else:
+      bestQvals, bestActions = self.getQvalActions(self, gameState, actions)
+      # Eploration-exploitation
+      ToAct = epsilonGready(epsilon, bestActions)
+      
+    return ToAct
+
+  def epsilonGready(self, e, exploreActions, exploitActions):
+    """
+    Returns an action using epsilon greedy method
+    """
+    exploit = util.flipCoin(e)
+    if exploit and exploitActions:
+      ToAct = random.choice(exploitActions)
+    else:
+      ToAct = random.choice(exploreActions)
+    return ToAct
+
+
+  def getQvalActions(self, gameState, actions):
+    """
+    Returns the maximum Q values and their corresponding actions
+    """
+    Qvals = [self.getQvals(gameState, act) for act in actions]
+
+    maxQvals = max(Qvals)
+    bestActions = [act for act, val in zip(actions, Qvals) if val == maxQvals]
+    
+    return maxQvals, bestActions
+
+  def getQvals(self, gameState, action):
+    """
+    Returns the calculated Q values
+    Version 1: Use a linear function in features and weights
+    Qval = dotProduct(features, weights)
+    """
+    features_vals = self.getFeatures(gameState, action) # wait to be modified
+    weights = self.getWeights(gameState, action, features) # wait to be modified
+
+    # compute dot product result
+    Qval = features_vals*weights
+    return Qval
+
+  def getFeatures():
+    pass
+
+  def getWeights():
+    pass
+
+    
