@@ -77,7 +77,6 @@ class QlearningAgent(CaptureAgent):
     Your initialization code goes here, if you need any.
     '''
 
-
   def chooseAction(self, gameState):
     """
     Picks among actions randomly.
@@ -121,7 +120,7 @@ class QlearningAgent(CaptureAgent):
     return ToAct
 
 
-  def getQvalActions(self, gameState, actions):
+  def getBestQvalActions(self, gameState, actions):
     """
     Returns the maximum Q values and their corresponding actions
     """
@@ -145,10 +144,62 @@ class QlearningAgent(CaptureAgent):
     Qval = features_vals*weights
     return Qval
 
-  def getFeatures():
-    pass
+  def getFeatures(self, gameState, action):
+    """
+    Returns a counter of features for the state
+    """
+    features = util.Counter()
+    successor = self.getSuccessor(gameState, action)
+    
+    # score
+    features['successorScore'] = self.getScore(successor)
+
+    # distance to capsule
+
+    # distance to food
+
+    # total steps left
+
+    #
+
+
+    return features
 
   def getWeights():
     pass
 
+  def getReward(self, gameState, toAct):
+    # init reward
+    reward = 0
+
+    cur_pos = gameState.getAgentPosition(self.index)
+    suc_state = gameState.generateSuccessor(self.index, toAct)
+    suc_pos = suc_state.getAgentState(self.index).getPosition()
+
+    # better score
+    if gameState.getScore() < suc_state.getSccore():
+      reward += 20
+
+    # closer distance to capsule
+
+    # closer distance to food
+
     
+  
+  def updateWeights():
+    pass
+  
+  def initWeights():
+    pass
+  
+  def getSuccessor(self, gameState, action):
+    """
+    Finds the next successor which is a grid position (location tuple).
+    """
+    successor = gameState.generateSuccessor(self.index, action)
+    pos = successor.getAgentState(self.index).getPosition()
+    if pos != nearestPoint(pos):
+      # Only half a grid position was covered
+      return successor.generateSuccessor(self.index, action)
+    else:
+      return successor
