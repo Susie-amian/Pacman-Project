@@ -72,6 +72,12 @@ class QlearningAgent(CaptureAgent):
     CaptureAgent.registerInitialState in captureAgents.py.
     '''
     CaptureAgent.registerInitialState(self, gameState)
+    self.weights = util.Counter()
+    self.discount = 0.8
+    self.alpha = 1.0
+    self.epsilon = 0.05
+    
+
 
     '''
     Your initialization code goes here, if you need any.
@@ -120,16 +126,17 @@ class QlearningAgent(CaptureAgent):
     return ToAct
 
 
-  def getBestQvalActions(self, gameState, actions):
+  def getBestQvalActions(self, gameState):
     """
     Returns the maximum Q values and their corresponding actions
     """
+    #list of Qvals
     Qvals = [self.getQvals(gameState, act) for act in actions]
 
     maxQvals = max(Qvals)
     bestActions = [act for act, val in zip(actions, Qvals) if val == maxQvals]
     
-    return maxQvals, bestActions
+    return maxQvals, random.choice(bestActions)
 
   def getQvals(self, gameState, action):
     """
@@ -137,11 +144,11 @@ class QlearningAgent(CaptureAgent):
     Version 1: Use a linear function in features and weights
     Qval = dotProduct(features, weights)
     """
-    features_vals = self.getFeatures(gameState, action) # wait to be modified
-    weights = self.getWeights(gameState, action, features) # wait to be modified
-
-    # compute dot product result
-    Qval = features_vals*weights
+    features = self.getFeatures(gameState, action) # return features counter
+    weights = self.getWeights() # weights counter
+    
+    # dot product of features and weights
+    Qval = features*weights
     return Qval
 
   def getFeatures(self, gameState, action):
@@ -165,8 +172,8 @@ class QlearningAgent(CaptureAgent):
 
     return features
 
-  def getWeights():
-    pass
+  def getWeights(self):
+    return self.weights
 
   def getReward(self, gameState, toAct):
     # init reward
@@ -184,10 +191,15 @@ class QlearningAgent(CaptureAgent):
 
     # closer distance to food
 
+
+  def updateWeights(self,gameState,feature, action,nextState,reward):
     
-  
-  def updateWeights():
-    pass
+    oldQ = self.getQvals(gameState, action)
+    newMaxQval, _ = self.getBestQvalActions(nextState)
+    learnedWeight = self.alpha*(reward + self.discount * newMaxQval - oldQ)
+    features = self.getFeatures(gameState, action)  #counter
+    self.weights += learnedWeight * features
+     
   
   def initWeights():
     pass
