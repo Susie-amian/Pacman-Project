@@ -51,7 +51,6 @@ class QlearningAgent(CaptureAgent):
   You should look at baselineTeam.py for more details about how to
   create an agent as this is the bare minimum.
   """
-
   def registerInitialState(self, gameState):
     """
     This method handles the initial setup of the
@@ -163,7 +162,9 @@ class QlearningAgent(CaptureAgent):
 
     # distance to capsule
 
-    # distance to food
+    # distance to closest food
+    food_pos, feature['distToFood'] = self.getDistToFood(successor)
+    
 
     # total steps left
 
@@ -171,6 +172,17 @@ class QlearningAgent(CaptureAgent):
 
 
     return features
+  def getDistToFood(currentState):
+    pos = currentState.getAgentState(self.index).getPosition()
+    foodList =  currentState.getFood()
+    min_dist = 9999
+    
+    for food in foodList:
+        dist = util.getMazeDistance(food, pos)
+        if dist < min_dist:
+          min_dist = dist
+          food_pos = food
+    return food_pos, min_dist
 
   def getWeights(self):
     return self.weights
