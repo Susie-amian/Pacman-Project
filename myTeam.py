@@ -71,6 +71,8 @@ class QlearningAgent(CaptureAgent):
     CaptureAgent.registerInitialState in captureAgents.py.
     '''
     CaptureAgent.registerInitialState(self, gameState)
+    self.start = gameState.getAgentPosition(self.index)
+
     self.weights = util.Counter()
     self.discount = 0.8
     self.alpha = 1.0
@@ -107,9 +109,9 @@ class QlearningAgent(CaptureAgent):
 
     # Case 2: Otherwise
     else:
-      bestQvals, bestActions = self.getQvalActions(self, gameState, actions)
+      _, bestActions = self.getBestQvalActions(gameState)
       # Eploration-exploitation
-      ToAct = epsilonGready(epsilon, bestActions)
+      ToAct = self.epsilonGready(self.epsilon, bestActions, actions)
       
     return ToAct
 
@@ -129,6 +131,7 @@ class QlearningAgent(CaptureAgent):
     """
     Returns the maximum Q values and their corresponding actions
     """
+    actions = gameState.getLegalActions(self.index)
     #list of Qvals
     Qvals = [self.getQvals(gameState, act) for act in actions]
 
@@ -163,7 +166,7 @@ class QlearningAgent(CaptureAgent):
     # distance to capsule
 
     # distance to closest food
-    food_pos, feature['distToFood'] = self.getDistToFood(successor)
+    _, features['distToFood'] = self.getDistToFood(successor)
     
 
     # total steps left
@@ -172,13 +175,14 @@ class QlearningAgent(CaptureAgent):
 
 
     return features
-  def getDistToFood(currentState):
+
+  def getDistToFood(self, currentState):
     pos = currentState.getAgentState(self.index).getPosition()
     foodList =  currentState.getFood()
     min_dist = 9999
     
     for food in foodList:
-        dist = util.getMazeDistance(food, pos)
+        dist = self.getMazeDistance(food, pos)
         if dist < min_dist:
           min_dist = dist
           food_pos = food
@@ -213,7 +217,7 @@ class QlearningAgent(CaptureAgent):
     self.weights += learnedWeight * features
      
   
-  def initWeights():
+  def initWeights(self):
     pass
   
   def getSuccessor(self, gameState, action):
@@ -222,7 +226,7 @@ class QlearningAgent(CaptureAgent):
     """
     successor = gameState.generateSuccessor(self.index, action)
     pos = successor.getAgentState(self.index).getPosition()
-    if pos != nearestPoint(pos):
+    if pos != util.nearestPoint(pos):
       # Only half a grid position was covered
       return successor.generateSuccessor(self.index, action)
     else:
