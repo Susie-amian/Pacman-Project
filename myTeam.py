@@ -118,9 +118,10 @@ class QlearningAgent(CaptureAgent):
       # Eploration-exploitation
       ToAct = self.epsilonGreedy(self.epsilon, bestAction, actions)
 
-      features = self.getFeatures(gameState, ToAct)
-      nextState = gameState.generateSuccessor(self.index, ToAct)
-      self.updateWeights(self, gameState,features, ToAct, nextState)
+    features = self.getFeatures(gameState, ToAct)
+    nextState = gameState.generateSuccessor(self.index, ToAct)
+    self.updateWeights(self, gameState,features, ToAct, nextState)
+    reward = self.getReward(gameState, ToAct)
 
       
     return ToAct
@@ -204,18 +205,31 @@ class QlearningAgent(CaptureAgent):
   def getReward(self, gameState, toAct):
     # init reward
     reward = 0
-
+    cur_state = gameState
     cur_pos = gameState.getAgentPosition(self.index)
     suc_state = gameState.generateSuccessor(self.index, toAct)
     suc_pos = suc_state.getAgentState(self.index).getPosition()
-
+    prev_state = self.getPreviousObservation()
+    prev_food_num = len(self.getFood(prev_state).asList())
+    cur_food_num = len(self.getFood(cur_state).asList())
+    
+    
     # better score
-    if gameState.getScore() < suc_state.getSccore():
+    if gameState.getScore() < suc_state.getScore():
       reward += 20
+    
+    # food difference
+    food_difference = cur_food_num - prev_food_num
+    if (food_difference > 0):
+      reward += 5
+    elif (food_difference < 0):
+      reward += food_difference*2
 
     # closer distance to capsule
 
     # closer distance to food
+
+    return reward
 
 
   def updateWeights(self,gameState,feature, action,nextState,reward):
