@@ -77,6 +77,9 @@ class QlearningAgent(CaptureAgent):
     self.discount = 0.8
     self.alpha = 1.0
     self.epsilon = 0.05
+
+    self.episodeRewards = 0.0
+    
     
 
 
@@ -107,27 +110,34 @@ class QlearningAgent(CaptureAgent):
           ToAct = action
           bestDist = dist
 
+
     # Case 2: Otherwise
     else:
-      _, bestActions = self.getBestQvalActions(gameState)
+
+      _, bestAction = self.getBestQvalAction(gameState)
       # Eploration-exploitation
-      ToAct = self.epsilonGready(self.epsilon, bestActions, actions)
+      ToAct = self.epsilonGreedy(self.epsilon, bestAction, actions)
+
+      features = self.getFeatures(gameState, ToAct)
+      nextState = gameState.generateSuccessor(self.index, ToAct)
+      self.updateWeights(self, gameState,features, ToAct, nextState)
+
       
     return ToAct
 
-  def epsilonGready(self, e, exploreActions, exploitActions):
+  def epsilonGreedy(self, e, exploitAction, exploreActions):
     """
     Returns an action using epsilon greedy method
     """
     exploit = util.flipCoin(e)
-    if exploit and exploitActions:
-      ToAct = random.choice(exploitActions)
+    if exploit and exploitAction:
+      ToAct = exploitAction
     else:
       ToAct = random.choice(exploreActions)
     return ToAct
 
 
-  def getBestQvalActions(self, gameState):
+  def getBestQvalAction(self, gameState):
     """
     Returns the maximum Q values and their corresponding actions
     """
@@ -211,7 +221,7 @@ class QlearningAgent(CaptureAgent):
   def updateWeights(self,gameState,feature, action,nextState,reward):
     
     oldQ = self.getQvals(gameState, action)
-    newMaxQval, _ = self.getBestQvalActions(nextState)
+    newMaxQval, _ = self.getBestQvalAction(nextState)
     learnedWeight = self.alpha*(reward + self.discount * newMaxQval - oldQ)
     features = self.getFeatures(gameState, action)  #counter
     self.weights += learnedWeight * features
@@ -231,3 +241,5 @@ class QlearningAgent(CaptureAgent):
       return successor.generateSuccessor(self.index, action)
     else:
       return successor
+
+  
