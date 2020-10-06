@@ -76,17 +76,22 @@ class QlearningAgent(CaptureAgent):
     self.start = gameState.getAgentPosition(self.index)
 
     self.weights = util.Counter()
-    self.discount = 0.8
-    self.alpha = 1.0
-    self.epsilon = 0.9
+    self.weights['successorScore'] = 1
+    self.weights['distToFood'] = -0.1
+    self.discount = 0.5
+    self.alpha = 0.1
+    self.epsilon = 1
 
     self.episodeRewards = 0.0
     self.lastAction = None
+
     self.distancer = distanceCalculator.Distancer(gameState.data.layout)
-    self.distancer.getMazeDistance()
+    self.distancer.getMazeDistances()
+
     #self.totalFood = len(self.getFood(self.start).asList())
 
     self.goalFood, self.DistGoalFood = self.getDistToFood(gameState)
+    self.lastState = None
 
 
     '''
@@ -107,10 +112,12 @@ class QlearningAgent(CaptureAgent):
 
     '''Update weight based on previous completed action and state'''
     if self.lastAction != None:
-      lastState = self.getPreviousObservation()
-      features = self.getFeatures(lastState, self.lastAction)
+      #lastState = self.getPreviousObservation()
       
-      self.updateWeights(lastState,features, self.lastAction, gameState)
+      features = self.getFeatures(self.lastState, self.lastAction)
+      
+      self.updateWeights(self.lastState,features, self.lastAction, gameState)
+      print('118',self.weights)
    
 
     # Case 1: food left <= 2
@@ -131,9 +138,14 @@ class QlearningAgent(CaptureAgent):
       _, bestAction = self.getBestQvalAction(gameState)
       # Eploration-exploitation
       ToAct = self.epsilonGreedy(self.epsilon, bestAction, actions)
-
+    #print("138====",gameState, self.lastState, self.lastAction, ToAct)
+    #if self.lastAction != None:
+      #print("139====",gameState.getAgentPosition(self.index),self.lastState.getAgentPosition(self.index),self.lastAction)
+    print('141 Current Action',ToAct, 'Last Action',self.lastAction)
     self.lastAction = ToAct
-    print('toact',ToAct)
+
+    self.lastState = gameState
+    
     return ToAct
 
   def epsilonGreedy(self, e, exploitAction, exploreActions):
@@ -143,8 +155,10 @@ class QlearningAgent(CaptureAgent):
     exploit = util.flipCoin(e)
     if exploit and exploitAction:
       ToAct = exploitAction
+      #print('exploit========', ToAct)
     else:
       ToAct = random.choice(exploreActions)
+      #print('explore======',ToAct)
     return ToAct
 
 
@@ -158,7 +172,7 @@ class QlearningAgent(CaptureAgent):
 
     maxQvals = max(Qvals)
     bestActions = [act for act, val in zip(actions, Qvals) if val == maxQvals]
-    
+    #print('168',bestActions)
     return maxQvals, random.choice(bestActions)
 
   def getQvals(self, gameState, action):
@@ -169,9 +183,11 @@ class QlearningAgent(CaptureAgent):
     """
     features = self.getFeatures(gameState, action) # return features counter
     weights = self.getWeights() # weights counter
-    
+    #print('182 AAAA FEATURES', features)
+    #print('183 BBBB weights', weights)
     # dot product of features and weights
     Qval = features*weights
+    #print('188 Qval',Qval)
     return Qval
 
   def getFeatures(self, gameState, action):
@@ -192,8 +208,7 @@ class QlearningAgent(CaptureAgent):
 
     # total steps left
 
-    #
-
+    print('205===',features)
 
     return features
 
@@ -218,21 +233,26 @@ class QlearningAgent(CaptureAgent):
     # init reward
     reward = 0
     curState = gameState
-    curPos = gameState.getAgentPosition(self.index)
+    curPos = curState.getAgentPosition(self.index)
     curFoodNum = len(self.getFood(curState).asList())
 
-    sucState = gameState.generateSuccessor(self.index, toAct)
-    sucPos = sucState.getAgentState(self.index).getPosition()
+    #sucState = gameState.generateSuccessor(self.index, toAct)
+    #sucPos = sucState.getAgentState(self.index).getPosition()
 
-    prevState = self.getPreviousObservation()
+    prevState = self.lastState
     prevPos = prevState.getAgentPosition(self.index)
     prevFoodNum = len(self.getFood(prevState).asList())
 
+    #newnewPos = self.getCurrentObservation().getAgentPosition(self.index)
+    #print('232',prevPos, newnewPos,curPos)
+
+    #print('qunimade\n',prevState, self.getCurrentObservation(), curState)
+
     
-    
+
     
     # better score
-    if gameState.getScore() < sucState.getScore():
+    if gameState.getScore() > prevState.getScore():
       reward += 20
     
     # food difference
@@ -251,8 +271,11 @@ class QlearningAgent(CaptureAgent):
       curDist = self.getMazeDistance(curPos, self.goalFood)
    
     reward += self.getFoodProximityReward(prevPos, curDist, self.goalFood)
-    print('THIS IS OUR PROXIMITY REWARD', self.getFoodProximityReward(prevPos, curDist, self.goalFood))
-    print('OUR TOTAL REWARD', reward)
+    #print("score reward",gameState.getScore() - self.lastState.getScore())
+    #print('cur',curPos,'prev',prevPos,self.goalFood)
+    #print('THIS IS OUR PROXIMITY REWARD', self.getFoodProximityReward(prevPos, curDist, self.goalFood))
+    #print('OUR TOTAL REWARD', reward)
+    #print('cur',self.getMazeDistance(curPos,self.goalFood), 'prev',self.getMazeDistance(prevPos,self.goalFood))
     return reward
 
   def getFoodProximityReward(self, prevPos, curDist, goalFood):
@@ -261,13 +284,21 @@ class QlearningAgent(CaptureAgent):
     return 100*(prevDist-curDist)    
 
   def updateWeights(self, gameState,feature, action,nextState):
-    reward = self.getReward(gameState, action) #value
+    
+    reward = self.getReward(nextState, action) #value
+    
     oldQ = self.getQvals(gameState, action) #value
     newMaxQval, _ = self.getBestQvalAction(nextState) #value
     learnedWeight = self.alpha*(reward + self.discount * newMaxQval - oldQ)  #value 
     features = self.getFeatures(gameState, action)  #counter
+    print('====OLD QVALUE=======', oldQ)
+    print('====LEARNED WEIGHT===', learnedWeight)
+    print('====features===',features)
+    print('===OLD weight===', self.weights)
+    print('reward',reward,'Qval',newMaxQval)
     for key in features.keys():
       self.weights[key] += learnedWeight * features[key]
+    print('===NEW weight===', self.weights)
      
   
   def initWeights(self):
