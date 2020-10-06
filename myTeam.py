@@ -22,7 +22,7 @@ import game
 #################
 
 def createTeam(firstIndex, secondIndex, isRed,
-               first = 'QlearningAgent', second = 'DummyAgent'):
+               first = 'QlearningAgent', second = 'QlearningAgent'):
   """
   This function should return a list of two agents that will form the
   team, initialized using firstIndex and secondIndex as their agent
@@ -70,19 +70,20 @@ class QlearningAgent(CaptureAgent):
     on initialization time, please take a look at
     CaptureAgent.registerInitialState in captureAgents.py.
     '''
+
     CaptureAgent.registerInitialState(self, gameState)
     self.start = gameState.getAgentPosition(self.index)
 
     self.weights = util.Counter()
     self.discount = 0.8
     self.alpha = 1.0
-    self.epsilon = 0.05
+    self.epsilon = 0.9
 
     self.episodeRewards = 0.0
     self.lastAction = None
+    #self.totalFood = len(self.getFood(self.start).asList())
 
-    
-    
+    self.goalFood, self.DistGoalFood = self.getDistToFood(gameState)
 
 
     '''
@@ -98,8 +99,8 @@ class QlearningAgent(CaptureAgent):
     '''
     You should change this in your own agent.
     '''
-
     foodLeft = len(self.getFood(gameState).asList())
+
 
 
     '''Update weight based on last completed action and state'''
@@ -107,8 +108,6 @@ class QlearningAgent(CaptureAgent):
     lastState = self.getPreviousObservation()
     self.updateWeights(lastState,features, self.lastAction, gameState)
    
-    
-
 
     # Case 1: food left <= 2
     if foodLeft <= 2:
@@ -128,12 +127,6 @@ class QlearningAgent(CaptureAgent):
       _, bestAction = self.getBestQvalAction(gameState)
       # Eploration-exploitation
       ToAct = self.epsilonGreedy(self.epsilon, bestAction, actions)
-
-    #features = self.getFeatures(gameState, ToAct)
-    #nextState = gameState.generateSuccessor(self.index, ToAct)
-    #lastState = self.getPreviousObservation()
-    #self.updateWeights(self, lastState,features, self.lastAction, gameState)
-    #reward = self.getReward(gameState, ToAct)
 
     self.lastAction = ToAct
     return ToAct
@@ -201,7 +194,7 @@ class QlearningAgent(CaptureAgent):
 
   def getDistToFood(self, currentState):
     pos = currentState.getAgentState(self.index).getPosition()
-    foodList =  currentState.getFood()
+    foodList =  self.getFood(currentState).asList()
     min_dist = 9999
     
     for food in foodList:
@@ -217,32 +210,43 @@ class QlearningAgent(CaptureAgent):
   def getReward(self, gameState, toAct):
     # init reward
     reward = 0
-    cur_state = gameState
-    cur_pos = gameState.getAgentPosition(self.index)
-    suc_state = gameState.generateSuccessor(self.index, toAct)
-    suc_pos = suc_state.getAgentState(self.index).getPosition()
-    prev_state = self.getPreviousObservation()
-    prev_food_num = len(self.getFood(prev_state).asList())
-    cur_food_num = len(self.getFood(cur_state).asList())
+    curState = gameState
+    curPos = gameState.getAgentPosition(self.index)
+    curFoodNum = len(self.getFood(curState).asList())
+
+    sucState = gameState.generateSuccessor(self.index, toAct)
+    sucPos = sucState.getAgentState(self.index).getPosition()
+
+    prevState = self.getPreviousObservation()
+    prevPos = prevState.getAgentPosition(self.index)
+    prevFoodNum = len(self.getFood(prevState).asList())
+
+    
     
     
     # better score
-    if gameState.getScore() < suc_state.getScore():
+    if gameState.getScore() < sucState.getScore():
       reward += 20
     
     # food difference
-    food_difference = cur_food_num - prev_food_num
-    if (food_difference > 0):
+    foodDifference = curFoodNum - prevFoodNum
+    if (foodDifference > 0):
       reward += 5
-    elif (food_difference < 0):
-      reward += food_difference*2
+    elif (foodDifference < 0):
+      reward += foodDifference*2
 
     # closer distance to capsule
 
     # closer distance to food
+    if self.goalFood == curPos:
+      self.goalFood, curDist = self.getDistToFood(curState)
+    reward += getFoodProximityReward(prevState, curDist, self.goalFood)
 
     return reward
 
+  def getFoodProximityReward(self, prevPos, curDist, goalFood):
+    prevDist = getMazeDistance(prevPos, goalFood)
+    return (prevDist-curDist)    
 
   def updateWeights(self, gameState,feature, action,nextState):
     reward = self.getReward(gameState, action)
