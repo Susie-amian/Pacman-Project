@@ -13,6 +13,7 @@
 
 
 from captureAgents import CaptureAgent
+import distanceCalculator
 import random, time, util
 from game import Directions
 import game
@@ -81,6 +82,8 @@ class QlearningAgent(CaptureAgent):
 
     self.episodeRewards = 0.0
     self.lastAction = None
+    self.distancer = distanceCalculator.Distancer(gameState.data.layout)
+    self.distancer.getMazeDistance()
     #self.totalFood = len(self.getFood(self.start).asList())
 
     self.goalFood, self.DistGoalFood = self.getDistToFood(gameState)
@@ -102,11 +105,12 @@ class QlearningAgent(CaptureAgent):
     foodLeft = len(self.getFood(gameState).asList())
 
 
-
-    '''Update weight based on last completed action and state'''
-    features = self.getFeatures(gameState, self.lastAction)
-    lastState = self.getPreviousObservation()
-    self.updateWeights(lastState,features, self.lastAction, gameState)
+    '''Update weight based on previous completed action and state'''
+    if self.lastAction != None:
+      lastState = self.getPreviousObservation()
+      features = self.getFeatures(lastState, self.lastAction)
+      
+      self.updateWeights(lastState,features, self.lastAction, gameState)
    
 
     # Case 1: food left <= 2
@@ -129,6 +133,7 @@ class QlearningAgent(CaptureAgent):
       ToAct = self.epsilonGreedy(self.epsilon, bestAction, actions)
 
     self.lastAction = ToAct
+    print('toact',ToAct)
     return ToAct
 
   def epsilonGreedy(self, e, exploitAction, exploreActions):
@@ -196,12 +201,14 @@ class QlearningAgent(CaptureAgent):
     pos = currentState.getAgentState(self.index).getPosition()
     foodList =  self.getFood(currentState).asList()
     min_dist = 9999
-    
+    #print('209',foodList)
     for food in foodList:
-        dist = self.getMazeDistance(food, pos)
-        if dist < min_dist:
-          min_dist = dist
-          food_pos = food
+
+      
+      dist = self.getMazeDistance(food, pos)
+      if dist < min_dist:
+        min_dist = dist
+        food_pos = food
     return food_pos, min_dist
 
   def getWeights(self):
@@ -240,21 +247,27 @@ class QlearningAgent(CaptureAgent):
     # closer distance to food
     if self.goalFood == curPos:
       self.goalFood, curDist = self.getDistToFood(curState)
-    reward += getFoodProximityReward(prevState, curDist, self.goalFood)
-
+    else:
+      curDist = self.getMazeDistance(curPos, self.goalFood)
+   
+    reward += self.getFoodProximityReward(prevPos, curDist, self.goalFood)
+    print('THIS IS OUR PROXIMITY REWARD', self.getFoodProximityReward(prevPos, curDist, self.goalFood))
+    print('OUR TOTAL REWARD', reward)
     return reward
 
   def getFoodProximityReward(self, prevPos, curDist, goalFood):
-    prevDist = getMazeDistance(prevPos, goalFood)
-    return (prevDist-curDist)    
+    #print('======', prevPos, self.goalFood)
+    prevDist = self.getMazeDistance(prevPos, goalFood)
+    return 100*(prevDist-curDist)    
 
   def updateWeights(self, gameState,feature, action,nextState):
-    reward = self.getReward(gameState, action)
-    oldQ = self.getQvals(gameState, action)
-    newMaxQval, _ = self.getBestQvalAction(nextState)
-    learnedWeight = self.alpha*(reward + self.discount * newMaxQval - oldQ)
+    reward = self.getReward(gameState, action) #value
+    oldQ = self.getQvals(gameState, action) #value
+    newMaxQval, _ = self.getBestQvalAction(nextState) #value
+    learnedWeight = self.alpha*(reward + self.discount * newMaxQval - oldQ)  #value 
     features = self.getFeatures(gameState, action)  #counter
-    self.weights += learnedWeight * features
+    for key in features.keys():
+      self.weights[key] += learnedWeight * features[key]
      
   
   def initWeights(self):
