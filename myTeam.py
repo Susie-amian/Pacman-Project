@@ -22,7 +22,7 @@ import game
 #################
 
 def createTeam(firstIndex, secondIndex, isRed,
-               first = 'QlearningAgent', second = 'DummyAgent'):
+               first = 'QlearningAgent', second = 'QlearningAgent'):
   """
   This function should return a list of two agents that will form the
   team, initialized using firstIndex and secondIndex as their agent
@@ -76,7 +76,7 @@ class QlearningAgent(CaptureAgent):
     self.weights = util.Counter()
     self.discount = 0.8
     self.alpha = 1.0
-    self.epsilon = 0.05
+    self.epsilon = 0.9
 
     self.episodeRewards = 0.0
     self.lastAction = None
@@ -102,10 +102,12 @@ class QlearningAgent(CaptureAgent):
     foodLeft = len(self.getFood(gameState).asList())
 
 
-    '''Update weight based on last completed action and state'''
-    features = self.getFeatures(gameState, self.lastAction)
-    lastState = self.getPreviousObservation()
-    self.updateWeights(lastState,features, self.lastAction, gameState)
+    '''Update weight based on previous completed action and state'''
+    if self.lastAction != None:
+      lastState = self.getPreviousObservation()
+      features = self.getFeatures(lastState, self.lastAction)
+      
+      self.updateWeights(lastState,features, self.lastAction, gameState)
    
     
 
@@ -136,6 +138,7 @@ class QlearningAgent(CaptureAgent):
     #reward = self.getReward(gameState, ToAct)
 
     self.lastAction = ToAct
+    print('toact',ToAct)
     return ToAct
 
   def epsilonGreedy(self, e, exploitAction, exploreActions):
@@ -201,14 +204,16 @@ class QlearningAgent(CaptureAgent):
 
   def getDistToFood(self, currentState):
     pos = currentState.getAgentState(self.index).getPosition()
-    foodList =  currentState.getFood()
+    foodList =  self.getFood(currentState).asList()
     min_dist = 9999
-    
+    #print('209',foodList)
     for food in foodList:
-        dist = self.getMazeDistance(food, pos)
-        if dist < min_dist:
-          min_dist = dist
-          food_pos = food
+
+      
+      dist = self.getMazeDistance(food, pos)
+      if dist < min_dist:
+        min_dist = dist
+        food_pos = food
     return food_pos, min_dist
 
   def getWeights(self):
@@ -245,12 +250,13 @@ class QlearningAgent(CaptureAgent):
 
 
   def updateWeights(self, gameState,feature, action,nextState):
-    reward = self.getReward(gameState, action)
-    oldQ = self.getQvals(gameState, action)
-    newMaxQval, _ = self.getBestQvalAction(nextState)
-    learnedWeight = self.alpha*(reward + self.discount * newMaxQval - oldQ)
+    reward = self.getReward(gameState, action) #value
+    oldQ = self.getQvals(gameState, action) #value
+    newMaxQval, _ = self.getBestQvalAction(nextState) #value
+    learnedWeight = self.alpha*(reward + self.discount * newMaxQval - oldQ)  #value 
     features = self.getFeatures(gameState, action)  #counter
-    self.weights += learnedWeight * features
+    for key in features.keys():
+      self.weights[key] += learnedWeight * features[key]
      
   
   def initWeights(self):
