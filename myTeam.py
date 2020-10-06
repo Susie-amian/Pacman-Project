@@ -57,11 +57,9 @@ class QlearningAgent(CaptureAgent):
     This method handles the initial setup of the
     agent to populate useful fields (such as what team
     we're on).
-
     A distanceCalculator instance caches the maze distances
     between each pair of positions, so your agents can use:
     self.distancer.getDistance(p1, p2)
-
     IMPORTANT: This method may run for at most 15 seconds.
     """
 
@@ -71,32 +69,26 @@ class QlearningAgent(CaptureAgent):
     on initialization time, please take a look at
     CaptureAgent.registerInitialState in captureAgents.py.
     '''
-
     CaptureAgent.registerInitialState(self, gameState)
-    self.start = gameState.getAgentPosition(self.index)
-
-    self.weights = util.Counter()
-    self.weights['successorScore'] = 1
-    self.weights['distToFood'] = -0.1
-    self.discount = 0.5
-    self.alpha = 0.1
-    self.epsilon = 1
-
-    self.episodeRewards = 0.0
-    self.lastAction = None
-
-    self.distancer = distanceCalculator.Distancer(gameState.data.layout)
-    self.distancer.getMazeDistances()
-
-    #self.totalFood = len(self.getFood(self.start).asList())
-
-    self.goalFood, self.DistGoalFood = self.getDistToFood(gameState)
-    self.lastState = None
-
 
     '''
     Your initialization code goes here, if you need any.
     '''
+
+    self.epsilon = 0.9
+    self.alpha = 0.4
+    self.discount = 0.9
+
+    self.start = gameState.getAgentPosition(self.index)
+    self.totalFoodList = self.getFood(gameState).asList()
+
+    # recording dict
+    self.weights = util.Counter()
+
+    self.weights['successorScore'] = 1
+    self.weights['distToFood'] = 1
+
+    self.goalFood, self.DistGoalFood = self.getDistToFood(gameState)
 
   def chooseAction(self, gameState):
     """
@@ -109,71 +101,66 @@ class QlearningAgent(CaptureAgent):
     '''
     foodLeft = len(self.getFood(gameState).asList())
 
+    values = [self.getQvals(gameState, a) for a in actions]
+    # print 'eval time for agent %d: %.4f' % (self.index, time.time() - start)
 
-    '''Update weight based on previous completed action and state'''
-    if self.lastAction != None:
-      #lastState = self.getPreviousObservation()
-      
-      features = self.getFeatures(self.lastState, self.lastAction)
-      
-      self.updateWeights(self.lastState,features, self.lastAction, gameState)
-      print('118',self.weights)
-   
+    maxValue = max(values)
+    bestActions = self.getBestActions(actions, maxValue, values)
 
+    
     # Case 1: food left <= 2
     if foodLeft <= 2:
-      bestDist = 9999
-      for action in actions:
-        successor = self.getSuccessor(gameState, action)
-        pos2 = successor.getAgentPosition(self.index)
-        dist = self.getMazeDistance(self.start, pos2)
-        if dist < bestDist:
-          ToAct = action
-          bestDist = dist
-
-
-    # Case 2: Otherwise
+        bestDist = 9999
+        for action in actions:
+            successor = self.getSuccessor(gameState, action)
+            pos2 = successor.getAgentPosition(self.index)
+            dist = self.getMazeDistance(self.start, pos2)
+            if dist < bestDist:
+                actionToReturn = action
+                bestDist = dist
     else:
+        actionToReturn = self.epsilonGreedy(bestActions, actions)
 
-      _, bestAction = self.getBestQvalAction(gameState)
-      # Eploration-exploitation
-      ToAct = self.epsilonGreedy(self.epsilon, bestAction, actions)
-    #print("138====",gameState, self.lastState, self.lastAction, ToAct)
-    #if self.lastAction != None:
-      #print("139====",gameState.getAgentPosition(self.index),self.lastState.getAgentPosition(self.index),self.lastAction)
-    print('141 Current Action',ToAct, 'Last Action',self.lastAction)
-    self.lastAction = ToAct
+    # get reward
+    successor = gameState.generateSuccessor(self.index, actionToReturn)
 
-    self.lastState = gameState
-    
-    return ToAct
+    # update the weight
+    self.update(gameState, actionToReturn, successor)
 
-  def epsilonGreedy(self, e, exploitAction, exploreActions):
+    # return the action
+    return actionToReturn
+
+  def epsilonGreedy(self, exploitAction, exploreActions):
     """
     Returns an action using epsilon greedy method
     """
-    exploit = util.flipCoin(e)
+    exploit = util.flipCoin(self.epsilon)
     if exploit and exploitAction:
-      ToAct = exploitAction
-      #print('exploit========', ToAct)
+      ToAct = random.choice(exploitAction)
+
     else:
       ToAct = random.choice(exploreActions)
-      #print('explore======',ToAct)
+
     return ToAct
 
+  def getBestActions(self, actions, maxval, vals):
+    return [act for act, val in zip(actions, vals) if val == maxval]
 
-  def getBestQvalAction(self, gameState):
+  def getSuccessor(self, gameState, action):
     """
-    Returns the maximum Q values and their corresponding actions
+    Finds the next successor which is a grid position (location tuple).
     """
-    actions = gameState.getLegalActions(self.index)
-    #list of Qvals
-    Qvals = [self.getQvals(gameState, act) for act in actions]
+    currentState = gameState.getAgentPosition(self.index)
+    successor = gameState.generateSuccessor(self.index, action)
+    pos2 = successor.getAgentState(self.index).getPosition()
+    x,y = pos2
+    pos2 = (int(x),int(y))
 
-    maxQvals = max(Qvals)
-    bestActions = [act for act, val in zip(actions, Qvals) if val == maxQvals]
-    #print('168',bestActions)
-    return maxQvals, random.choice(bestActions)
+    if pos2 != util.nearestPoint(pos2):
+        # Only half a grid position was covered
+        return successor.generateSuccessor(self.index, action)
+    else:
+        return successor
 
   def getQvals(self, gameState, action):
     """
@@ -183,32 +170,21 @@ class QlearningAgent(CaptureAgent):
     """
     features = self.getFeatures(gameState, action) # return features counter
     weights = self.getWeights() # weights counter
-    #print('182 AAAA FEATURES', features)
-    #print('183 BBBB weights', weights)
-    # dot product of features and weights
+
     Qval = features*weights
-    #print('188 Qval',Qval)
+
     return Qval
 
   def getFeatures(self, gameState, action):
-    """
-    Returns a counter of features for the state
-    """
     features = util.Counter()
     successor = self.getSuccessor(gameState, action)
-    
-    # score
-    features['successorScore'] = self.getScore(successor)
+    foodList = self.getFood(successor).asList()
+    # Score
+    features['successorScore'] = self.getScore(successor)  # self.getScore(successor)
 
-    # distance to capsule
-
-    # distance to closest food
-    _, features['distToFood'] = self.getDistToFood(successor)
-    
-
-    # total steps left
-
-    print('205===',features)
+    # Distance to closest food
+    _, minDist = self.getDistToFood(successor)
+    features['distToFood'] = 1/minDist
 
     return features
 
@@ -216,18 +192,33 @@ class QlearningAgent(CaptureAgent):
     pos = currentState.getAgentState(self.index).getPosition()
     foodList =  self.getFood(currentState).asList()
     min_dist = 9999
-    #print('209',foodList)
-    for food in foodList:
 
-      
+    for food in foodList:
+   
       dist = self.getMazeDistance(food, pos)
       if dist < min_dist:
         min_dist = dist
         food_pos = food
+
     return food_pos, min_dist
 
   def getWeights(self):
     return self.weights
+
+  def computeValueFromQValues(self, gameState):
+    """
+      Returns max_action Q(state,action)
+      where the max is over legal actions.  Note that if
+      there are no legal actions, which is the case at the
+      terminal state, you should return a value of 0.0.
+    """
+    "*** YOUR CODE HERE ***"
+
+    actions = gameState.getLegalActions(self.index)
+    values = [self.getQvals(gameState, a) for a in actions]
+    maxQValue = max(values)
+
+    return maxQValue
 
   def getReward(self, gameState, toAct):
     # init reward
@@ -236,84 +227,47 @@ class QlearningAgent(CaptureAgent):
     curPos = curState.getAgentPosition(self.index)
     curFoodNum = len(self.getFood(curState).asList())
 
-    #sucState = gameState.generateSuccessor(self.index, toAct)
-    #sucPos = sucState.getAgentState(self.index).getPosition()
+    sucState = gameState.generateSuccessor(self.index, toAct)
+    sucPos = sucState.getAgentState(self.index).getPosition()
+    sucFoodNum = len(self.getFood(sucState).asList())
 
-    prevState = self.lastState
-    prevPos = prevState.getAgentPosition(self.index)
-    prevFoodNum = len(self.getFood(prevState).asList())
-
-    #newnewPos = self.getCurrentObservation().getAgentPosition(self.index)
-    #print('232',prevPos, newnewPos,curPos)
-
-    #print('qunimade\n',prevState, self.getCurrentObservation(), curState)
-
-    
-
-    
     # better score
-    if gameState.getScore() > prevState.getScore():
+    if sucState.getScore() > curState.getScore():
       reward += 20
     
     # food difference
-    foodDifference = curFoodNum - prevFoodNum
+    foodDifference = sucFoodNum - curFoodNum
     if (foodDifference > 0):
-      reward += 5
+      reward += 1000
     elif (foodDifference < 0):
       reward += foodDifference*2
 
     # closer distance to capsule
 
     # closer distance to food
-    if self.goalFood == curPos:
-      self.goalFood, curDist = self.getDistToFood(curState)
+    if self.goalFood == sucPos:
+      self.goalFood, sucDist = self.getDistToFood(sucState)
     else:
-      curDist = self.getMazeDistance(curPos, self.goalFood)
+      sucDist = self.getMazeDistance(sucPos, self.goalFood)
    
-    reward += self.getFoodProximityReward(prevPos, curDist, self.goalFood)
-    #print("score reward",gameState.getScore() - self.lastState.getScore())
-    #print('cur',curPos,'prev',prevPos,self.goalFood)
-    #print('THIS IS OUR PROXIMITY REWARD', self.getFoodProximityReward(prevPos, curDist, self.goalFood))
-    #print('OUR TOTAL REWARD', reward)
-    #print('cur',self.getMazeDistance(curPos,self.goalFood), 'prev',self.getMazeDistance(prevPos,self.goalFood))
+    reward += self.getFoodProximityReward(curPos, sucDist, self.goalFood)
     return reward
 
-  def getFoodProximityReward(self, prevPos, curDist, goalFood):
-    #print('======', prevPos, self.goalFood)
-    prevDist = self.getMazeDistance(prevPos, goalFood)
-    return 100*(prevDist-curDist)    
 
-  def updateWeights(self, gameState,feature, action,nextState):
+
+  def getFoodProximityReward(self, prevPos, curDist, goalFood):
+
+    prevDist = self.getMazeDistance(prevPos, goalFood)
+    return 100*(prevDist-curDist) 
+
+  def update(self, gameState, action, nextState):
     
-    reward = self.getReward(nextState, action) #value
+    reward = self.getReward(gameState, action) #value
     
     oldQ = self.getQvals(gameState, action) #value
-    newMaxQval, _ = self.getBestQvalAction(nextState) #value
+    newMaxQval= self.computeValueFromQValues(nextState) #value
     learnedWeight = self.alpha*(reward + self.discount * newMaxQval - oldQ)  #value 
     features = self.getFeatures(gameState, action)  #counter
-    print('====OLD QVALUE=======', oldQ)
-    print('====LEARNED WEIGHT===', learnedWeight)
-    print('====features===',features)
-    print('===OLD weight===', self.weights)
-    print('reward',reward,'Qval',newMaxQval)
+
     for key in features.keys():
       self.weights[key] += learnedWeight * features[key]
-    print('===NEW weight===', self.weights)
-     
-  
-  def initWeights(self):
-    pass
-  
-  def getSuccessor(self, gameState, action):
-    """
-    Finds the next successor which is a grid position (location tuple).
-    """
-    successor = gameState.generateSuccessor(self.index, action)
-    pos = successor.getAgentState(self.index).getPosition()
-    if pos != util.nearestPoint(pos):
-      # Only half a grid position was covered
-      return successor.generateSuccessor(self.index, action)
-    else:
-      return successor
-
-  
