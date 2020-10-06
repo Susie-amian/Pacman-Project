@@ -79,6 +79,8 @@ class QlearningAgent(CaptureAgent):
     self.epsilon = 0.05
 
     self.episodeRewards = 0.0
+    self.lastAction = None
+
     
     
 
@@ -99,6 +101,15 @@ class QlearningAgent(CaptureAgent):
 
     foodLeft = len(self.getFood(gameState).asList())
 
+
+    '''Update weight based on last completed action and state'''
+    features = self.getFeatures(gameState, self.lastAction)
+    lastState = self.getPreviousObservation()
+    self.updateWeights(lastState,features, self.lastAction, gameState)
+   
+    
+
+
     # Case 1: food left <= 2
     if foodLeft <= 2:
       bestDist = 9999
@@ -118,12 +129,13 @@ class QlearningAgent(CaptureAgent):
       # Eploration-exploitation
       ToAct = self.epsilonGreedy(self.epsilon, bestAction, actions)
 
-    features = self.getFeatures(gameState, ToAct)
-    nextState = gameState.generateSuccessor(self.index, ToAct)
-    self.updateWeights(self, gameState,features, ToAct, nextState)
-    reward = self.getReward(gameState, ToAct)
+    #features = self.getFeatures(gameState, ToAct)
+    #nextState = gameState.generateSuccessor(self.index, ToAct)
+    #lastState = self.getPreviousObservation()
+    #self.updateWeights(self, lastState,features, self.lastAction, gameState)
+    #reward = self.getReward(gameState, ToAct)
 
-      
+    self.lastAction = ToAct
     return ToAct
 
   def epsilonGreedy(self, e, exploitAction, exploreActions):
@@ -232,8 +244,8 @@ class QlearningAgent(CaptureAgent):
     return reward
 
 
-  def updateWeights(self,gameState,feature, action,nextState,reward):
-    
+  def updateWeights(self, gameState,feature, action,nextState):
+    reward = self.getReward(gameState, action)
     oldQ = self.getQvals(gameState, action)
     newMaxQval, _ = self.getBestQvalAction(nextState)
     learnedWeight = self.alpha*(reward + self.discount * newMaxQval - oldQ)
