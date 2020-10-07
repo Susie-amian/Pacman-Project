@@ -13,16 +13,21 @@
 
 
 from captureAgents import CaptureAgent
+import distanceCalculator
 import random, time, util
 from game import Directions
 import game
 
+CHEAT = False
+beliefs = []
+beliefsInitialized = []
+MINIMUM_PROBABILITY = .0001
 #################
 # Team creation #
 #################
 
 def createTeam(firstIndex, secondIndex, isRed,
-               first = 'QlearningAgent', second = 'DummyAgent'):
+               first = 'QlearningAgent', second = 'QlearningAgent'):
   """
   This function should return a list of two agents that will form the
   team, initialized using firstIndex and secondIndex as their agent
@@ -51,17 +56,14 @@ class QlearningAgent(CaptureAgent):
   You should look at baselineTeam.py for more details about how to
   create an agent as this is the bare minimum.
   """
-
   def registerInitialState(self, gameState):
     """
     This method handles the initial setup of the
     agent to populate useful fields (such as what team
     we're on).
-
     A distanceCalculator instance caches the maze distances
     between each pair of positions, so your agents can use:
     self.distancer.getDistance(p1, p2)
-
     IMPORTANT: This method may run for at most 15 seconds.
     """
 
@@ -77,6 +79,37 @@ class QlearningAgent(CaptureAgent):
     Your initialization code goes here, if you need any.
     '''
 
+    self.epsilon = 0.9
+    self.alpha = 0.4
+    self.discount = 0.9
+
+    self.start = gameState.getAgentPosition(self.index)
+    self.totalFoodList = self.getFood(gameState).asList()
+
+    # recording dict
+    self.weights = util.Counter()
+
+    self.weights['successorScore'] = 100
+    self.weights['distToFood'] = 1
+
+    self.goalFood, self.DistGoalFood = self.getDistToFood(gameState)
+    
+    # 
+    self.threatenedDistance = 5
+    self.weights['ghostDistance'] = 5
+    self.weights['stop'] = -1000
+    self.weights['powerPelletValue'] = 100
+    self.distanceToTrackPowerPelletValue = 3
+    self.weights['backToSafeZone'] = -1
+    self.minPelletsToCashIn = 8
+    # dictionary of (position) -> [action, ...]
+    # populated as we go along; to use this, call self.getLegalActions(gameState)
+    self.legalActionMap = {}
+    self.legalPositionsInitialized = False
+    self.lastNumReturnedPellets = 0.0
+
+    self.defenseTimer = 0.0
+
   def chooseAction(self, gameState):
     """
     Picks among actions randomly.
@@ -86,50 +119,68 @@ class QlearningAgent(CaptureAgent):
     '''
     You should change this in your own agent.
     '''
-
     foodLeft = len(self.getFood(gameState).asList())
 
+    values = [self.getQvals(gameState, a) for a in actions]
+    # print 'eval time for agent %d: %.4f' % (self.index, time.time() - start)
+
+    maxValue = max(values)
+    bestActions = self.getBestActions(actions, maxValue, values)
+
+    
     # Case 1: food left <= 2
     if foodLeft <= 2:
-      bestDist = 9999
-      for action in actions:
-        successor = self.getSuccessor(gameState, action)
-        pos2 = successor.getAgentPosition(self.index)
-        dist = self.getMazeDistance(self.start, pos2)
-        if dist < bestDist:
-          ToAct = action
-          bestDist = dist
-
-    # Case 2: Otherwise
+        bestDist = 9999
+        for action in actions:
+            successor = self.getSuccessor(gameState, action)
+            pos2 = successor.getAgentPosition(self.index)
+            dist = self.getMazeDistance(self.start, pos2)
+            if dist < bestDist:
+                actionToReturn = action
+                bestDist = dist
     else:
-      bestQvals, bestActions = self.getQvalActions(self, gameState, actions)
-      # Eploration-exploitation
-      ToAct = epsilonGready(epsilon, bestActions)
-      
-    return ToAct
+        actionToReturn = self.epsilonGreedy(bestActions, actions)
 
-  def epsilonGready(self, e, exploreActions, exploitActions):
+    # get reward
+    successor = gameState.generateSuccessor(self.index, actionToReturn)
+
+    # update the weight
+    self.update(gameState, actionToReturn, successor)
+
+    # return the action
+    return actionToReturn
+
+  def epsilonGreedy(self, exploitAction, exploreActions):
     """
     Returns an action using epsilon greedy method
     """
-    exploit = util.flipCoin(e)
-    if exploit and exploitActions:
-      ToAct = random.choice(exploitActions)
+    exploit = util.flipCoin(self.epsilon)
+    if exploit and exploitAction:
+      ToAct = random.choice(exploitAction)
+
     else:
       ToAct = random.choice(exploreActions)
+
     return ToAct
 
+  def getBestActions(self, actions, maxval, vals):
+    return [act for act, val in zip(actions, vals) if val == maxval]
 
-  def getBestQvalActions(self, gameState, actions):
+  def getSuccessor(self, gameState, action):
     """
-    Returns the maximum Q values and their corresponding actions
+    Finds the next successor which is a grid position (location tuple).
     """
-    Qvals = [self.getQvals(gameState, act) for act in actions]
+    currentState = gameState.getAgentPosition(self.index)
+    successor = gameState.generateSuccessor(self.index, action)
+    pos2 = successor.getAgentState(self.index).getPosition()
+    x,y = pos2
+    pos2 = (int(x),int(y))
 
-    maxQvals = max(Qvals)
-    bestActions = [act for act, val in zip(actions, Qvals) if val == maxQvals]
-    
-    return maxQvals, bestActions
+    if pos2 != util.nearestPoint(pos2):
+        # Only half a grid position was covered
+        return successor.generateSuccessor(self.index, action)
+    else:
+        return successor
 
   def getQvals(self, gameState, action):
     """
@@ -137,69 +188,197 @@ class QlearningAgent(CaptureAgent):
     Version 1: Use a linear function in features and weights
     Qval = dotProduct(features, weights)
     """
-    features_vals = self.getFeatures(gameState, action) # wait to be modified
-    weights = self.getWeights(gameState, action, features) # wait to be modified
+    features = self.getFeatures(gameState, action) # return features counter
+    weights = self.getWeights() # weights counter
 
-    # compute dot product result
-    Qval = features_vals*weights
+    Qval = features*weights
+
     return Qval
 
   def getFeatures(self, gameState, action):
-    """
-    Returns a counter of features for the state
-    """
     features = util.Counter()
     successor = self.getSuccessor(gameState, action)
+    myState = successor.getAgentState(self.index)
+    foodList = self.getFood(successor).asList()
+    myPos = myState.getPosition()
+    # Score
+    features['successorScore'] = self.getScore(successor)  # self.getScore(successor)
+    if not self.red:
+      features['score'] *= -1
+      
+    # Distance to closest food
+    _, minDist = self.getDistToFood(successor)
+    features['distToFood'] = 1/minDist
+
+    # Get all enemies
+    enemies = [successor.getAgentState(i) for i in self.getOpponents(successor)]
+    enemyPacmen = [a for a in enemies if a.isPacman and a.getPosition() != None]
+    nonScaredGhosts = [a for a in enemies if not a.isPacman and a.getPosition() != None and not a.scaredTimer > 0]
+    scaredGhosts = [a for a in enemies if not a.isPacman and a.getPosition() != None and a.scaredTimer > 0]
+
+    # Computes distance to enemy non scared ghosts we can see
+    dists = []
+    for index in self.getOpponents(successor):
+      enemy = successor.getAgentState(index)
+      if enemy in nonScaredGhosts:
+        dists.append(self.getMazeDistance(myPos, gameState.makeObservation(index)))
+
+    # Use the smallest distance
+    if len(dists) > 0:
+      smallestDist = min(dists)
+      features['ghostDistance'] = smallestDist
+
+    # distance to powerPellet
+    features['powerPelletValue'] = self.getPowerPelletValue(myPos, successor, scaredGhosts)
+
+
+    # Heavily prioritize not stopping
+    if action == Directions.STOP: 
+        features['stop'] = 1
     
-    # score
-    features['successorScore'] = self.getScore(successor)
 
-    # distance to capsule
+    # Adding value for cashing in pellets
+    features['backToSafeZone'] = self.getCashInValue(myPos, gameState, myState)
+    
+    # Adding value for going back home
+    features['backToSafeZone'] += self.getBackToStartDistance(myPos, features['ghostDistance'])
 
-    # distance to food
-
-    # total steps left
-
-    #
-
+    if self.shouldRunHome(gameState):
+      features['backToSafeZone'] = self.getMazeDistance(self.start, myPos) * 10000
 
     return features
+    
+  # If there are not any scared ghosts, then we value eating pellets
+  def getPowerPelletValue(self, myPos, successor, scaredGhosts):
+      powerPellets = self.getCapsules(successor)
+      minDistance = 0
+      if len(powerPellets) > 0 and len(scaredGhosts) == 0:
+        distances = [self.getMazeDistance(myPos, pellet) for pellet in powerPellets]
+        minDistance = min(distances)
+      return max(self.distanceToTrackPowerPelletValue - minDistance, 0)
 
-  def getWeights():
-    pass
+
+  # If we are near the end of the game, we should go home
+  def shouldRunHome(self, gameState):
+    winningBy = self.getWinningBy(gameState)
+    numCarrying = gameState.getAgentState(self.index).numCarrying
+    PANIC_TIME = 80
+    return (gameState.data.timeleft < PANIC_TIME 
+      and winningBy <= 0 
+      and numCarrying > 0 
+      and numCarrying >= abs(winningBy))
+
+
+  def getBackToStartDistance(self, myPos, smallestGhostPosition):
+    if smallestGhostPosition > self.threatenedDistance or smallestGhostPosition == 0:
+      return 0
+    else:
+      return self.getMazeDistance(self.start, myPos) * 1000
+
+  def getLegalActions(self, gameState):
+    """
+    legal action getter that favors 
+    returns list of legal actions for Pacman in the given state
+    """
+    currentPos = gameState.getAgentState(self.index).getPosition()
+    if currentPos not in self.legalActionMap:
+      self.legalActionMap[currentPos] = gameState.getLegalActions(self.index)
+    return self.legalActionMap[currentPos]
+
+  def getWinningBy(self, gameState):
+    if self.red:
+      return gameState.getScore()
+    else:
+      return -1 * gameState.getScore()
+
+  def getCashInValue(self, myPos, gameState, myState):
+      # if we have enough pellets, attempt to cash in
+      if myState.numCarrying >= self.minPelletsToCashIn:
+        return self.getMazeDistance(self.start, myPos)
+      else:
+        return 0
+  # #
+
+  def getDistToFood(self, currentState):
+    pos = currentState.getAgentState(self.index).getPosition()
+    foodList =  self.getFood(currentState).asList()
+    min_dist = 9999
+
+    for food in foodList:
+   
+      dist = self.getMazeDistance(food, pos)
+      if dist < min_dist:
+        min_dist = dist
+        food_pos = food
+
+    return food_pos, min_dist
+
+  def getWeights(self):
+    return self.weights
+
+  def computeValueFromQValues(self, gameState):
+    """
+      Returns max_action Q(state,action)
+      where the max is over legal actions.  Note that if
+      there are no legal actions, which is the case at the
+      terminal state, you should return a value of 0.0.
+    """
+    "*** YOUR CODE HERE ***"
+
+    actions = gameState.getLegalActions(self.index)
+    values = [self.getQvals(gameState, a) for a in actions]
+    maxQValue = max(values)
+
+    return maxQValue
 
   def getReward(self, gameState, toAct):
     # init reward
     reward = 0
+    curState = gameState
+    curPos = curState.getAgentPosition(self.index)
+    curFoodNum = len(self.getFood(curState).asList())
 
-    cur_pos = gameState.getAgentPosition(self.index)
-    suc_state = gameState.generateSuccessor(self.index, toAct)
-    suc_pos = suc_state.getAgentState(self.index).getPosition()
+    sucState = gameState.generateSuccessor(self.index, toAct)
+    sucPos = sucState.getAgentState(self.index).getPosition()
+    sucFoodNum = len(self.getFood(sucState).asList())
 
     # better score
-    if gameState.getScore() < suc_state.getSccore():
+    if sucState.getScore() > curState.getScore():
       reward += 20
+    
+    # food difference
+    foodDifference = sucFoodNum - curFoodNum
+    if (foodDifference > 0):
+      reward += 1000
+    elif (foodDifference < 0):
+      reward += foodDifference*2
 
     # closer distance to capsule
 
     # closer distance to food
-
-    
-  
-  def updateWeights():
-    pass
-  
-  def initWeights():
-    pass
-  
-  def getSuccessor(self, gameState, action):
-    """
-    Finds the next successor which is a grid position (location tuple).
-    """
-    successor = gameState.generateSuccessor(self.index, action)
-    pos = successor.getAgentState(self.index).getPosition()
-    if pos != nearestPoint(pos):
-      # Only half a grid position was covered
-      return successor.generateSuccessor(self.index, action)
+    if self.goalFood == sucPos:
+      self.goalFood, sucDist = self.getDistToFood(sucState)
     else:
-      return successor
+      sucDist = self.getMazeDistance(sucPos, self.goalFood)
+   
+    reward += self.getFoodProximityReward(curPos, sucDist, self.goalFood)
+    return reward
+
+
+
+  def getFoodProximityReward(self, prevPos, curDist, goalFood):
+
+    prevDist = self.getMazeDistance(prevPos, goalFood)
+    return 100*(prevDist-curDist) 
+
+  def update(self, gameState, action, nextState):
+    
+    reward = self.getReward(gameState, action) #value
+    
+    oldQ = self.getQvals(gameState, action) #value
+    newMaxQval= self.computeValueFromQValues(nextState) #value
+    learnedWeight = self.alpha*(reward + self.discount * newMaxQval - oldQ)  #value 
+    features = self.getFeatures(gameState, action)  #counter
+
+    for key in features.keys():
+      self.weights[key] += learnedWeight * features[key]
