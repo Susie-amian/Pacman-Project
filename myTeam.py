@@ -76,8 +76,8 @@ class QlearningAgent(CaptureAgent):
     self.start = gameState.getAgentPosition(self.index)
 
     self.weights = util.Counter()
-    self.weights['successorScore'] = 1
-    self.weights['distToFood'] = -0.1
+    self.weights['successorScore'] = 0
+    self.weights['distToFood'] = 0
     self.discount = 0.5
     self.alpha = 0.1
     self.epsilon = 1
@@ -196,20 +196,15 @@ class QlearningAgent(CaptureAgent):
     """
     features = util.Counter()
     successor = self.getSuccessor(gameState, action)
-    
-    # score
-    features['successorScore'] = self.getScore(successor)
+    foodList = self.getFood(successor).asList()
+    features['successorScore'] = 1 / len(foodList)  # self.getScore(successor)
 
-    # distance to capsule
+    # Compute distance to the nearest food
 
-    # distance to closest food
-    _, features['distToFood'] = self.getDistToFood(successor)
-    
-
-    # total steps left
-
-    print('205===',features)
-
+    if len(foodList) > 0:  # This should always be True,  but better safe than sorry
+        myPos = successor.getAgentState(self.index).getPosition()
+        minDistance = min([self.getMazeDistance(myPos, food) for food in foodList])
+        features['distanceToFood'] = 1 / minDistance
     return features
 
   def getDistToFood(self, currentState):
