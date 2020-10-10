@@ -78,11 +78,11 @@ class QlearningAgent(CaptureAgent):
     self.weights = util.Counter()
     self.weights['successorScore'] = 0
     self.weights['distToFood'] = 0
-    self.discount = 0.5
+    self.discount = 0.8
     self.alpha = 0.1
-    self.epsilon = 1
+    self.epsilon = 0.05
 
-    self.episodeRewards = 0.0
+    #self.episodeRewards = 0.0
     self.lastAction = None
 
     self.distancer = distanceCalculator.Distancer(gameState.data.layout)
@@ -189,22 +189,42 @@ class QlearningAgent(CaptureAgent):
     Qval = features*weights
     #print('188 Qval',Qval)
     return Qval
-
+  
   def getFeatures(self, gameState, action):
-    """
-    Returns a counter of features for the state
-    """
     features = util.Counter()
     successor = self.getSuccessor(gameState, action)
-    foodList = self.getFood(successor).asList()
-    features['successorScore'] = 1 / len(foodList)  # self.getScore(successor)
+    foodList = self.getFood(successor).asList()    
+    features['successorScore'] = -len(foodList)#self.getScore(successor)
 
     # Compute distance to the nearest food
 
-    if len(foodList) > 0:  # This should always be True,  but better safe than sorry
-        myPos = successor.getAgentState(self.index).getPosition()
-        minDistance = min([self.getMazeDistance(myPos, food) for food in foodList])
-        features['distanceToFood'] = 1 / minDistance
+    if len(foodList) > 0: # This should always be True,  but better safe than sorry
+      myPos = successor.getAgentState(self.index).getPosition()
+      minDistance = min([self.getMazeDistance(myPos, food) for food in foodList])
+      features['distanceToFood'] = minDistance
+    return features
+
+
+  def getFeatures(self, gameState, action):
+    features = util.Counter()
+    
+    curPos = gameState.getAgentPosition(self.index)
+    curFoodList = self.getFood(gameState).asList()
+
+    successor = self.getSuccessor(gameState, action)
+    sucState = successor.getAgentState(self.index)
+    sucFoodList = self.getFood(successor).asList()
+    sucPos = successor.getAgentPosition(self.index)
+    # Score
+    #features['successorScore'] = self.getScore(successor)  # self.getScore(successor)
+    features['successorScore'] = -len(sucFoodList)
+      
+    # Distance to closest food
+
+    _, minDist = self.getDistToFood(successor,sucFoodList)
+    #features['eatenFood'] = len(self.eatenFood)
+    #features['distToFood'] = minDist
+    features['distToFood'] = 1/minDist
     return features
 
   def getDistToFood(self, currentState):
@@ -286,14 +306,8 @@ class QlearningAgent(CaptureAgent):
     newMaxQval, _ = self.getBestQvalAction(nextState) #value
     learnedWeight = self.alpha*(reward + self.discount * newMaxQval - oldQ)  #value 
     features = self.getFeatures(gameState, action)  #counter
-    print('====OLD QVALUE=======', oldQ)
-    print('====LEARNED WEIGHT===', learnedWeight)
-    print('====features===',features)
-    print('===OLD weight===', self.weights)
-    print('reward',reward,'Qval',newMaxQval)
     for key in features.keys():
       self.weights[key] += learnedWeight * features[key]
-    print('===NEW weight===', self.weights)
      
   
   def initWeights(self):
