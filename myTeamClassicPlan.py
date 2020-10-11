@@ -250,8 +250,9 @@ class ClassicPlanAgent(CaptureAgent):
   def getEvaluation(self, myPos, enemyPos):
     #print('=== 239 === ', myPos)
     total = self.getMazeDistance(myPos, enemyPos)
-    #if self.distToHome[myPos]: 
-    #  total += (-1*self.distToHome[myPos][0])/2
+    
+    if self.distToHome[myPos]: 
+      total += (-1*self.distToHome[myPos][0])/2
     return total
 
   def getMiniMaxAction(self, gameState, myPos, enemyPos):
