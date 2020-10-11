@@ -11,7 +11,7 @@
 # Student side autograding was added by Brad Miller, Nick Hay, and
 # Pieter Abbeel (pabbeel@cs.berkeley.edu).
 
-
+from baselineTeam import DefensiveReflexAgent
 from captureAgents import CaptureAgent
 import distanceCalculator
 import random, time, util
@@ -29,7 +29,7 @@ MINIMUM_PROBABILITY = .0001
 #################
 
 def createTeam(firstIndex, secondIndex, isRed,
-               first = 'QlearningAgent', second = 'QlearningAgent',**args):
+               first = 'QlearningAgent', second = 'DefensiveReflexAgent',**args):
   """
   This function should return a list of two agents that will form the
   team, initialized using firstIndex and secondIndex as their agent
@@ -65,7 +65,7 @@ class QlearningAgent(CaptureAgent):
     CaptureAgent.__init__(self, index)
     self.epsilon = 0.9
     self.alpha = 0.2
-    self.discount = 0.9
+    self.discount = 0.7
 
     self.episodesSoFar = 0
     self.numTraining = 0
@@ -131,7 +131,7 @@ class QlearningAgent(CaptureAgent):
     
     # 
     self.threatenedDistance = 5
-    self.minPelletsToCashIn = 8
+    self.minPelletsToCashIn = 5
     self.distanceToTrackPowerPelletValue = 3
     # dictionary of (position) -> [action, ...]
     # populated as we go along; to use this, call self.getLegalActions(gameState)
@@ -141,7 +141,7 @@ class QlearningAgent(CaptureAgent):
 
     self.defenseTimer = 0.0
     self.initFoodList = self.getFood(gameState).asList()
-    self.eatenFood = set()
+    #self.eatenFood = set()
     self.lastAction = None
     self.lastState = None
 
@@ -186,7 +186,8 @@ class QlearningAgent(CaptureAgent):
       #features = self.getFeatures(self.lastState, self.lastAction)
       
       self.update(self.lastState,self.lastAction, gameState)
-      print('118',self.weights)
+      print('118',gameState.getAgentState(self.index).numCarrying)
+  
       print('139',self.lastState, gameState)
       print('140',self.lastState == self.getPreviousObservation(), gameState == self.getCurrentObservation())
 
@@ -207,14 +208,13 @@ class QlearningAgent(CaptureAgent):
     bestActions = self.getBestActions(actions, maxValue, values)
 
     # number of food eaten before go home
-    self.eatenFood = self.currentEatenFood(gameState)
+    #self.eatenFood = self.currentEatenFood(gameState)
     
      
     # if go home, eaten food num start from 0 
-    if not myState.isPacman:
+    """if not myState.isPacman:
       #features['eatenFoodNum'] = 0
-      self.eatenFood = set()
-
+      self.eatenFood = set()"""
     
     # Case 1: food left <= 2
     if foodLeft <= 2:
@@ -238,16 +238,6 @@ class QlearningAgent(CaptureAgent):
     self.lastState = gameState
     
     return actionToReturn
-
-
-
-  def currentEatenFood(self, gameState):
-      curState = gameState.getAgentState(self.index)
-      curPos = curState.getPosition()
-      prevFoodList = self.getFood(self.getPreviousObservation()).asList()
-      foodDiff = prevFoodList - self.getFood(gameState).asList() 
-      if curPos in foodDiff:
-        curPos
 
   def epsilonGreedy(self, exploitAction, exploreActions):
     """
@@ -297,7 +287,7 @@ class QlearningAgent(CaptureAgent):
  
   def getFeatures(self, gameState, action):
     features = util.Counter()
-    
+    curState = gameState.getAgentState(self.index)
     curPos = gameState.getAgentPosition(self.index)
     curFoodList = self.getFood(gameState).asList()
 
@@ -307,23 +297,31 @@ class QlearningAgent(CaptureAgent):
     sucPos = successor.getAgentPosition(self.index)
     # Score
     #features['successorScore'] = self.getScore(successor)  # self.getScore(successor)
-    features['successorScore'] = len(self.initFoodList)-len(sucFoodList)
+    #features['successorScore'] = len(self.initFoodList)-len(sucFoodList)
       
     # Distance to closest food
-
     _, minDist = self.getDistToFood(successor,sucFoodList)
-    #features['eatenFood'] = len(self.eatenFood)
-    #features['distToFood'] = minDist
     features['distToFood'] = 1/minDist
-    diffFoodList = list(set(curFoodList) - set(sucFoodList))
-    if sucPos in diffFoodList:
+
+    curCarry = curState.numCarrying
+    sucCarry = sucState.numCarrying
+    #diffFoodList = list(set(curFoodList) - set(sucFoodList))
+
+    features['successorScore'] = curCarry
+    
+    if sucCarry - curCarry:
+      print('ADDING CARRYING 319', sucCarry - curCarry)
       features['distToFood'] = 1.5
       #features['eatenFood'] = 1
+    
 
 
 
     # need to cash in
-    features['cashIn'] = self.getCashInValue(sucPos, sucState)
+    print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",self.getCashInValue(curPos, curState))
+    features['cashIn'] = 0 
+    if self.getCashInValue(curPos, curState) != 0 :
+      features['cashIn'] = self.getCashInValue(curPos, curState)[0]/5
  
 
     # Get all enemies
@@ -352,10 +350,8 @@ class QlearningAgent(CaptureAgent):
     
 
     # distance to powerPellet
-    features['powerPelletValue'] = self.getPowerPelletValue(sucPos, successor, scaredGhosts)
+    #features['powerPelletValue'] = self.getPowerPelletValue(sucPos, successor, scaredGhosts)
 
-    # Adding value for cashing in pellets
-    #features['backToSafeZone'] = self.getCashInValue(sucPos, gameState, sucState)
     
     # Adding value for going back home
     features['backToSafeZone'] += self.getBackToStartDistance(sucPos, features['ghostDistance'])
@@ -378,19 +374,23 @@ class QlearningAgent(CaptureAgent):
 
     return features
 
-  def getCashInValue(self, myPos, nextState):
+  def getCashInValue(self, myPos, state):
       # if we have enough pellets, attempt to cash in
-      if nextState.numCarrying >= self.minPelletsToCashIn:
+      if state.numCarrying >= self.minPelletsToCashIn:
         return self.distToHome[myPos]
       else:
         return 0
 
   def getDistToHome(self, home, possibleLocs):
-      distToHome = {}
+    distToHome = util.Counter()
+    for loc in possibleLocs:
+      minDist = 9999
       for h in home:
-        for loc in possibleLocs:
-          distToHome[loc] = self.getMazeDistance(h, loc)
-      return distToHome
+        curDist = (self.getMazeDistance(h, loc))
+        if curDist < minDist:
+          minDist = curDist
+          distToHome[loc] = (curDist, h)
+    return distToHome
     
   # If there are not any scared ghosts, then we value eating pellets
   def getPowerPelletValue(self, myPos, successor, scaredGhosts):
@@ -483,15 +483,22 @@ class QlearningAgent(CaptureAgent):
 
     # better score
     if sucState.getScore() > curState.getScore():
-      reward += 100
-    
+      reward += 5
+
+    #does the agent need cash in   
+    needCashIn = False
+    curCarryingFood = gameState.getAgentState(self.index).numCarrying
+    if curCarryingFood >= self.minPelletsToCashIn:
+      needCashIn = True
+
     # food difference
     totalFoodDiff = len(self.initFoodList) - sucFoodNum
     foodDifference = curFoodNum - sucFoodNum
-    if (foodDifference > 0):
-      reward += 30 * totalFoodDiff
-    elif (foodDifference < 0):
-      reward += foodDifference*2
+    if not needCashIn:
+      if (foodDifference > 0):
+        reward += foodDifference
+      elif (foodDifference < 0):
+        reward += foodDifference*2
 
     # closer distance to capsule
 
@@ -499,16 +506,26 @@ class QlearningAgent(CaptureAgent):
     foodList = self.getFood(gameState).asList()
     curToFood = abs(min([self.getMazeDistance(curPos, food) for food in foodList]))
     sucToFood = abs(min([self.getMazeDistance(sucPos, food) for food in foodList]))
-    if curToFood > sucToFood:
-        reward += 10
-    elif curToFood < sucToFood:
-        reward -= 10
+    if not needCashIn:
+      if curToFood > sucToFood:
+        reward += 1
+      else:
+          reward -= 1
     """if self.goalFood == sucPos:
       self.goalFood, sucDist = self.getDistToFood(sucState)
     else:
       sucDist = self.getMazeDistance(sucPos, self.goalFood)
    
     reward += self.getFoodProximityReward(curPos, sucDist, self.goalFood)"""
+
+    if needCashIn:
+      curDistToHome = self.distToHome[curPos]
+      sucDistToHome = self.distToHome[sucPos]
+      if sucDistToHome[0] < curDistToHome[0]:
+        reward += 10
+      else:
+        reward -= 1
+      
     return reward
 
 
@@ -533,7 +550,7 @@ class QlearningAgent(CaptureAgent):
 
     for key in features.keys():
       self.weights[key] += learnedWeight * features[key]
-    print("===FEATURE===388",pos)
+    print("===FEATURE===388",pos,self.index)
     print(self.weights)
     print(features)
     print(oldQ, newMaxQval)
