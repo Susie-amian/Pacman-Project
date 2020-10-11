@@ -18,6 +18,10 @@ import random, time, util
 from game import Directions
 import game
 
+CHEAT = False
+beliefs = []
+beliefsInitialized = []
+MINIMUM_PROBABILITY = .0001
 #################
 # Team creation #
 #################

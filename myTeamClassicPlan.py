@@ -125,8 +125,6 @@ class ClassicPlanAgent(CaptureAgent):
     
     # minimax initial set up
     self.miniMaxDepth = 3
-    print(self.frontierPointsEnemy)
-
 
   def getDistToHome(self, home, possibleLocs):
     distToHome = util.Counter()
@@ -361,7 +359,9 @@ class ClassicPlanAgent(CaptureAgent):
 
     # Compute distance to the nearest food
     if len(foodList) > 0: # This should always be True,  but better safe than sorry
-      minDistance = min([self.getMazeDistance(nextPos, food) for food in foodList])
+
+      #getFoodDistance(self, myPos, food, gameState)
+      minDistance = min([self.getFoodDistance(nextPos, food, gameState) for food in foodList])
       features['distanceToFood'] = minDistance
 
     # Distance to Power Capsule
@@ -403,7 +403,14 @@ class ClassicPlanAgent(CaptureAgent):
     # isPacman
     features['isPacman'] = successor.getAgentState(self.index).isPacman
 
+    
+
     return features
+
+  def getFoodDistance(self, myPos, food, gameState):
+    #prefer top food 
+    favoredY = gameState.data.layout.height
+    return self.getMazeDistance(myPos, food) + abs(favoredY - food[1])
 
   def needToCashIn(self, myPos, nextState, maxCarry):
     # if we have enough pellets, attempt to cash in
@@ -562,6 +569,11 @@ class DefensiveReflexAgent(ClassicPlanAgent):
     'distanceToCapsule': -2, 'distToGhost': 30, 'cashIn': 0, \
     'stop': -15, 'reverse': -2, 'invaderDistance': -2, \
     'numInvaders': -3, 'isPacman': 3}
+  
+  def getFoodDistance(self, myPos, food, gameState):
+    #Bottom 
+    favoredY = 0.0
+    return self.getMazeDistance(myPos, food) + abs(favoredY - food[1])
 
 ################################
 # BELOW IS FOR DEFENSIVE STATE #
