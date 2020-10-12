@@ -1,5 +1,5 @@
 # myTeam.py
-# version with finalized minimax algorithm 
+# version 2.0 with finalized minimax algorithm 
 # Time; 10/12/2020 10:30PM
 # ---------
 # Licensing Information:  You are free to use or extend these projects for
