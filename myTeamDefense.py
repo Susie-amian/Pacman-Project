@@ -76,55 +76,81 @@ class ClassicPlanAgent(CaptureAgent):
     '''
     Your initialization code goes here, if you need any.
     '''
-    
+    self.enemies = self.getOpponents(gameState)
     self.start = gameState.getAgentPosition(self.index)
-    self.minPelletsToCashIn = 5
+    
+    self.totalFoodNum = len(self.getFood(gameState).asList())
+    self.minPelletsToCashIn = int(self.totalFoodNum/4)
+    # Game information
+    self.isRed = gameState.isOnRedTeam(self.index)
 
-    # get layout frontier
+    # Board information
     self.width = gameState.data.layout.width
     self.height = gameState.data.layout.height
-    #print([(i, j) for i in range(self.width) for j in range(self.height)])
+    self.midWidth = self.width/2
+    self.midHeight = self.height/2
 
     self.midPointLeft = int((self.width / 2.0)-1)
     self.midPointRight = int((self.width / 2.0)+1)
-    self.isRed = gameState.isOnRedTeam(self.index)
 
-    if self.isRed:
-      self.midPoint = int(self.midPointLeft)
-      self.midPointEnemy = int(self.midPointRight)
-      self.enemyCells = []
-      for i in range(self.midPointRight-1, self.width):
-        for j in range(self.height):
-          if not gameState.hasWall(i, j):
-            
-            self.enemyCells.append((i, j))
-      
-    else:
-      self.midPoint = int(self.midPointRight)
-      self.midPointEnemy = int(self.midPointLeft)
-      self.enemyCells = []
-      for i in range(self.midPointLeft):
-        for j in range(self.height):
-
-          if not gameState.hasWall(i, j):
-            
-            self.enemyCells.append((int(i), int(j)))
+    self.midPoint, self.midPointEnemy, self.enemyCells = self.getBoardInfo(gameState)
 
     self.frontierPoints = [(self.midPoint, int(i)) for i in range(self.height) if not gameState.hasWall(self.midPoint, i)]
     self.frontierPointsEnemy = [(self.midPointEnemy, int(i)) for i in range(self.height) if not gameState.hasWall(self.midPointEnemy, i)]
 
-    self.distToHome = self.getDistToHome(self.frontierPoints, self.enemyCells)
-    # get shortest path to frontier point
+    self.legalPositions = [p for p in gameState.getWalls().asList(False) if p[1] > 1]
+    self.myCells = [c for c in self.legalPositions if c not in self.enemyCells]
     
+    # A dictionary for the closest distance from any enemy cell to home
+    self.distToHome = self.getDistToHome(self.frontierPoints, self.enemyCells)
+    # A sequence of action to the closest enemy cell
     self.frontierState, self.actionFrontier = self.toFrontier(gameState, self.frontierPoints, self.start)
-
     # get shortest path from frontier to power capsule
-    self.capsulePosition = self.getCapsules(gameState)[0]
+    if self.getCapsules(gameState):
+      minDist = 9999
+      for cap in self.getCapsules(gameState):
+        if minDist > self.getMazeDistance(cap, self.start):
+          minDist = self.getMazeDistance(cap, self.start)
+          self.capsulePosition = cap
+
     self.closestFrontier = self.frontierState.getAgentPosition(self.index)
     self.capsulState, self.actionCapsule = self.getBfsPath(self.frontierState, self.capsulePosition, self.closestFrontier)
-    
     # minimax initial set up
     self.miniMaxDepth = 3
+    # Initialisation for hyper-parameters
+    self.epsilon = 0.75
+
+    # enemies
+    self.enemies = self.getOpponents(gameState)
+    self.beliefs = {}    # Initialize the belief to 1
+    
+    for enemy in self.enemies:
+      self.beliefs[enemy] = util.Counter()
+      self.beliefs[enemy][gameState.getAgentPosition(enemy)] = 1    # beliefs for each agent
+
+
+  def getBoardInfo(self, gameState):
+    """
+    This function provides information of the mid point of both sides and the enemy grid
+    """
+    if self.isRed:
+      midPoint = int(self.midPointLeft)
+      midPointEnemy = int(self.midPointRight)
+      enemyCells = []
+      for i in range(self.midPointRight-1, self.width):
+        for j in range(self.height):
+          if not gameState.hasWall(i, j):
+            enemyCells.append((i, j))
+      
+    else:
+      midPoint = int(self.midPointRight)
+      midPointEnemy = int(self.midPointLeft)
+      enemyCells = []
+      for i in range(self.midPointLeft):
+        for j in range(self.height):
+          if not gameState.hasWall(i, j):
+            enemyCells.append((int(i), int(j)))
+    return midPoint, midPointEnemy, enemyCells
 
   def getDistToHome(self, home, possibleLocs):
     distToHome = util.Counter()
@@ -139,7 +165,7 @@ class ClassicPlanAgent(CaptureAgent):
 
   def toFrontier(self, gameState, frontierPoints, start):
     """
-    Returens the closest path to home frontier
+    Returns the closest path to home frontier
     """
     minDist = 9999
     for point in frontierPoints:
@@ -160,6 +186,7 @@ class ClassicPlanAgent(CaptureAgent):
     stateRecord = (gameState, [])
     states.push(stateRecord)
     cur_pos = start
+
     while not states.isEmpty():
       state, action = states.pop()
       cur_pos = state.getAgentPosition(self.index)
@@ -175,8 +202,7 @@ class ClassicPlanAgent(CaptureAgent):
         if coor not in explored:
           explored.append(coor)
           states.push((successor, action+[a]))
-
-    
+   
   def chooseAction(self, gameState):
     """
     Picks among actions randomly.
@@ -186,12 +212,23 @@ class ClassicPlanAgent(CaptureAgent):
     '''
     You should change this in your own agent.
     '''
-    # reach frontier first
+
+    # === ABOUT TO LOSE SENARIO ===
+    defendFood = self.getFoodYouAreDefending(gameState).asList()
+    if len(defendFood) <= 4:
+      
+      values = [self.evaluatePatrol(gameState, a) for a in actions]
+      maxValue = max(values)
+      bestActions = [a for a, v in zip(actions, values) if v == maxValue]
+      return random.choice(bestActions)
+
+
+    # ACTION STEP 1: reach frontier first
     if self.actionFrontier:
       toAct = self.actionFrontier.pop(0)
       return toAct
 
-    # after reaching frontier
+    # ACTION STEP 2: after reaching frontier
     if self.actionCapsule:
       toAct = self.actionCapsule.pop(0)
 
@@ -203,7 +240,7 @@ class ClassicPlanAgent(CaptureAgent):
       # otherwise, ghost detected, run.
       self.actionCapsule = []    # ditch all pre-planed path
 
-    # if detects ghost, use minimax to get out of the way
+    # ACTION SENARIO 3: if detects ghost, use minimax to get out of the way
     gstPos = self.checkStateSafe(gameState)
     myPos = gameState.getAgentPosition(self.index)
     Pacman = gameState.getAgentState(self.index).isPacman
@@ -213,119 +250,107 @@ class ClassicPlanAgent(CaptureAgent):
       toAct = self.getMiniMaxAction(gameState, myPos, enemyPos)
       return toAct
 
-    # if food more than threshold, need to cash in
+    # ACTION SENARIO 4: if food more than threshold, need to cash in
     myState = gameState.getAgentState(self.index)
-    myPos = gameState.getAgentPosition(self.index)
 
-    goHome = self.needToCashIn(myPos, myState, 5)
+    goHome = self.needToCashIn(myPos, myState, self.minPelletsToCashIn)
     isHome = self.distToHome[myPos]
-    if goHome and (not isHome):
+    isCloseToFood = self.isCloseToFood(gameState, actions)
+    if goHome and (isHome) and (not isCloseToFood):
       dist, end = self.distToHome[myPos]
-      state, path = self.getBfsPath(gameState, end, myPos)
+      _, path = self.getBfsPath(gameState, end, myPos)
       toAct = path.pop(0)
       return toAct
 
+    # ACTION SENARIO 5: explore food or capsule
     values = [self.evaluate(gameState, a) for a in actions]
     maxValue = max(values)
     bestActions = [a for a, v in zip(actions, values) if v == maxValue]
+    bestAction = random.choice(bestActions)
 
     foodLeft = len(self.getFood(gameState).asList())
     
+    # ACTION SENARIO 6: about to win
     if foodLeft <= 2:
       bestDist = 9999
       for action in actions:
         successor = self.getSuccessor(gameState, action)
         pos2 = successor.getAgentPosition(self.index)
         dist = self.getMazeDistance(self.start,pos2)
-        if dist < bestDist:
+        gstPos = self.checkStateSafe(successor)
+
+        if dist < bestDist and (not gstPos): # no ghost and closer
           bestAction = action
           bestDist = dist
+
+        elif (not gstPos):
+          bestAction = action
+          bestDist = dist
+
+        else:
+          bestAction = self.escape(actions, gameState)
+
       return bestAction
 
     return random.choice(bestActions)
 
+  def isCloseToFood(self, gameState, actions):
+    foodNum = len(self.getFood(gameState).asList())
+    isClose = 0
+    for action in actions:
+      successor = gameState.generateSuccessor(self.index, action)
+      foodNumNew = len(self.getFood(successor).asList())
+      if foodNum > foodNumNew:
+        isClose = 1
+    return isClose
 
-  def getEvaluation(self, myPos, enemyPos):
-    #print('=== 239 === ', myPos)
-    total = self.getMazeDistance(myPos, enemyPos)
-    
-    if self.distToHome[myPos]: 
-      total += (-1*self.distToHome[myPos][0])/2
-    return total
-
-  def getMiniMaxAction(self, gameState, myPos, enemyPos):
-    toAct = self.miniMax(gameState, self.miniMaxDepth, self.index, True, myPos = myPos, enemyPos = enemyPos)[1]
-    
-    return toAct
-    
-  def miniMax(self, gameState, depth, agent, maximizing, myPos, enemyPos):
+  def evaluatePatrol(self, gameState, action):
     """
-    Returns an action by miniMax algorithm
+    Computes a linear combination of features and feature weights
     """
+    features = self.getFeaturesPatrol(gameState, action)
+    weights = self.getWeightsPatrol(gameState, action)
+    return features * weights
 
-    ghosts = self.checkStateSafe(gameState)
-    #myPos2 = gameState.getAgentPosition(agent)
-    
-    if depth == 0 or (not ghosts):
-      #print('=== 255 DEPTH REACHED === RETURN VALUE:', self.getEvaluation(myPos, enemyPos))
-      #print('=== 261 THE DIFFERENCE BETWEEN POINTS ===:', myPos)
-      return self.getEvaluation(myPos, enemyPos), Directions.STOP
+  def getFeaturesPatrol(self, gameState, action):
+    features = util.Counter()
+    successor = self.getSuccessor(gameState, action)
+    nextPos = successor.getAgentPosition(self.index)
 
-    minDist = 9999
-    ghostIndex = 0
-    enemyPos = (0, 0)
-    ghostPos = [tup[1] for tup in ghosts]
+    myState = successor.getAgentState(self.index)
+    myPos = myState.getPosition()
 
-    for idx, pos in ghosts:
-      threatDist = self.getMazeDistance(pos, myPos)
-      if minDist > threatDist:
-        minDist = threatDist
-        ghostIndex = idx
-        enemyPos = pos
+    # Computes whether we're on defense (1) or offense (0)
+    features['onDefense'] = 1
+    if myState.isPacman: features['onDefense'] = 0
 
-    if maximizing:
-      #print('=== 272 MAXIMIZING ===', myPos, enemyPos)
-      return self.maximizer(gameState, depth, agent = self.index, enemy = ghostIndex, myPos = myPos, enemyPos = enemyPos)
-    else:
-      #print('=== 275 MiniMIZING ===', myPos, enemyPos)
-      return self.minimizer(gameState, depth, agent = ghostIndex, enemy = self.index, myPos = enemyPos, enemyPos = myPos)
+    # Computes distance to invaders we can see
+    enemies = [successor.getAgentState(i) for i in self.getOpponents(successor)]
+    invaders = [a for a in enemies if a.isPacman and a.getPosition() != None]
+    features['numInvaders'] = len(invaders)
 
+    patrolArea = self.frontierPoints[int(len(self.frontierPoints)/2):]
+    features['distToPatrol'] = self.getDistToPatrol(myPos, patrolArea)
+
+    # invader
+    enemies = [successor.getAgentState(i) for i in self.getOpponents(successor)]
+    invaders = [a for a in enemies if a.isPacman and a.getPosition() != None]
+    if len(invaders) > 0:
+      dists = [self.getMazeDistance(nextPos, a.getPosition()) for a in invaders]
+      features['invaderDistance'] = min(dists)
+    return features
   
-  def minimizer(self, game_state, depth, agent, enemy, myPos, enemyPos):
-    #print('\n=== 280 INSIDE MINIMIZER ===')
-    actions = game_state.getLegalActions(agent)
-    scores = []
-
-    for action in actions:
-      #print('285 CURRENT ACTION CHOSEN BY MINIMIZER', action)
-      successor_game_state = game_state.generateSuccessor(agent, action)
-      myPos = successor_game_state.getAgentPosition(agent)
-      #print('294 MY POSITION', myPos)
-      scores.append(self.miniMax(successor_game_state, depth - 1, agent = self.index, maximizing=True, myPos = myPos, enemyPos = enemyPos)[0])
+  def getDistToPatrol(self, myPos, patrolArea):
+    dists = 0
+    i = 0
+    for pos in patrolArea:
+      dists += (self.getMazeDistance(pos, myPos))
+      i += 1
       
-    min_score = min(scores)
-    min_indexes = [i for i, score in enumerate(scores) if score == min_score]
-    chosen_action = actions[random.choice(min_indexes)]
+    return dists/i
 
-    return min_score, chosen_action
-
-  def maximizer(self, gameState, depth, agent, enemy, myPos, enemyPos):
-    #print('\n=== 298 INSIDE MAXIMIZER ===')
-    actions = gameState.getLegalActions(agent)
-    scores = []
-
-    for action in actions:
-      #print('303 CURRENT ACTION CHOSEN BY MAXIMIZER', action)
-      successorGameState = gameState.generateSuccessor(agent, action)
-      myPos = successorGameState.getAgentPosition(agent)
-      #print('311 MY POSITION', myPos)
-      scores.append(self.miniMax(successorGameState, depth, agent = enemy, maximizing = False, myPos = myPos, enemyPos = enemyPos)[0])
-
-    max_score = max(scores)
-    max_indexes = [i for i, score in enumerate(scores) if score == max_score]
-    chosen_action = actions[random.choice(max_indexes)]
-
-    return max_score, chosen_action
+  def getWeightsPatrol(self, gameState, action):
+    return {'numInvaders': -70, 'onDefense': 100, 'distToPatrol': -20, 'invaderDistance': -2}
 
   def getSuccessor(self, gameState, action):
     """
@@ -334,7 +359,6 @@ class ClassicPlanAgent(CaptureAgent):
     successor = gameState.generateSuccessor(self.index, action)
     pos = successor.getAgentState(self.index).getPosition()
     if pos != util.nearestPoint(pos):
-      # Only half a grid position was covered
       return successor.generateSuccessor(self.index, action)
     else:
       return successor
@@ -359,23 +383,21 @@ class ClassicPlanAgent(CaptureAgent):
 
     # Compute distance to the nearest food
     if len(foodList) > 0: # This should always be True,  but better safe than sorry
-
-      #getFoodDistance(self, myPos, food, gameState)
       minDistance = min([self.getFoodDistance(nextPos, food, gameState) for food in foodList])
       features['distanceToFood'] = minDistance
 
     # Distance to Power Capsule
     capsule = self.getCapsules(gameState)
     if capsule:
-      capsuleDist = self.getMazeDistance(capsule[0], nextPos)
+      capsuleDist = min([self.getMazeDistance(cap, nextPos) for cap in capsule])
       features['distanceToCapsule'] = capsuleDist
     else:
       features['distanceToCapsule'] = 0 # since eaten
 
-    # Away fron ghost
+    # Away from ghost
     ghsPosition = self.checkStateSafe(gameState)
     if ghsPosition:
-      for idx, pos in ghsPosition:
+      for _, pos in ghsPosition:
         features['distToGhost'] += self.getMazeDistance(pos, nextPos)
     else: 
       features['distToGhost'] = 0
@@ -397,18 +419,24 @@ class ClassicPlanAgent(CaptureAgent):
       dists = [self.getMazeDistance(nextPos, a.getPosition()) for a in invaders]
       features['invaderDistance'] = min(dists)
 
-
+    # invader number
     features['numInvaders'] = len(invaders)
 
     # isPacman
     features['isPacman'] = successor.getAgentState(self.index).isPacman
 
-    
+    # is eaten
+    if self.start == nextPos:
+      features['isEaten'] = 1
+    else:
+      features['isEaten'] = 0
 
     return features
 
   def getFoodDistance(self, myPos, food, gameState):
-    #prefer top food 
+    """
+    Force one agent to eat top food
+    """
     favoredY = gameState.data.layout.height
     return self.getMazeDistance(myPos, food) + abs(favoredY - food[1])
 
@@ -423,8 +451,7 @@ class ClassicPlanAgent(CaptureAgent):
     return {'successorScore': 80, 'distanceToFood': -1.5, \
     'distanceToCapsule': -5, 'distToGhost': 20, 'cashIn': 10, \
     'stop': -12, 'reverse': -2, 'invaderDistance': -1, \
-    'numInvaders': -2, 'isPacman': 3}
-
+    'numInvaders': -2, 'isPacman': 3, 'isEaten': -40}
 
   def checkStateSafe(self, gameState):
     """
@@ -442,15 +469,14 @@ class ClassicPlanAgent(CaptureAgent):
       if scared > 2:
         enemyGhost = None
       dist = self.getMazeDistance(agentPos, pos)
-      #print('DISTANCE', dist)
+
       if dist < minDist:
         minDist = dist
-    if minDist > 5:
+    if minDist > 4:
       enemyGhost = None
 
     if not enemyGhost:
       return None
-
     return enemyGhost
     
   def getEnemy(self, gameState): 
@@ -467,13 +493,57 @@ class ClassicPlanAgent(CaptureAgent):
         enemyState['Ghost'].append((index, eState.getPosition()))
     return enemyState
 
+  def escape(self, actions, gameState):
+    """
+    Find an escape action
+    """
+    vals = []
+    for action in actions:
+      successor = self.getSuccessor(gameState, action)
+      nextPos = successor.getAgentPosition(self.index)
+      features = self.getFeaturesEscape(gameState, nextPos)
+      weights = self.getWeightsEscape(gameState)
+      print('=== 492 ===', features, '\n', weights)
+      vals.append(features * weights)
+
+    maxValue = max(vals)
+    bestActions = [act for act, val in zip(actions, vals) if val == maxValue]
+
+    return random.choice(bestActions)
+
+  def getFeaturesEscape(self, gameState, nextPos):
+    features = util.Counter()
+    print('CALLING ESCAPE FUNCTION')
+    foodList = self.getFood(gameState).asList()
+    myPos = gameState.getAgentPosition(self.index)
+    features['successorScore'] = -len(foodList)
+    ghsPosition = self.checkStateSafe(gameState)
+
+    if ghsPosition:
+      for _, pos in ghsPosition:
+        features['distToGhost'] += self.getMazeDistance(pos, nextPos)
+    else: 
+      features['distToGhost'] = 0
+    if self.distToHome[myPos]:
+      features['toHome'] = -1*self.distToHome[myPos][0]
+    else:
+      features['toHome'] = 0
+
+    # is eaten
+    if self.start == nextPos:
+      features['isEaten'] = 1
+    else:
+      features['isEaten'] = 0
+
+    return features
+
+  def getWeightsEscape(self, gameState):
+    return {'successorScore': 2, 'distToGhost': 40, 'toHome': 10, 'isEaten': -40}
 
 class DefensiveReflexAgent(ClassicPlanAgent):
   """
-  A reflex agent that keeps its side Pacman-free. Again,
-  this is to give you an idea of what a defensive agent
-  could be like.  It is not the best or only way to make
-  such an agent.
+  A defensive agent that keeps its side Pacman-free.
+  With belief of where the pacman may be
   """
   
   def chooseAction(self, gameState):
@@ -482,39 +552,60 @@ class DefensiveReflexAgent(ClassicPlanAgent):
     """
     actions = gameState.getLegalActions(self.index)
 
-
     myState = gameState.getAgentState(self.index)
     myPos = gameState.getAgentPosition(self.index)
-    timeLeft = gameState.data.timeleft
+
     defendFood = self.getFoodYouAreDefending(gameState).asList()
 
-    if len(defendFood) > 12 and timeLeft > 80:
+    timeLeft = gameState.data.timeleft
 
-      goHome = self.needToCashIn(myPos, myState, 5)
-      if goHome:
+    # === ABOUT TO LOSE SENARIO ===
+    if len(defendFood) <= 4:
+      values = [self.evaluatePatrol(gameState, a) for a in actions]
+      maxValue = max(values)
+      bestActions = [a for a, v in zip(actions, values) if v == maxValue]
+      return random.choice(bestActions)
+    
+    # === OFFENSIVE SENARIO ===
+    if len(defendFood) > 10 and timeLeft > 80:
+      # CASE 1: carrying enough food, go home
+      goHome = self.needToCashIn(myPos, myState, self.minPelletsToCashIn)
+      isHome = self.distToHome[myPos]
+      isCloseToFood = self.isCloseToFood(gameState, actions)
+      if goHome and (isHome) and (not isCloseToFood):
         dist, end = self.distToHome[myPos]
-
-        print('=== end ===', myPos, end)
-        state, path = self.getBfsPath(gameState, end, myPos)
+        # BFS find shortest path to home
+        _, path = self.getBfsPath(gameState, end, myPos)
         toAct = path.pop(0)
-        return toAct
 
+        # check if threatened by ghost
+        threatToHome = self.checkStateSafe(gameState)
+        isHome = (self.distToHome[myPos])
+        if threatToHome and isHome:    # if threatened and not at home
+          # escape
+          toAct = self.escape(actions, gameState)
+        return toAct
+      
+      # CASE 2: while eating, threatened
       threatToHome = self.checkStateSafe(gameState)
-      isHome = (not self.distToHome[myPos])
-      if threatToHome and (not isHome):
-
+      isHome = (self.distToHome[myPos])
+      if threatToHome and (isHome):
         dist, home = self.distToHome[myPos]
-
-        _, actionSeq = self.getBfsPath(gameState, home, myPos)
-        toAct = actionSeq.pop(0)
-        actedPos = (gameState.generateSuccessor(self.index, toAct)).getAgentPosition(self.index)
-        for idx, gstPos in threatToHome:
-          if self.getMazeDistance(actedPos, gstPos) < 2:
-            toAct = self.escape(actions, gameState)
+        if dist < 4:    # is close to home, 
+          _, actionSeq = self.getBfsPath(gameState, home, myPos)
+          toAct = actionSeq.pop(0)
+          actedPos = (gameState.generateSuccessor(self.index, toAct)).getAgentPosition(self.index)
+          for _, gstPos in threatToHome:
+            if self.getMazeDistance(actedPos, gstPos) < 2:
+              toAct = self.escape(actions, gameState)
+        else:
+          toAct = self.escape(actions, gameState)
         return toAct
-        
 
+      # CASE 3: no threats and not still hungry  
       values = [self.evaluate(gameState, a) for a in actions]
+
+    # === DEFENDIVE SENARIO ===
     else:
       values = [self.evaluateDefensive(gameState, a) for a in actions]
 
@@ -522,47 +613,59 @@ class DefensiveReflexAgent(ClassicPlanAgent):
     bestActions = [a for a, v in zip(actions, values) if v == maxValue]
 
     foodLeft = len(self.getFood(gameState).asList())
-
+    
+    # === ABOUT-TO-WIN SENARIO ===
     if foodLeft <= 2:
       bestDist = 9999
+
       for action in actions:
         successor = self.getSuccessor(gameState, action)
         pos2 = successor.getAgentPosition(self.index)
         dist = self.getMazeDistance(self.start,pos2)
-        if dist < bestDist:
+        gstPos = self.checkStateSafe(successor)
+
+        if dist < bestDist and (not gstPos): # no ghost and closer
           bestAction = action
           bestDist = dist
+
+        elif (not gstPos):
+          bestAction = action
+          bestDist = dist
+
+        else:
+          bestAction = self.escape(actions, gameState)
+
       return bestAction
-
     return random.choice(bestActions)
+    
 
+  def evaluatePatrol(self, gameState, action):
+    """
+    Computes a linear combination of features and feature weights
+    """
+    features = self.getFeaturesPatrol(gameState, action)
+    weights = self.getWeightsPatrol(gameState, action)
+    return features * weights
 
-  def escape(self, actions, gameState):
-    features = self.getFeaturesEscape(gameState, actions)
-    weights = self.getWeightsEscape(gameState, actionss)
+  def getFeaturesPatrol(self, gameState, action):
+    features = util.Counter()
+    successor = self.getSuccessor(gameState, action)
 
-    vals = features * weights
-    maxValue = max(values)
+    myState = successor.getAgentState(self.index)
+    myPos = myState.getPosition()
 
-    bestActions = [act for act, val in zip(actions, vals) if val == maxval]
+    # Computes whether we're on defense (1) or offense (0)
+    features['onDefense'] = 1
+    if myState.isPacman: features['onDefense'] = 0
 
-    return random.choice(bestActions)
+    # Computes distance to invaders we can see
+    enemies = [successor.getAgentState(i) for i in self.getOpponents(successor)]
+    invaders = [a for a in enemies if a.isPacman and a.getPosition() != None]
+    features['numInvaders'] = len(invaders)
 
-  def getFeaturesEscape(self, gameState, action):
-    myPos = gameState.getAgentPosition(self.index)
-    features['successorScore'] = -len(foodList)
-    ghsPosition = self.checkStateSafe(gameState)
-    if ghsPosition:
-      for idx, pos in ghsPosition:
-        features['distToGhost'] += self.getMazeDistance(pos, nextPos)
-    else: 
-      features['distToGhost'] = 0
-    features['toHome'] = -self.distToHome[myPos]
+    patrolArea = self.frontierPoints[:int(len(self.frontierPoints)/2)]
+    features['distToPatrol'] = self.getDistToPatrol(myPos, patrolArea)
     return features
-
-  def getWeightsEscape(self, gameState, action):
-    return {'successorScore': 2, 'distToGhost': 40, 'toHome': 10}
-
 
   def getWeights(self, gameState, action):
     return {'successorScore': 120, 'distanceToFood': -1, \
@@ -571,13 +674,12 @@ class DefensiveReflexAgent(ClassicPlanAgent):
     'numInvaders': -3, 'isPacman': 3}
   
   def getFoodDistance(self, myPos, food, gameState):
-    #Bottom 
     favoredY = 0.0
     return self.getMazeDistance(myPos, food) + abs(favoredY - food[1])
 
-  ################################
-  # BELOW IS FOR DEFENSIVE STATE #
-  ################################
+  ##########################################
+  #      BELOW IS FOR DEFENSIVE STATE      #
+  ##########################################
 
   def getFeaturesDefensive(self, gameState, action):
     features = util.Counter()
@@ -597,7 +699,6 @@ class DefensiveReflexAgent(ClassicPlanAgent):
     invaderPos = [a.getPosition() for a in enemies if a.isPacman and a.getPosition() != None]
     if invaderPos:
       for inv in invaderPos:
-        print('===', inv)
         features['invaderDistToHome'] += -1/self.getInvaderDistToHome(inv)
     else:
       features['invaderDistToHome'] = 0
@@ -612,11 +713,67 @@ class DefensiveReflexAgent(ClassicPlanAgent):
     rev = Directions.REVERSE[gameState.getAgentState(self.index).configuration.direction]
     if action == rev: features['reverse'] = 1
 
+    # dist to pacman
+    pacmanProbIn = self.beliefInPacmanPosition(gameState)
+    #print('=== 545 ===', pacmanProbIn, myPos)
+    features['ToFoodCluster'] = self.getMazeDistance(pacmanProbIn, myPos)
 
     return features
+  
+  def defendTheCluster(self, gameState):
+    foodList = self.getFoodYouAreDefending(gameState).asList()
+    bigClusterFood = []
+    for food1 in foodList:
+      clusterSize = 0
+      for food2 in foodList:
+        if self.getMazeDistance(food1, food2) <= 3:
+          clusterSize += 1
+      bigClusterFood.append((food1, clusterSize))
+    
+    return bigClusterFood
+
+  def beliefInPacmanPosition(self, gameState):
+    """
+    Returns a position that our ghost should patrol
+    """
+    enemyDist = []
+    positionToPatrol = []
+    myPos = gameState.getAgentPosition(self.index)
+    enemyPacmanPosition = self.getEnemy(gameState)['Pacman']
+    cluster = self.defendTheCluster(gameState)
+    minDist = 999
+    if enemyPacmanPosition:
+      for idx, pos in enemyPacmanPosition:
+        #print('=== 575 ===', enemyPacmanPosition, pos)
+        curDist = self.getMazeDistance(pos, myPos)
+        if minDist > curDist:
+          minDist = curDist
+          minPos = pos
+          #print('=== 580 ===', pos)
+      return minPos
+
+    else:
+      allDist = gameState.getAgentDistances()
+      enemyDist = []
+      for idx in self.enemies:
+        enemyDist.append(allDist[idx])
+
+    myPos = gameState.getAgentPosition(self.index)
+    for c, size in cluster:
+      for dist in enemyDist:
+        CI = range(dist-4, dist+4)
+        if self.getMazeDistance(c, myPos) in CI:
+          positionToPatrol.append((c, size))
+    if positionToPatrol:
+      patrol = sorted(positionToPatrol, key = lambda x: x[1])[-1]
+
+    else:
+      patrol = sorted(cluster, key = lambda x: x[1])[-1]
+      #('=== 596 ===', patrol[0])
+    return patrol[0]
+
 
   def getInvaderDistToHome(self, invaderPos):
-    
     dist = [self.getMazeDistance(enemyhome, invaderPos) for enemyhome in self.frontierPointsEnemy]
     return sum(dist)/len(dist)
 
@@ -641,4 +798,5 @@ class DefensiveReflexAgent(ClassicPlanAgent):
       return successor
 
   def getWeightsDefensive(self, gameState, action):
-    return {'numInvaders': -70, 'onDefense': 100, 'invaderDistToHome': 30, 'invaderDistance': -20, 'stop': -100, 'reverse': -3}
+    return {'numInvaders': -70, 'onDefense': 100, 'invaderDistToHome': 30, 'invaderDistance': -20, \
+    'stop': -100, 'reverse': -3, 'ToFoodCluster': -15}
