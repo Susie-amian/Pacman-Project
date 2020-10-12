@@ -116,7 +116,10 @@ class ClassicPlanAgent(CaptureAgent):
     self.closestFrontier = self.frontierState.getAgentPosition(self.index)
     self.capsulState, self.actionCapsule = self.getBfsPath(self.frontierState, self.capsulePosition, self.closestFrontier)
     # minimax initial set up
+    # face 1 enermy depth
     self.miniMaxDepth = 4
+    # face 2 enermy depth
+    self.miniMaxDepth2 = 3
     # Initialisation for hyper-parameters
     self.epsilon = 0.75
 
@@ -248,17 +251,18 @@ class ClassicPlanAgent(CaptureAgent):
       
       
       enermyIndex = [tup[0] for tup in gstPos]
-      if len(enermyIndex) == 1:
+      depth = self.miniMaxDepth
+      toAct = self.minimax(gameState, depth, self.index, enermyIndex)
+      
+      
+      #if len(enermyIndex) == 1:
         #print("BEGIN MINIMAX++++")
-        allIndexes = [self.index, enermyIndex[0]]
-        depth = self.miniMaxDepth
-        v, toAct = self.max2(gameState, depth, self.index, allIndexes)
+        #allIndexes = [self.index, enermyIndex[0]]
+        #depth = self.miniMaxDepth
+        #v, toAct = self.max2(gameState, depth, self.index, allIndexes)
         #print("+++MINIMAX RESULT", toAct, v)
         # new minimax 2 
-      else:
-        #toAct = self.getMiniMaxAction(gameState, myPos, enemyPos)
-        toAct = random.choice(actions)
-        print("HAVNT IMPLEMENTED")
+     
       return toAct
 
     
@@ -308,22 +312,49 @@ class ClassicPlanAgent(CaptureAgent):
 
     return random.choice(bestActions)
 
- 
+  def minimax(self, gameState, depth, playerIndex, enermyIndex):
+    if len(enermyIndex) == 1:
+      allIndexes = [self.index, enermyIndex[0]]
+      depth = self.miniMaxDepth
+      v, toAct = self.max2(gameState, depth, self.index, allIndexes)
+      #print("+++1 Enermy MINIMAX RESULT", toAct, v)
+    elif len(enermyIndex) == 2:
+      #actions = gameState.getLegalActions(self.index)
+      allIndexes  = [playerIndex] + enermyIndex
+      depth = self.miniMaxDepth2
+      print("\n \n")
+      print("+++ Enermy MINIMAX BEGIN+++326")
+      v, toAct = self.maxn(gameState, depth, playerIndex, allIndexes)
+      #toAct = random.choice(actions)
+      #print("HAVNT IMPLEMENTED")
+      print("+++2 Enermy MINIMAX RESULT", toAct, v)
+    return toAct
 
   def getEvaluation(self, gameState, allIndex):
-    myPos = gameState.getAgentPosition(allIndex[0])
-    enermyPos = gameState.getAgentPosition(allIndex[1])
-    value = self.getMazeDistance(myPos, enermyPos)
-    if myPos == self.start:
-      value -= 200
+    #print(len(allIndex))
+    if len(allIndex) == 2:
+      myPos = gameState.getAgentPosition(allIndex[0])
+      enermyPos = gameState.getAgentPosition(allIndex[1])
+      value = self.getMazeDistance(myPos, enermyPos)
+      if myPos == self.start:
+        value -= 200
+      return value
+    else:
+      myPos = gameState.getAgentPosition(allIndex[0])
+      enermyPos1 = gameState.getAgentPosition(allIndex[1])
+      enermyPos2 = gameState.getAgentPosition(allIndex[2])
+      distToEnermy1 = self.getMazeDistance(myPos, enermyPos1)
+      distToEnermy2 = self.getMazeDistance(myPos, enermyPos2)
+      minDistToEnermy = min(distToEnermy1, distToEnermy2)
 
-    print('=== 239 === ', myPos,enermyPos)
+      #print('=== 239 === ', myPos,enermyPos)
+      return [(minDistToEnermy, -distToEnermy1, -distToEnermy2)]
     
-    return value
+    
 
-  def max2(self, gameState, depth, playerIndex, allIndexes):
+  def max2(self, gameState, depth, playerIndex, allGameIndexes):
     if depth == 0 or gameState.getLegalActions(playerIndex) == None:
-      return (self.getEvaluation(gameState, allIndexes), None)
+      return (self.getEvaluation(gameState, allGameIndexes), None)
     else:
       #bestActionValue = -9999
       
@@ -335,59 +366,74 @@ class ClassicPlanAgent(CaptureAgent):
       for action in actions:
         # Avoid return "STOP" in the 
         #if (depth == self.miniMaxDepth and action!= "STOP") or depth!= self.miniMaxDepth:
-        if action!= "STOP":
+        if action!= "Stop":
           successor = gameState.generateSuccessor(playerIndex, action)
-          enermyIndex = allIndexes[1]
-          actionValue,a = self.min2(successor, depth-1,enermyIndex, allIndexes)
+          enermyIndex = allGameIndexes[1]
+          actionValue,a = self.min2(successor, depth-1,enermyIndex, allGameIndexes)
           myPos = successor.getAgentPosition(playerIndex)
           myPosList.append(myPos)
-          print("352++++",depth-1, actionValue, action, a)
+          #print("352++++",depth-1, actionValue, action, a)
           actionValues.append(actionValue)
           applicableActions.append(action)
       
       # when the final action (depth = self.minimaxDepth) list is empty, return 'STOP'.
       if len(applicableActions) == 0:
-        return 0, 'STOP'
-      
+        return 0, 'Stop'
 
-
-        
       maxValue = max(actionValues)
       bestActions = [a for a, v, p in zip(applicableActions, actionValues,myPosList) if v == maxValue]
       bestActionsPos = [p for a, v, p in zip(applicableActions, actionValues,myPosList) if v == maxValue]
 
       if depth!= self.miniMaxDepth:
-        print("384", random.choice(bestActions))
+        #print("384", random.choice(bestActions))
         return maxValue, random.choice(bestActions)
 
       # select next action based on features (try to avoid go to the dead end)
       if depth == self.miniMaxDepth:
         #closestToHome = []
-        selectedActionsAtHome = []
-        distToHomeList = []
-        selectedActionsInEnermy = []
-        actionsInEnermy = []
-        for bestAction, pos in zip(bestActions, bestActionsPos):
-          if pos not in self.enemyCells:
-            selectedActionsAtHome.append(bestAction)
-          else:
-            distToHomeList.append(self.distToHome[pos][0])
-            actionsInEnermy.append(bestAction)
-        if len(distToHomeList) !=0:
-          closestToHomeDist = min(distToHomeList)
-          selectedActionsInEnermy = [a for a,d in zip(actionsInEnermy, distToHomeList) if d == closestToHomeDist]
+        selectedActions = self.selectMiniMaxAction(bestActions, bestActionsPos, gameState)
+        return 0, random.choice(selectedActions)
+  
+  # detect the number of walls surround a position.
+  def detectSurroundWall(self, gameState, pos):
+    wallNum = 0
+    if gameState.hasWall(pos[0] + 1, pos[1]):
+      wallNum += 1
+    if gameState.hasWall(pos[0] - 1, pos[1]):
+      wallNum += 1
+    if gameState.hasWall(pos[0], pos[1] + 1):
+      wallNum += 1
+    if gameState.hasWall(pos[0] + 1, pos[1] - 1):
+      wallNum += 1
+    return wallNum
+    
 
-          selectedActions = selectedActionsAtHome + selectedActionsInEnermy
-        else:
-          selectedActions = selectedActionsAtHome 
-        if len(selectedActions) != 0:
-          print('407--', random.choice(selectedActions))
-          return 0, random.choice(selectedActions)
-        print('408--', random.choice(selectedActions))
-        return 0, random.choice(bestActions)
-            
-        #suuceeor valid actions
-        
+              
+  # Select actions with shortest distance to home from the highest depth   
+  def selectMiniMaxAction(self, bestActions, bestActionsPos, gameState):
+          selectedActionsAtHome = []
+          distToHomeList = []
+          selectedActionsInEnermy = []
+          actionsInEnermy = []
+          for bestAction, pos in zip(bestActions, bestActionsPos):
+            if pos not in self.enemyCells:
+              selectedActionsAtHome.append(bestAction)
+            elif pos in self.enemyCells and self.detectSurroundWall(gameState, pos) != 3:
+              distToHomeList.append(self.distToHome[pos][0])
+              actionsInEnermy.append(bestAction)
+          if len(distToHomeList) !=0:
+            closestToHomeDist = min(distToHomeList)
+            selectedActionsInEnermy = [a for a,d in zip(actionsInEnermy, distToHomeList) if d == closestToHomeDist]
+
+            selectedActions = selectedActionsAtHome + selectedActionsInEnermy
+          else:
+            selectedActions = selectedActionsAtHome 
+          if len(selectedActions) != 0:
+            #print('407--', random.choice(selectedActions))
+            return selectedActions
+            #print('408--', random.choice(selectedActions))
+          else:
+            return bestActions
 
 
       
@@ -399,18 +445,73 @@ class ClassicPlanAgent(CaptureAgent):
     actions = gameState.getLegalActions(playerIndex)
     #value = util.Counter()
     for action in actions:
-      if action!= "STOP":
+      if action!= 'Stop':
         successor = gameState.generateSuccessor(playerIndex, action)
         nextIndex = allIndexes[1]
         actionValue,a = self.max2(successor, depth-1, nextIndex, allIndexes)
-        print("369++++",depth-1, actionValue, action,a)
+        #print("369++++",depth-1, actionValue, action,a)
         if bestActionValue > actionValue:
           bestAction = action
           bestActionValue = actionValue
     return bestActionValue, bestAction
   
   
- 
+  def maxn(self, gameState, depth, playerIndex, allIndexes):
+    if depth == 0 or gameState.getLegalActions(playerIndex) == None or gameState.isOver():
+      return (self.getEvaluation(gameState, allIndexes), None)
+    else:
+      #bestActionValue = -9999
+      playerIndexInList = allIndexes.index(playerIndex)
+      actions = gameState.getLegalActions(playerIndex)
+      #value = util.Counter()
+      actionValues = []
+      applicableActions = []
+      myPosList = []
+      for action in actions:
+        # Avoid return "STOP" in the 
+        #if (depth == self.miniMaxDepth and action!= "STOP") or depth!= self.miniMaxDepth:
+        if action!= 'Stop':
+          successor = gameState.generateSuccessor(playerIndex, action)
+          playerInallIndex = (allIndexes.index(playerIndex) + 1)%len(allIndexes)
+          enermyIndex = allIndexes[playerInallIndex]
+          actionValue,a = self.maxn(successor, depth-1,enermyIndex, allIndexes)
+          myPos = successor.getAgentPosition(playerIndex)
+          for i in range(len(actionValue)):
+            actionValues.append(actionValue[i])
+            applicableActions.append(action)
+          
+            myPosList.append(myPos)
+          #print("460++++",depth-1, actionValue, action, a)
+          #actionValues = actionValues + actionValue
+          
+          
+      
+      # when the final action (depth = self.minimaxDepth) list is empty, return 'STOP'.
+      if len(applicableActions) == 0:
+        print('=================================================================')
+        return [(0,0,0)], 'Stop'
+      #print('494',actionValues, [playerIndexInList])
+      #print('495',[valueTuple for valueTuple in actionValues])
+      maxPlayerValue = max([valueTuple[playerIndexInList] for valueTuple in actionValues])
+      
+      #maxValue = max(actionValues)
+      bestActionValueTuples = [v for a, v, p in zip(applicableActions, actionValues,myPosList) if v[playerIndexInList] == maxPlayerValue]
+      bestActions = [a for a, v, p in zip(applicableActions, actionValues,myPosList) if v[playerIndexInList] == maxPlayerValue]
+      bestActionsPos = [p for a, v, p in zip(applicableActions, actionValues,myPosList) if v[playerIndexInList] == maxPlayerValue]
+      #print('489 maxPlayer Value',depth, maxPlayerValue, bestActions, bestActionValueTuples,actionValues)
+      if depth!= self.miniMaxDepth2:
+        toAct = random.choice(bestActions)
+        #print("474", toAct,bestActionValueTuples)
+        return bestActionValueTuples, toAct
+
+      # select next action based on features (try to avoid go to the dead end)
+      if depth == self.miniMaxDepth2:
+        #closestToHome = []
+        selectedActions = self.selectMiniMaxAction(bestActions, bestActionsPos, gameState)
+        toAct = random.choice(selectedActions)
+
+        return [(0,0,0)], toAct
+
   
   
   def isCloseToFood(self, gameState, actions):
@@ -622,7 +723,7 @@ class ClassicPlanAgent(CaptureAgent):
       nextPos = successor.getAgentPosition(self.index)
       features = self.getFeaturesEscape(gameState, nextPos)
       weights = self.getWeightsEscape(gameState)
-      print('=== 492 ===', features, '\n', weights)
+      #print('=== 492 ===', features, '\n', weights)
       vals.append(features * weights)
 
     maxValue = max(vals)
@@ -632,7 +733,7 @@ class ClassicPlanAgent(CaptureAgent):
 
   def getFeaturesEscape(self, gameState, nextPos):
     features = util.Counter()
-    print('CALLING ESCAPE FUNCTION')
+    #print('CALLING ESCAPE FUNCTION')
     foodList = self.getFood(gameState).asList()
     myPos = gameState.getAgentPosition(self.index)
     features['successorScore'] = -len(foodList)
