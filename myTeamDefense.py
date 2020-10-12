@@ -425,6 +425,12 @@ class ClassicPlanAgent(CaptureAgent):
     # isPacman
     features['isPacman'] = successor.getAgentState(self.index).isPacman
 
+    # is eaten
+    if self.start == nextPos:
+      features['isEaten'] = 1
+    else:
+      features['isEaten'] = 0
+
     return features
 
   def getFoodDistance(self, myPos, food, gameState):
@@ -445,7 +451,7 @@ class ClassicPlanAgent(CaptureAgent):
     return {'successorScore': 80, 'distanceToFood': -1.5, \
     'distanceToCapsule': -5, 'distToGhost': 20, 'cashIn': 10, \
     'stop': -12, 'reverse': -2, 'invaderDistance': -1, \
-    'numInvaders': -2, 'isPacman': 3}
+    'numInvaders': -2, 'isPacman': 3, 'isEaten': -40}
 
   def checkStateSafe(self, gameState):
     """
@@ -522,10 +528,17 @@ class ClassicPlanAgent(CaptureAgent):
       features['toHome'] = -1*self.distToHome[myPos][0]
     else:
       features['toHome'] = 0
+
+    # is eaten
+    if self.start == nextPos:
+      features['isEaten'] = 1
+    else:
+      features['isEaten'] = 0
+
     return features
 
   def getWeightsEscape(self, gameState):
-    return {'successorScore': 2, 'distToGhost': 40, 'toHome': 10}
+    return {'successorScore': 2, 'distToGhost': 40, 'toHome': 10, 'isEaten': -40}
 
 class DefensiveReflexAgent(ClassicPlanAgent):
   """
