@@ -941,20 +941,20 @@ class DefensiveReflexAgent(ClassicPlanAgent):
 
       # === ABOUT-TO-WIN SENARIO ===
       if foodLeft <= 2:
-      bestDist = 9999
-      for action in actions:
-        successor = self.getSuccessor(gameState, action)
-        pos2 = successor.getAgentPosition(self.index)
-        dist = self.getMazeDistance(self.start,pos2)
-        if dist < bestDist and (not self.checkStateSafe(gameState)):
-          bestAction = action
-          bestDist = dist
-        elif self.checkStateSafe(gameState):
-          if gstPos and Pacman:
-            enermyIndex = [tup[0] for tup in gstPos]
-            depth = self.miniMaxDepth
-            toAct = self.minimax(gameState, depth, self.index, enermyIndex)     
-            return toAct
+        bestDist = 9999
+        for action in actions:
+          successor = self.getSuccessor(gameState, action)
+          pos2 = successor.getAgentPosition(self.index)
+          dist = self.getMazeDistance(self.start,pos2)
+          if dist < bestDist and (not self.checkStateSafe(gameState)):
+            bestAction = action
+            bestDist = dist
+          elif self.checkStateSafe(gameState):
+            if gstPos and Pacman:
+              enermyIndex = [tup[0] for tup in gstPos]
+              depth = self.miniMaxDepth
+              toAct = self.minimax(gameState, depth, self.index, enermyIndex)     
+              return toAct
         return bestAction
 
       # CASE 2: carrying enough food, go home
