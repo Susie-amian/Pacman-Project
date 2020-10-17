@@ -235,7 +235,7 @@ class ClassicPlanAgent(CaptureAgent):
     # ACTION SENARIO 7: the enemy eat the Capsule
     scared = gameState.data.agentStates[self.index].scaredTimer
     enemyPacmanPos = self.checkStateSafeAtHome(gameState)
-    print('308 scared', scared, enemyPacmanPos)
+    #print('308 scared', scared, enemyPacmanPos)
     if scared > 0 and enemyPacmanPos and not Pacman:
       enermyIndex = [tup[0] for tup in enemyPacmanPos]
       toAct = self.minimax(gameState, self.index, enermyIndex, False)
@@ -1011,7 +1011,7 @@ class DefensiveReflexAgent(ClassicPlanAgent):
     # ACTION SENARIO : the enemy eat the Capsule
     scared = gameState.data.agentStates[self.index].scaredTimer
     enemyPacmanPos = self.checkStateSafeAtHome(gameState)
-    print('308 scared', scared, enemyPacmanPos)
+    #print('308 scared', scared, enemyPacmanPos)
     if scared > 0 and enemyPacmanPos and not Pacman:
       enermyIndex = [tup[0] for tup in enemyPacmanPos]
       toAct = self.minimax(gameState, self.index, enermyIndex, False)
