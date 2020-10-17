@@ -109,6 +109,7 @@ class ClassicPlanAgent(CaptureAgent):
     # A sequence of action to the closest enemy cell
     self.frontierState, self.actionFrontier = self.toFrontier(gameState, self.frontierPoints, self.start)
     # get shortest path from frontier to power capsule
+    self.capsulePosition = None
     if self.getCapsules(gameState):
       minDist = 9999
       for cap in self.getCapsules(gameState):
@@ -121,7 +122,11 @@ class ClassicPlanAgent(CaptureAgent):
       self.favoredY = 0.0
     else:
       self.favoredY = self.height
-    self.capsulState, self.actionCapsule = self.getBfsPath(self.frontierState, self.capsulePosition, self.closestFrontier)
+
+    self.capsulState = None 
+    self.actionCapsule = []
+    if self.capsulePosition:
+      self.capsulState, self.actionCapsule = self.getBfsPath(self.frontierState, self.capsulePosition, self.closestFrontier)
     # minimax initial set up
     # face 1 enermy depth
     self.miniMaxDepth = 4
