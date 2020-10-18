@@ -1,6 +1,6 @@
 # myTeam.py
-# version 2.1 adjusting hometoDistweight
-# Time; 10/12/2020 10:30PM
+# version 2.3 fix bug
+# Time; 10/17/2020 
 # ---------
 # Licensing Information:  You are free to use or extend these projects for
 # educational purposes provided that (1) you do not distribute or publish
