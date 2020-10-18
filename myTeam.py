@@ -470,7 +470,7 @@ class ClassicPlanAgent(CaptureAgent):
 
     # is eaten
     if ghsPosition:
-      if self.mayBeEaten(nextPos, ghsPosition) and nextPos == self.start:
+      if self.mayBeEaten(nextPos, ghsPosition) or nextPos == self.start:
         features['isEaten'] = 1
       else:
         features['isEaten'] = 0
