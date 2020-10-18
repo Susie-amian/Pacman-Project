@@ -441,6 +441,11 @@ class ClassicPlanAgent(CaptureAgent):
         features['distToGhost'] += self.getMazeDistance(pos, nextPos)
     
     features['distToGhost'] += self.getApproxGhostDistance(nextPos)
+
+    # to avoid the situation that the destination of the action has a ghost, nextpos will be starting point.
+    if nextPos == self.start:
+      features['distToGhost'] = 0
+
     #print(self.belief)
 
     # penalise stop
@@ -465,7 +470,7 @@ class ClassicPlanAgent(CaptureAgent):
 
     # is eaten
     if ghsPosition:
-      if self.mayBeEaten(nextPos, ghsPosition):
+      if self.mayBeEaten(nextPos, ghsPosition) and nextPos == self.start:
         features['isEaten'] = 1
       else:
         features['isEaten'] = 0
