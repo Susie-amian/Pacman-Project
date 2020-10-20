@@ -1,6 +1,6 @@
 # myTeam.py
-# version 2.1 adjusting hometoDistweight
-# Time; 10/12/2020 10:30PM
+# version 2.3 fix bug
+# Time; 10/17/2020 
 # ---------
 # Licensing Information:  You are free to use or extend these projects for
 # educational purposes provided that (1) you do not distribute or publish
@@ -235,7 +235,7 @@ class ClassicPlanAgent(CaptureAgent):
     # ACTION SENARIO 7: the enemy eat the Capsule
     scared = gameState.data.agentStates[self.index].scaredTimer
     enemyPacmanPos = self.checkStateSafeAtHome(gameState)
-    print('308 scared', scared, enemyPacmanPos)
+    #print('308 scared', scared, enemyPacmanPos)
     if scared > 0 and enemyPacmanPos and not Pacman:
       enermyIndex = [tup[0] for tup in enemyPacmanPos]
       toAct = self.minimax(gameState, self.index, enermyIndex, False)
@@ -253,8 +253,9 @@ class ClassicPlanAgent(CaptureAgent):
     # === NORMAL SENARIO ===
     # ACTION STEP 1: reach frontier first
     if self.actionFrontier:
+      #print()
       toAct = self.actionFrontier.pop(0)
-      #print('=== 235 ===', self.index, toAct, timeLeft)
+      print('=== 235 ===', self.index, toAct, timeLeft)
       return toAct
 
     # ACTION STEP 2: after reaching frontier
@@ -264,7 +265,7 @@ class ClassicPlanAgent(CaptureAgent):
       # check if planned step is safe
       gstPos = self.checkStateSafe(gameState)
       if not gstPos:    # safe, ghost not detected
-        #print('=== 245 ===', self.index, toAct, timeLeft)
+        print('=== 245 ===', self.index, toAct, timeLeft)
         return toAct
 
       # otherwise, ghost detected, run.
@@ -273,8 +274,12 @@ class ClassicPlanAgent(CaptureAgent):
     # === REACHED-AN-IMPASSE SENARIO ===
     isInImpasse = self.reachedImpasse(gameState, myPos)
     if isInImpasse:
-      #print('IMPASSE DETECTED')
+      print('IMPASSE DETECTED SCENARIO===276')
+      print(gameState)
+      print(myPos)
       values = [self.evaluateImpasse(gameState, a) for a in actions]
+      
+      
       maxValue = max(values)
       bestActions = [a for a, v in zip(actions, values) if v == maxValue]
       bestAction = random.choice(bestActions)
@@ -288,7 +293,7 @@ class ClassicPlanAgent(CaptureAgent):
       toAct = self.minimax(gameState, self.index, enermyIndex)     
       return toAct
 
-    # ACTION SENARIO 6: about to win
+    # ACTION SENARIO 6: about to win, after detect ghost
     foodLeft = len(self.getFood(gameState).asList())
     if foodLeft <= 2:
       bestDist = 9999
@@ -296,16 +301,12 @@ class ClassicPlanAgent(CaptureAgent):
         successor = self.getSuccessor(gameState, action)
         pos2 = successor.getAgentPosition(self.index)
         dist = self.getMazeDistance(self.start,pos2)
-        if dist < bestDist and (not self.checkStateSafe(gameState)):
+        print("304",bestDist)
+        if dist < bestDist:
           bestAction = action
           bestDist = dist
-        elif self.checkStateSafe(gameState):
-          if gstPos and Pacman:
-            enermyIndex = [tup[0] for tup in gstPos]
-            depth = self.miniMaxDepth
-            toAct = self.minimax(gameState, depth, self.index, enermyIndex)     
-            return toAct
-      return random.choice(actions)
+        
+      return bestAction
 
     # ACTION SENARIO 4: if food more than threshold, need to cash in
     goHome = self.needToCashIn(myPos, myState, self.minPelletsToCashIn)
@@ -325,8 +326,8 @@ class ClassicPlanAgent(CaptureAgent):
         # escape
         if threatToHome and Pacman:
           enermyIndex = [tup[0] for tup in gstPos]
-          depth = self.miniMaxDepth
-          toAct = self.minimax(gameState, depth, self.index, enermyIndex)     
+          
+          toAct = self.minimax(gameState, self.index, enermyIndex)     
           return toAct
     
     
@@ -336,7 +337,7 @@ class ClassicPlanAgent(CaptureAgent):
     maxValue = max(values)
     bestActions = [a for a, v in zip(actions, values) if v == maxValue]
     toAct = random.choice(bestActions)
-    #print('=== 326 ===', self.index, toAct, timeLeft)
+    print('=== 326 ===', self.index, toAct, timeLeft)
     return toAct
     
 
@@ -415,6 +416,7 @@ class ClassicPlanAgent(CaptureAgent):
   def evaluateImpasse(self, gameState, action):
     features = self.getFeaturesImpasse(gameState, action)
     weights = self.getWeightsImpasse(gameState, action)
+    print(action, features, features*weights)
     return features * weights
 
   def getFeaturesImpasse(self, gameState, action):
@@ -439,6 +441,11 @@ class ClassicPlanAgent(CaptureAgent):
         features['distToGhost'] += self.getMazeDistance(pos, nextPos)
     
     features['distToGhost'] += self.getApproxGhostDistance(nextPos)
+
+    # to avoid the situation that the destination of the action has a ghost, nextpos will be starting point.
+    if nextPos == self.start:
+      features['distToGhost'] = 0
+
     #print(self.belief)
 
     # penalise stop
@@ -463,7 +470,7 @@ class ClassicPlanAgent(CaptureAgent):
 
     # is eaten
     if ghsPosition:
-      if self.mayBeEaten(nextPos, ghsPosition):
+      if self.mayBeEaten(nextPos, ghsPosition) or nextPos == self.start:
         features['isEaten'] = 1
       else:
         features['isEaten'] = 0
@@ -1011,7 +1018,7 @@ class DefensiveReflexAgent(ClassicPlanAgent):
     # ACTION SENARIO : the enemy eat the Capsule
     scared = gameState.data.agentStates[self.index].scaredTimer
     enemyPacmanPos = self.checkStateSafeAtHome(gameState)
-    print('308 scared', scared, enemyPacmanPos)
+    #print('308 scared', scared, enemyPacmanPos)
     if scared > 0 and enemyPacmanPos and not Pacman:
       enermyIndex = [tup[0] for tup in enemyPacmanPos]
       toAct = self.minimax(gameState, self.index, enermyIndex, False)
@@ -1044,22 +1051,22 @@ class DefensiveReflexAgent(ClassicPlanAgent):
       
 
       # === ABOUT-TO-WIN SENARIO ===
-      if foodLeft <= 2:
+      if gstPos and Pacman:
+              enermyIndex = [tup[0] for tup in gstPos]
+              #depth = self.miniMaxDepth
+              toAct = self.minimax(gameState, self.index, enermyIndex)     
+              return toAct
+
+      if foodLeft <= 2:  
         bestDist = 9999
         for action in actions:
           successor = self.getSuccessor(gameState, action)
           pos2 = successor.getAgentPosition(self.index)
           dist = self.getMazeDistance(self.start,pos2)
-          if dist < bestDist and (not self.checkStateSafe(gameState)):
+          if dist < bestDist:
             bestAction = action
             bestDist = dist
-          elif self.checkStateSafe(gameState):
-            if gstPos and Pacman:
-              enermyIndex = [tup[0] for tup in gstPos]
-              #depth = self.miniMaxDepth
-              toAct = self.minimax(gameState, self.index, enermyIndex)     
-              return toAct
-        return random.choice(actions)
+        return bestAction
 
       # CASE 2: carrying enough food, go home
       goHome = self.needToCashIn(myPos, myState, self.minPelletsToCashIn)
