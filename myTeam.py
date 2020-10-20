@@ -140,6 +140,28 @@ class ClassicPlanAgent(CaptureAgent):
     self.belief = {}    # our belief of where the ghost might be
     for enemy in self.enemies:
       self.belief[enemy] = util.Counter()
+    self.findDeadEnd(gameState)
+    
+    print("===Find dead end poses=== 145\n", "\n",self.deadEndPoses)
+    #print(gameState.data.layout)
+    fakeLay = gameState.data.layout.deepCopy()
+    print("FAKE\n",fakeLay)
+    maxY = self.height - 1
+    newlay = ""
+    for y in range(self.height):
+      for x in range(self.width):
+        if (x, maxY - y) in self.deadEndPoses:
+          newlay +='X'
+        else:
+          newlay += fakeLay.layoutText[y][x]
+        
+
+        #layoutChar = fakeLay.layoutText[maxY - y][x]
+        #print(layoutChar)
+      newlay += '\n'
+    """for (x,y) in self.deadEndPoses:
+      fakeLay.layoutText[maxY - y][x] = 'x'"""
+    print(newlay)
 
   def getBoardInfo(self, gameState):
     """
@@ -339,6 +361,56 @@ class ClassicPlanAgent(CaptureAgent):
     toAct = random.choice(bestActions)
     print('=== 326 ===', self.index, toAct, timeLeft)
     return toAct
+
+
+  # helper function for findDeadEnd, to detect the number of wall (includes filled cell) surrend to one position 
+  def detectSurroundWallWithFilled(self, gameState, pos, filledPos):
+    wallNum = 0
+    if gameState.hasWall(pos[0] + 1, pos[1]) or (pos[0] + 1, pos[1]) in filledPos:
+      wallNum += 1
+    if gameState.hasWall(pos[0] - 1, pos[1]) or (pos[0] - 1, pos[1]) in filledPos:
+      wallNum += 1
+    if gameState.hasWall(pos[0], pos[1] + 1) or (pos[0], pos[1] + 1) in filledPos:
+      wallNum += 1
+    if gameState.hasWall(pos[0], pos[1] - 1) or (pos[0], pos[1] - 1) in filledPos:
+      wallNum += 1
+    return wallNum
+
+  # Find all dead end positions in the maze
+  def findDeadEnd(self, gameState):
+    deadEndPos = set()
+    posQueue = util.Queue()
+    for x in range(1, self.width-1):
+      #print("x", x, self.height-1)
+      for y in range(1, self.height-1):
+        if not gameState.hasWall(x,y) and self.detectSurroundWall(gameState, (x,y)) == 3:
+          if (x,y) == (4,9):
+            print("!!!!!!!!!!388",(x,y),self.detectSurroundWall(gameState, (x,y)))
+          deadEndPos.add((x,y))
+          posQueue.push((x,y))
+    while not posQueue.isEmpty():
+      curPos = posQueue.pop()
+      #deadEndPos.add(curPos)
+      neighborPoses = [(curPos[0]+1, curPos[1]),(curPos[0]-1, curPos[1]),(curPos[0], curPos[1]+1),(curPos[0], curPos[1]-1)]
+      #neighborPoses = [(curPos[0]+i, curPos[1]+j) for i in [-1, 0, 1] for j in [-1, 0, 1] if not gameState.hasWall(curPos[0]+i, curPos[1]+j)]
+      for neighborPos in neighborPoses:
+
+        if neighborPos not in deadEndPos and not gameState.hasWall(neighborPos[0],neighborPos[1]):
+          if self.detectSurroundWallWithFilled(gameState, neighborPos, deadEndPos) >= 3:
+            if neighborPos == (4,9):
+              print("!!!!!!!!!!399",curPos)
+            deadEndPos.add(neighborPos)
+            posQueue.push(neighborPos)
+    self.deadEndPoses = deadEndPos
+
+
+
+      
+
+
+       
+        
+
     
 
    
@@ -349,10 +421,6 @@ class ClassicPlanAgent(CaptureAgent):
 
     
 
-
-    #enemies = [successor.getAgentState(i) for i in self.getOpponents(successor)]
-   
-    #invaders = [a for a in enemies if a.isPacman and a.getPosition() != None]
 
 
 
@@ -605,7 +673,7 @@ class ClassicPlanAgent(CaptureAgent):
       wallNum += 1
     if gameState.hasWall(pos[0], pos[1] + 1):
       wallNum += 1
-    if gameState.hasWall(pos[0] + 1, pos[1] - 1):
+    if gameState.hasWall(pos[0], pos[1] - 1):
       wallNum += 1
     return wallNum
     
@@ -621,7 +689,7 @@ class ClassicPlanAgent(CaptureAgent):
       for bestAction, pos in zip(bestActions, bestActionsPos):
         if pos not in self.enemyCells:
           selectedActionsAtHome.append(bestAction)
-        elif pos in self.enemyCells and self.detectSurroundWall(gameState, pos) != 3:
+        elif pos in self.enemyCells and pos not in self.deadEndPoses:
           distToHomeList.append(self.distToHome[pos][0])
           actionsInEnermy.append(bestAction)
   
@@ -756,6 +824,9 @@ class ClassicPlanAgent(CaptureAgent):
       if foodNum > foodNumNew:
         isClose = 1
     return isClose
+
+  
+    
 
   def evaluatePatrol(self, gameState, action):
     """
@@ -1014,8 +1085,8 @@ class DefensiveReflexAgent(ClassicPlanAgent):
     foodLeft = len(self.getFood(gameState).asList())
     timeLeft = gameState.data.timeleft
 
-    # === ABOUT TO LOSE SENARIO ===
-    # ACTION SENARIO : the enemy eat the Capsule
+    
+    # ACTION SENARIO : the enemy eat the Capsule,run away, tend to move to the enermy's side
     scared = gameState.data.agentStates[self.index].scaredTimer
     enemyPacmanPos = self.checkStateSafeAtHome(gameState)
     #print('308 scared', scared, enemyPacmanPos)
@@ -1023,7 +1094,17 @@ class DefensiveReflexAgent(ClassicPlanAgent):
       enermyIndex = [tup[0] for tup in enemyPacmanPos]
       toAct = self.minimax(gameState, self.index, enermyIndex, False)
       return toAct
+
+    # ACTION SENARIO : when pacman and in enermy's side threatened by the ghost
+    gstPos = self.checkStateSafe(gameState)
     
+    if gstPos and Pacman:
+      enermyIndex = [tup[0] for tup in gstPos]
+      #depth = self.miniMaxDepth
+      toAct = self.minimax(gameState,self.index, enermyIndex)     
+      return toAct
+    
+    # === ABOUT TO LOSE SENARIO ===
     if len(defendFood) <= 4:
       values = [self.evaluatePatrol(gameState, a) for a in actions]
       maxValue = max(values)
@@ -1052,10 +1133,10 @@ class DefensiveReflexAgent(ClassicPlanAgent):
 
       # === ABOUT-TO-WIN SENARIO ===
       if gstPos and Pacman:
-              enermyIndex = [tup[0] for tup in gstPos]
-              #depth = self.miniMaxDepth
-              toAct = self.minimax(gameState, self.index, enermyIndex)     
-              return toAct
+        enermyIndex = [tup[0] for tup in gstPos]
+        #depth = self.miniMaxDepth
+        toAct = self.minimax(gameState, self.index, enermyIndex)     
+        return toAct
 
       if foodLeft <= 2:  
         bestDist = 9999
@@ -1090,14 +1171,6 @@ class DefensiveReflexAgent(ClassicPlanAgent):
             toAct = self.minimax(gameState, self.index, enermyIndex)     
             return toAct
       
-      # CASE 3: while eating, threatened
-      gstPos = self.checkStateSafe(gameState)
-      
-      if gstPos and Pacman:
-        enermyIndex = [tup[0] for tup in gstPos]
-        #depth = self.miniMaxDepth
-        toAct = self.minimax(gameState,self.index, enermyIndex)     
-        return toAct
 
       # CASE 3: no threats and still hungry  
       values = [self.evaluate(gameState, a) for a in actions]
