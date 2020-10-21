@@ -365,6 +365,15 @@ class ClassicPlanAgent(CaptureAgent):
       print('=== 1140 ===scared, the enermy eat the cap', toAct,self.index,timeLeft,myPos)
       return toAct 
 
+    # === DETECTS GHOST === USE MINIMAX ===
+    if gstPos and Pacman:
+      enermyIndex = [tup[0] for tup in gstPos]
+      #depth = self.miniMaxDepth
+      
+      toAct = self.minimax(gameState, self.index, enermyIndex) 
+      print("minimax 316", self.index, toAct, myPos)    
+      return toAct
+
     if len(defendFood) <= self.totalFoodNum/5:
       
       values = [self.evaluatePatrol(gameState, a) for a in actions]
@@ -395,14 +404,7 @@ class ClassicPlanAgent(CaptureAgent):
 
       return bestAction
     
-    # === DETECTS GHOST === USE MINIMAX ===
-    if gstPos and Pacman:
-      enermyIndex = [tup[0] for tup in gstPos]
-      #depth = self.miniMaxDepth
-      
-      toAct = self.minimax(gameState, self.index, enermyIndex) 
-      print("minimax 316", self.index, toAct, myPos)    
-      return toAct
+    
 
     # ACTION SENARIO 6: about to win, after detect ghost
     foodLeft = len(self.getFood(gameState).asList())
@@ -549,8 +551,13 @@ class ClassicPlanAgent(CaptureAgent):
     if ghsPosition:
       for _, pos in ghsPosition:
         features['distToGhost'] += self.getMazeDistance(pos, nextPos)
+        
+    elif nextPos == self.start:
+      features['distToGhost'] = 0
+    
     else: 
       features['distToGhost'] = 0
+
     if self.distToHome[myPos]:
       features['homeDist'] = -1*self.distToHome[myPos][0]
     else:
@@ -594,7 +601,11 @@ class ClassicPlanAgent(CaptureAgent):
         features['distToGhost'] += self.getMazeDistance(pos, nextPos)
     
     features['distToGhost'] += self.getApproxGhostDistance(nextPos)
-
+    
+    # to avoid the situation that the destination of the action has a ghost, nextpos will be starting point.
+    if nextPos == self.start:
+      features['distToGhost'] = 0
+    
     # penalise stop
     if action == Directions.STOP: features['stop'] = 1
 
@@ -621,6 +632,7 @@ class ClassicPlanAgent(CaptureAgent):
         features['isEaten'] = 1
       else:
         features['isEaten'] = 0
+    print("633 features",self.index,action, pos, features)
     return features
 
   def getDistToGstFreeEnemyAreaY(self, gameState, nextPos):
@@ -635,6 +647,7 @@ class ClassicPlanAgent(CaptureAgent):
 
         dist += prob*(abs(pos[1] - nextPos[1]))    # maximise y distance
     return -1*dist
+
   def getDistToGstFreeEnemyAreaX(self, gameState, nextPos):
     """
     Maximise the abs of y axis distance to the belief of ghost position
@@ -748,13 +761,19 @@ class ClassicPlanAgent(CaptureAgent):
         #if (depth == self.miniMaxDepth and action!= "STOP") or depth!= self.miniMaxDepth:
         if action!= "Stop":
           successor = gameState.generateSuccessor(playerIndex, action)
-          enermyIndex = allGameIndexes[1]
-          actionValue,a = self.min2(successor, depth-1,enermyIndex, allGameIndexes, isPacman)
           myPos = successor.getAgentPosition(playerIndex)
-          myPosList.append(myPos)
-          print("352++++max ",depth-1, actionValue, action, a)
-          actionValues.append(actionValue)
-          applicableActions.append(action)
+          if not myPos == self.start:
+           
+          
+            
+            enermyIndex = allGameIndexes[1]
+            actionValue,a = self.min2(successor, depth-1,enermyIndex, allGameIndexes, isPacman)
+            
+            print("352++++max ",depth-1, actionValue, action, a)
+          
+            myPosList.append(myPos)
+            actionValues.append(actionValue)
+            applicableActions.append(action)
       
       # when the final action (depth = self.minimaxDepth) list is empty, return 'STOP'.
       if len(applicableActions) == 0:
@@ -905,14 +924,15 @@ class ClassicPlanAgent(CaptureAgent):
         #if (depth == self.miniMaxDepth and action!= "STOP") or depth!= self.miniMaxDepth:
         if action!= 'Stop':
           successor = gameState.generateSuccessor(playerIndex, action)
-          playerInallIndex = (allIndexes.index(playerIndex) + 1)%len(allIndexes)
-          enermyIndex = allIndexes[playerInallIndex]
-          actionValue,a = self.maxn(successor, depth-1,enermyIndex, allIndexes, isPacman)
           myPos = successor.getAgentPosition(playerIndex)
-          for i in range(len(actionValue)):
-            actionValues.append(actionValue[i])
-            applicableActions.append(action)          
-            myPosList.append(myPos)
+          if myPos != self.start:
+            playerInallIndex = (allIndexes.index(playerIndex) + 1)%len(allIndexes)
+            enermyIndex = allIndexes[playerInallIndex]
+            actionValue,a = self.maxn(successor, depth-1,enermyIndex, allIndexes, isPacman)
+            for i in range(len(actionValue)):
+              actionValues.append(actionValue[i])
+              applicableActions.append(action)          
+              myPosList.append(myPos)
                              
       # when the final action (depth = self.minimaxDepth) list is empty, return 'STOP'.
       if len(applicableActions) == 0:
@@ -1049,6 +1069,8 @@ class ClassicPlanAgent(CaptureAgent):
     if ghsPosition:
       for _, pos in ghsPosition:
         features['distToGhost'] += self.getMazeDistance(pos, nextPos)
+    elif nextPos ==self.start:
+      features['distToGhost'] = 0
     else: 
       features['distToGhost'] = 0
 
@@ -1166,6 +1188,8 @@ class ClassicPlanAgent(CaptureAgent):
     if ghsPosition:
       for _, pos in ghsPosition:
         features['distToGhost'] += self.getMazeDistance(pos, nextPos)
+    elif nextPos == self.start:
+      features['distToGhost'] = 0
     else: 
       features['distToGhost'] = 0
     if self.distToHome[myPos]:
