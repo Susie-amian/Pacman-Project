@@ -259,8 +259,10 @@ class ClassicPlanAgent(CaptureAgent):
     enemyPacmanPos = self.checkStateSafeAtHome(gameState)
     #print('308 scared', scared, enemyPacmanPos)
     if scared > 0 and enemyPacmanPos and not Pacman:
+      #print('308 scared, the enermy eat the cap', scared, self.index, enemyPacmanPos)
       enermyIndex = [tup[0] for tup in enemyPacmanPos]
       toAct = self.minimax(gameState, self.index, enermyIndex, False)
+      print('=== 1140 ===scared, the enermy eat the cap', toAct,self.index,timeLeft,myPos)
       return toAct 
 
     if len(defendFood) <= 4:
@@ -269,7 +271,7 @@ class ClassicPlanAgent(CaptureAgent):
       maxValue = max(values)
       bestActions = [a for a, v in zip(actions, values) if v == maxValue]
       toAct = random.choice(bestActions)
-      #print('=== 228 ===', self.index, toAct, timeLeft)
+      print('=== 228 ===', self.index, toAct, timeLeft, myPos)
       return toAct
 
     # === NORMAL SENARIO ===
@@ -277,7 +279,7 @@ class ClassicPlanAgent(CaptureAgent):
     if self.actionFrontier:
       #print()
       toAct = self.actionFrontier.pop(0)
-      print('=== 235 ===', self.index, toAct, timeLeft)
+      print('=== 235 ===', self.index, toAct, timeLeft, myPos)
       return toAct
 
     # ACTION STEP 2: after reaching frontier
@@ -287,7 +289,7 @@ class ClassicPlanAgent(CaptureAgent):
       # check if planned step is safe
       gstPos = self.checkStateSafe(gameState)
       if not gstPos:    # safe, ghost not detected
-        print('=== 245 ===', self.index, toAct, timeLeft)
+        print('=== 245 ===', self.index, toAct, timeLeft, myPos)
         return toAct
 
       # otherwise, ghost detected, run.
@@ -305,14 +307,16 @@ class ClassicPlanAgent(CaptureAgent):
       maxValue = max(values)
       bestActions = [a for a, v in zip(actions, values) if v == maxValue]
       bestAction = random.choice(bestActions)
-      #print('=== 259 ===', self.index, bestAction, timeLeft)
+      print('=== 259 ===', self.index, bestAction, timeLeft, myPos)
       return bestAction
     
     # === DETECTS GHOST === USE MINIMAX ===
     if gstPos and Pacman:
       enermyIndex = [tup[0] for tup in gstPos]
       #depth = self.miniMaxDepth
-      toAct = self.minimax(gameState, self.index, enermyIndex)     
+      
+      toAct = self.minimax(gameState, self.index, enermyIndex) 
+      print("minimax 316", self.index, toAct, myPos)    
       return toAct
 
     # ACTION SENARIO 6: about to win, after detect ghost
@@ -323,11 +327,11 @@ class ClassicPlanAgent(CaptureAgent):
         successor = self.getSuccessor(gameState, action)
         pos2 = successor.getAgentPosition(self.index)
         dist = self.getMazeDistance(self.start,pos2)
-        print("304",bestDist)
+        
         if dist < bestDist:
           bestAction = action
           bestDist = dist
-        
+      print('=== 333 ===', self.index, bestAction, timeLeft, myPos)
       return bestAction
 
     # ACTION SENARIO 4: if food more than threshold, need to cash in
@@ -349,7 +353,8 @@ class ClassicPlanAgent(CaptureAgent):
         if threatToHome and Pacman:
           enermyIndex = [tup[0] for tup in gstPos]
           
-          toAct = self.minimax(gameState, self.index, enermyIndex)     
+          toAct = self.minimax(gameState, self.index, enermyIndex)
+          print('=== 356 ===', self.index, toAct, timeLeft)     
           return toAct
     
     
@@ -359,7 +364,7 @@ class ClassicPlanAgent(CaptureAgent):
     maxValue = max(values)
     bestActions = [a for a, v in zip(actions, values) if v == maxValue]
     toAct = random.choice(bestActions)
-    print('=== 326 ===', self.index, toAct, timeLeft)
+    print('=== 366 ===', self.index, toAct, timeLeft)
     return toAct
 
 
@@ -431,19 +436,16 @@ class ClassicPlanAgent(CaptureAgent):
     enemy = self.getEnemy(gameState)
     enemyPacman = enemy['Pacman']
     agentPos = gameState.getAgentPosition(self.index)
+    nearbyEnermy = []
 
-    # check if enermy scared
-    minDist = 9999
     for index, pos in enemyPacman:
       dist = self.getMazeDistance(agentPos, pos)
-      if dist < minDist:
-        minDist = dist
-    if minDist > 4:
-      enemyPacman = None
+      if dist <= 5:
+        nearbyEnermy.append((index, pos))
 
-    if not enemyPacman:
+    if not nearbyEnermy:
       return None
-    return enemyPacman
+    return nearbyEnermy
 
   
   def evaluateGoHome(self, gameState, action):
@@ -548,17 +550,18 @@ class ClassicPlanAgent(CaptureAgent):
     if len(enermyIndex) == 1:
       allIndexes = [self.index, enermyIndex[0]]
       depth = self.miniMaxDepth
+      print("+++ 1 Enermy MINIMAX BEGIN+++551")
       _, toAct = self.max2(gameState, depth, self.index, allIndexes, isPacman)
-      #print("+++1 Enermy MINIMAX RESULT", toAct, v)
+      print("+++1 Enermy MINIMAX RESULT 553", toAct)
     elif len(enermyIndex) == 2:
       #actions = gameState.getLegalActions(self.index)
       allIndexes  = [playerIndex] + enermyIndex
       depth = self.miniMaxDepth2
-      #print("+++ Enermy MINIMAX BEGIN+++326")
+      print("+++ 2 Enermy MINIMAX BEGIN+++558")
       _, toAct = self.maxn(gameState, depth, playerIndex, allIndexes, isPacman)
       #toAct = random.choice(actions)
       #print("HAVNT IMPLEMENTED")
-      #print("+++2 Enermy MINIMAX RESULT", toAct, v)
+      print("+++2 Enermy MINIMAX RESULT 562", toAct)
     return toAct
 
   def getEvaluation(self, gameState, allIndex):
@@ -641,10 +644,10 @@ class ClassicPlanAgent(CaptureAgent):
         if action!= "Stop":
           successor = gameState.generateSuccessor(playerIndex, action)
           enermyIndex = allGameIndexes[1]
-          actionValue,_ = self.min2(successor, depth-1,enermyIndex, allGameIndexes, isPacman)
+          actionValue,a = self.min2(successor, depth-1,enermyIndex, allGameIndexes, isPacman)
           myPos = successor.getAgentPosition(playerIndex)
           myPosList.append(myPos)
-          #print("352++++",depth-1, actionValue, action, a)
+          print("352++++max ",depth-1, actionValue, action, a)
           actionValues.append(actionValue)
           applicableActions.append(action)
       
@@ -661,6 +664,7 @@ class ClassicPlanAgent(CaptureAgent):
 
       # select next action based on features (try to avoid go to the dead end)
       if depth == self.miniMaxDepth:
+        print("664 MINIMAX best actions",bestActions,maxValue)
         selectedActions = self.selectMiniMaxAction(bestActions, bestActionsPos, gameState, isPacman)
         return 0, random.choice(selectedActions)
   
@@ -678,7 +682,7 @@ class ClassicPlanAgent(CaptureAgent):
     return wallNum
     
 
-              
+          
   # Select actions with shortest distance to home from the highest depth   
   def selectMiniMaxAction(self, bestActions, bestActionsPos, gameState, isPacman):
     if isPacman:
@@ -686,20 +690,30 @@ class ClassicPlanAgent(CaptureAgent):
       distToHomeList = []
       selectedActionsInEnermy = []
       actionsInEnermy = []
+      actionsInDeadEnd = []
+      actionsInDeadEndDist = []
       for bestAction, pos in zip(bestActions, bestActionsPos):
         if pos not in self.enemyCells:
           selectedActionsAtHome.append(bestAction)
         elif pos in self.enemyCells and pos not in self.deadEndPoses:
           distToHomeList.append(self.distToHome[pos][0])
           actionsInEnermy.append(bestAction)
+        elif pos in self.enemyCells:
+          actionsInDeadEnd.append(bestAction)
+          actionsInDeadEndDist.append(self.distToHome[pos][0])
+
   
       if len(distToHomeList) !=0:
         closestToHomeDist = min(distToHomeList)
         selectedActionsInEnermy = [a for a,d in zip(actionsInEnermy, distToHomeList) if d == closestToHomeDist]
 
         selectedActions = selectedActionsAtHome + selectedActionsInEnermy
-      else:
+      elif len(selectedActionsAtHome):
         selectedActions = selectedActionsAtHome 
+      else:
+        closestToHomeDistInDeadEnd = min(actionsInDeadEndDist)
+        selectedActionsInEnermyDeadEnd = [a for a,d in zip(actionsInDeadEnd, actionsInDeadEndDist) if d == closestToHomeDistInDeadEnd]
+        selectedActions = selectedActionsInEnermyDeadEnd
       if len(selectedActions) != 0:
         #print('407--', random.choice(selectedActions))
         return selectedActions
@@ -711,20 +725,31 @@ class ClassicPlanAgent(CaptureAgent):
       distToEnemyHomeList = []
       selectedActionsInEnermy = []
       actionsAtHome = []
+      actionsInDeadEnd = []
+      actionsInDeadEndDist = []
       for bestAction, pos in zip(bestActions, bestActionsPos):
         if pos in self.enemyCells:
           selectedActionsInEnermy.append(bestAction)
-        elif pos in self.enemyCells and self.detectSurroundWall(gameState, pos) != 3:
+        elif pos not in self.enemyCells and pos not in self.deadEndPoses:
           distToEnemyHomeList.append(self.computeDistToEnemyHome(pos)[0])
           actionsAtHome.append(bestAction)
+        elif pos not in self.enemyCells:
+          actionsInDeadEnd.append(bestAction)
+          actionsInDeadEndDist.append(self.computeDistToEnemyHome(pos)[0])
+
   
       if len(distToEnemyHomeList) !=0:
         closestToEnemyHomeDist = min(distToEnemyHomeList)
         selectedActionsAtHome = [a for a,d in zip(actionsAtHome, distToEnemyHomeList) if d == closestToEnemyHomeDist]
 
         selectedActions = selectedActionsAtHome + selectedActionsInEnermy
-      else:
+      elif len(selectedActionsInEnermy):
         selectedActions = selectedActionsInEnermy
+      else:
+        closestToHomeDistInDeadEnd = min(actionsInDeadEndDist)
+        selectedActionsInEnermyDeadEnd = [a for a,d in zip(actionsInDeadEnd, actionsInDeadEndDist) if d == closestToHomeDistInDeadEnd]
+        selectedActions = selectedActionsInEnermyDeadEnd
+
       if len(selectedActions) != 0:
         #print('407--', random.choice(selectedActions))
         return selectedActions
@@ -754,9 +779,9 @@ class ClassicPlanAgent(CaptureAgent):
     for action in actions:
       if action!= 'Stop':
         successor = gameState.generateSuccessor(playerIndex, action)
-        nextIndex = allIndexes[1]
-        actionValue,_ = self.max2(successor, depth-1, nextIndex, allIndexes, isPacman)
-        #print("369++++",depth-1, actionValue, action,a)
+        nextIndex = allIndexes[0]
+        actionValue,a = self.max2(successor, depth-1, nextIndex, allIndexes, isPacman)
+        print("369++++",depth-1, actionValue, action,a)
         if bestActionValue > actionValue:
           bestAction = action
           bestActionValue = actionValue
@@ -765,6 +790,7 @@ class ClassicPlanAgent(CaptureAgent):
   
   def maxn(self, gameState, depth, playerIndex, allIndexes, isPacman):
     if depth == 0 or gameState.getLegalActions(playerIndex) == None or gameState.isOver():
+      print(depth, gameState)
       return (self.getEvaluation(gameState, allIndexes), None)
     else:
       #bestActionValue = -9999
@@ -802,12 +828,13 @@ class ClassicPlanAgent(CaptureAgent):
       #print('489 maxPlayer Value',depth, maxPlayerValue, bestActions, bestActionValueTuples,actionValues)
       if depth!= self.miniMaxDepth2:
         toAct = random.choice(bestActions)
-        #print("474", toAct,bestActionValueTuples)
+        print("831", depth,toAct,bestActionValueTuples)
         return bestActionValueTuples, toAct
 
       # select next action based on features (try to avoid go to the dead end)
       if depth == self.miniMaxDepth2:
         #closestToHome = []
+        print("minimax n 812", bestActions,bestActionValueTuples)
         selectedActions = self.selectMiniMaxAction(bestActions, bestActionsPos, gameState, isPacman)
         toAct = random.choice(selectedActions)
 
@@ -986,23 +1013,17 @@ class ClassicPlanAgent(CaptureAgent):
     enemy = self.getEnemy(gameState)
     enemyGhost = enemy['Ghost']
     agentPos = gameState.getAgentPosition(self.index)
-
+    nearbyGhost = []
     # check if ghost scared
-    minDist = 9999
     for index, pos in enemyGhost:
-      scared = gameState.data.agentStates[index].scaredTimer
-      if scared > 2:
-        enemyGhost = None
       dist = self.getMazeDistance(agentPos, pos)
+      scared = gameState.data.agentStates[index].scaredTimer
+      if dist <= 5 and scared <=2 :
+        nearbyGhost.append((index, pos))
 
-      if dist < minDist:
-        minDist = dist
-    if minDist > 4:
-      enemyGhost = None
-
-    if not enemyGhost:
+    if not nearbyGhost:
       return None
-    return enemyGhost
+    return nearbyGhost
     
   def getEnemy(self, gameState): 
     """
@@ -1093,6 +1114,7 @@ class DefensiveReflexAgent(ClassicPlanAgent):
     if scared > 0 and enemyPacmanPos and not Pacman:
       enermyIndex = [tup[0] for tup in enemyPacmanPos]
       toAct = self.minimax(gameState, self.index, enermyIndex, False)
+      print('=== 1103 enermy eat cap ===', self.index, toAct, timeLeft, myPos)
       return toAct
 
     # ACTION SENARIO : when pacman and in enermy's side threatened by the ghost
@@ -1101,7 +1123,9 @@ class DefensiveReflexAgent(ClassicPlanAgent):
     if gstPos and Pacman:
       enermyIndex = [tup[0] for tup in gstPos]
       #depth = self.miniMaxDepth
-      toAct = self.minimax(gameState,self.index, enermyIndex)     
+      
+      toAct = self.minimax(gameState,self.index, enermyIndex)   
+      print('=== 1114 minimax ===', self.index, toAct, timeLeft,myPos)  
       return toAct
     
     # === ABOUT TO LOSE SENARIO ===
@@ -1110,7 +1134,7 @@ class DefensiveReflexAgent(ClassicPlanAgent):
       maxValue = max(values)
       bestActions = [a for a, v in zip(actions, values) if v == maxValue]
       bestAction = random.choice(bestActions)
-      #print('=== 767 ===', self.index, bestAction, timeLeft)
+      print('=== 1123 ===', self.index, bestAction, timeLeft,myPos)
       return bestAction
 
      
@@ -1127,7 +1151,7 @@ class DefensiveReflexAgent(ClassicPlanAgent):
         maxValue = max(values)
         bestActions = [a for a, v in zip(actions, values) if v == maxValue]
         bestAction = random.choice(bestActions)
-        #print('=== 781 ===', self.index, bestAction, timeLeft)
+        print('=== 1140 ===', self.index, bestAction, timeLeft,myPos)
         return bestAction
       
 
@@ -1135,7 +1159,8 @@ class DefensiveReflexAgent(ClassicPlanAgent):
       if gstPos and Pacman:
         enermyIndex = [tup[0] for tup in gstPos]
         #depth = self.miniMaxDepth
-        toAct = self.minimax(gameState, self.index, enermyIndex)     
+        toAct = self.minimax(gameState, self.index, enermyIndex) 
+        print('=== 1149 ===', self.index, toAct, timeLeft,myPos)    
         return toAct
 
       if foodLeft <= 2:  
@@ -1147,6 +1172,7 @@ class DefensiveReflexAgent(ClassicPlanAgent):
           if dist < bestDist:
             bestAction = action
             bestDist = dist
+        print('=== 1161 ===', self.index, bestAction, timeLeft,myPos) 
         return bestAction
 
       # CASE 2: carrying enough food, go home
@@ -1168,7 +1194,8 @@ class DefensiveReflexAgent(ClassicPlanAgent):
           if threatToHome and Pacman:
             enermyIndex = [tup[0] for tup in gstPos]
             #depth = self.miniMaxDepth
-            toAct = self.minimax(gameState, self.index, enermyIndex)     
+            toAct = self.minimax(gameState, self.index, enermyIndex)   
+            print('=== 1184 ===', self.index, toAct, timeLeft,myPos)  
             return toAct
       
 
@@ -1184,7 +1211,7 @@ class DefensiveReflexAgent(ClassicPlanAgent):
     
     
     bestAction = random.choice(bestActions)
-    #print('=== 873 ===', self.index, bestAction, timeLeft)
+    print('=== 1200 ===', self.index, bestAction, timeLeft,myPos)
     return bestAction
 
   
