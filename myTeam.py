@@ -134,7 +134,9 @@ class ClassicPlanAgent(CaptureAgent):
     self.trackPosition = {}   # track historical positions the enemy has been to
     
     self.findDeadEnd(gameState)
+    self.deepFoodDict = self.getDepthFood(gameState)
 
+    print("deepFoodDict 139",self.deepFoodDict)
     
     
     print("===Find dead end poses=== 145\n", "\n",self.deadEndPoses)
@@ -398,8 +400,12 @@ class ClassicPlanAgent(CaptureAgent):
       print("minimax 316", self.index, toAct, myPos)    
       return toAct
 
-    # if eat the capsule
-    if
+    # if eat the capsule ==== 
+    #scared = gameState.data.agentStates[self.index].scaredTimer
+    if prevState = self.getPreviousObservation():
+      #if >0, yes
+      if self.getCapsules(gameState):
+        hasEatCap = len(self.getCapsules(prevState)) >  len(self.getCapsules(gameState))
 
     if len(defendFood) <= self.totalFoodNum/5:
       
@@ -498,6 +504,18 @@ class ClassicPlanAgent(CaptureAgent):
       wallNum += 1
     return wallNum
 
+  #get depth of food if food in dead end position
+  def getDepthFood(self, gameState):
+    foodList =  self.getFood(gameState).asList()
+    deepFoodDict = {}
+    for food in foodList:
+      if food in self.deadEndDepth:
+        deepFoodDict[food] = self.deadEndDepth[food]
+      else:
+        deepFoodDict[food] = 0
+    return deepFoodDict
+
+
   # Find all dead end positions in the maze
   def findDeadEnd(self, gameState):
     deadEndPos = {'enemyDeadEnd':set(), 'homeDeadEnd':set()}
@@ -541,14 +559,14 @@ class ClassicPlanAgent(CaptureAgent):
             
             #deadEndPos.add(neighborPos)
             posQueue.push(neighborPos)
-    print(endPosDepthTemp)
+    
     #print(len(endPosDepth.))
     endPosDepth = {}
     for pos in set(list(deadEndPos['homeDeadEnd']) + list(deadEndPos['enemyDeadEnd'])):
       for key, endPosList in endPosDepthTemp.items():
         if pos in endPosList:
           endPosDepth[pos] = len(endPosList) - endPosList.index(pos)
-    print("endPosDepth",endPosDepth)
+    
     self.deadEndDepth = endPosDepth
         
     self.deadEndPoses = deadEndPos
