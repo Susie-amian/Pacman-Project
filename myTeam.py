@@ -835,7 +835,8 @@ class ClassicPlanAgent(CaptureAgent):
       wallNum += 1
     return wallNum
     
-  
+
+          
   
   def selectMiniMaxAction(self, bestActions, bestActionsPos, gameState, isPacman):
     if isPacman:
@@ -895,7 +896,7 @@ class ClassicPlanAgent(CaptureAgent):
             closestToFood = min(distToFoodList)
             selectedActionsToCap= [a for a,d in zip(closeToFoodAction, distToFoodList) if d == closestToFood]
             selectedActions = selectedActionsToCap
-        
+                    
       elif needGoHome:
         print("===Need go home=== 848")
         selectedActionsAtHome = []
