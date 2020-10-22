@@ -134,8 +134,7 @@ class ClassicPlanAgent(CaptureAgent):
     self.trackPosition = {}   # track historical positions the enemy has been to
     
     self.findDeadEnd(gameState)
-
-    
+    self.impassePath = []
     
     print("===Find dead end poses=== 145\n", "\n",self.deadEndPoses)
     #print(gameState.data.layout)
@@ -347,6 +346,7 @@ class ClassicPlanAgent(CaptureAgent):
     timeLeft = gameState.data.timeleft/4    
     global belief
     
+    
     # === Update belief of enemies positions ===
     for enemy in self.enemies:
       enemyPos = gameState.getAgentPosition(enemy)
@@ -376,6 +376,7 @@ class ClassicPlanAgent(CaptureAgent):
       probablePosition = [(pos, prob) for pos, prob in belief[enemy].items() if prob in maxProb]
       self.enemyProbPos[enemy] = probablePosition
 
+
     # ACTION SENARIO: the enemy eat the Capsule
     scared = gameState.data.agentStates[self.index].scaredTimer
     enemyPacmanPos = self.checkStateSafeAtHome(gameState)
@@ -384,6 +385,10 @@ class ClassicPlanAgent(CaptureAgent):
       toAct = self.minimax(gameState, self.index, enermyIndex, False)
       print('=== 1140 ===scared, the enermy eat the cap', toAct,self.index,timeLeft,myPos)
       return toAct 
+    
+    # CONTINUE FOR IMPASSE
+    if self.impassePath:
+      return self.impassePath.pop(0)
 
     # ACTION SENARIO: DETECTS GHOST === USE MINIMAX ===
     if gstPos and Pacman:
@@ -415,6 +420,10 @@ class ClassicPlanAgent(CaptureAgent):
       maxValue = max(values)
       bestActions = [a for a, v in zip(actions, values) if v == maxValue]
       bestAction = random.choice(bestActions)
+      if bestAction == Directions.STOP and len(bestActions) == 1:    # if stop is the inly option
+        end = self.getFurtherestCell(myPos)
+        _, self.impassePath = self.getImpassePath(gameState, end, myPos)
+
       print('=== 364 === impasse', self.index, bestAction, timeLeft,myPos)
       #print('\n=== 364 ===', enemyProbPos)
       return bestAction
@@ -482,6 +491,42 @@ class ClassicPlanAgent(CaptureAgent):
 
     return toAct
 
+  def getImpassePath(self, gameState, end, start):
+    """
+    Helper function for toFrontier
+    Using BFS to search path to another point in the frontier
+    """
+    explored = [start]
+    states = util.Queue()
+    stateRecord = (gameState, [])
+    states.push(stateRecord)
+    cur_pos = start
+    while not states.isEmpty():
+      state, action = states.pop()
+      cur_pos = state.getAgentPosition(self.index)
+
+      if cur_pos == end:
+        return state, action
+      
+      legalActions = state.getLegalActions(self.index)
+
+      for a in legalActions:
+        successor = state.generateSuccessor(self.index, a)
+        coor = successor.getAgentPosition(self.index)
+        if coor not in self.myCells:    # route planned in our territory
+          pass
+        if coor not in explored:
+          explored.append(coor)
+          states.push((successor, action+[a]))
+
+  def getFurtherestCell(self, curPos):
+    maxDist = 0
+    for fPos in self.frontierPoints:
+      dist = self.getMazeDistance(fPos, curPos)
+      if dist > maxDist:
+        maxDist = dist
+        maxPos = fPos
+    return maxPos
 
   # helper function for findDeadEnd, to detect the number of wall (includes filled cell) surrend to one position 
   def detectSurroundWallWithFilled(self, gameState, pos, filledPos):
