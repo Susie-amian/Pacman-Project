@@ -146,8 +146,8 @@ class ClassicPlanAgent(CaptureAgent):
     newlay = ""
     for y in range(self.height):
       for x in range(self.width):
-        if (x, maxY - y) in allDeadEnd:
-          newlay +='X'
+        if (x, maxY - y) in self.deadEndDepth.keys():
+          newlay += str(self.deadEndDepth[(x, maxY-y)])
         else:
           newlay += fakeLay.layoutText[y][x]
         
@@ -398,6 +398,9 @@ class ClassicPlanAgent(CaptureAgent):
       print("minimax 316", self.index, toAct, myPos)    
       return toAct
 
+    # if eat the capsule
+    if
+
     if len(defendFood) <= self.totalFoodNum/5:
       
       values = [self.evaluatePatrol(gameState, a) for a in actions]
@@ -499,6 +502,7 @@ class ClassicPlanAgent(CaptureAgent):
   def findDeadEnd(self, gameState):
     deadEndPos = {'enemyDeadEnd':set(), 'homeDeadEnd':set()}
     posQueue = util.Queue()
+    endPosDepthTemp = {}
     for x in range(1, self.width-1):
       #print("x", x, self.height-1)
       for y in range(1, self.height-1):
@@ -507,6 +511,7 @@ class ClassicPlanAgent(CaptureAgent):
             deadEndPos['enemyDeadEnd'].add((x,y))
           else:
             deadEndPos['homeDeadEnd'].add((x,y))
+          endPosDepthTemp[(x,y)] = [(x,y)]
           posQueue.push((x,y))
     while not posQueue.isEmpty():
       curPos = posQueue.pop()
@@ -519,6 +524,15 @@ class ClassicPlanAgent(CaptureAgent):
           not gameState.hasWall(neighborPos[0],neighborPos[1]):
           allDeadEnd = set(list(deadEndPos['homeDeadEnd']) + list(deadEndPos['enemyDeadEnd']))
           if self.detectSurroundWallWithFilled(gameState, neighborPos, allDeadEnd) >= 3:
+            
+            #To compute depth of the dead end position
+            for key, endPosList in endPosDepthTemp.items():
+              #print(key,endPosList)
+              nList = [(neighborPos[0]+1, neighborPos[1]),(neighborPos[0]-1, neighborPos[1]),(neighborPos[0], neighborPos[1]+1),(neighborPos[0], neighborPos[1]-1)]
+              for n in nList:
+                if n in endPosList:
+                  endPosDepthTemp[key].append(neighborPos)
+
 
             if neighborPos in self.enemyCells:
               deadEndPos['enemyDeadEnd'].add(neighborPos)
@@ -527,6 +541,16 @@ class ClassicPlanAgent(CaptureAgent):
             
             #deadEndPos.add(neighborPos)
             posQueue.push(neighborPos)
+    print(endPosDepthTemp)
+    #print(len(endPosDepth.))
+    endPosDepth = {}
+    for pos in set(list(deadEndPos['homeDeadEnd']) + list(deadEndPos['enemyDeadEnd'])):
+      for key, endPosList in endPosDepthTemp.items():
+        if pos in endPosList:
+          endPosDepth[pos] = len(endPosList) - endPosList.index(pos)
+    print("endPosDepth",endPosDepth)
+    self.deadEndDepth = endPosDepth
+        
     self.deadEndPoses = deadEndPos
 
 
