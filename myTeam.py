@@ -840,34 +840,100 @@ class ClassicPlanAgent(CaptureAgent):
   
   def selectMiniMaxAction(self, bestActions, bestActionsPos, gameState, isPacman):
     if isPacman:
-      selectedActionsAtHome = []
-      distToHomeList = []
-      selectedActionsInEnermy = []
-      actionsInEnermy = []
-      actionsInDeadEnd = []
-      actionsInDeadEndDist = []
-      for bestAction, pos in zip(bestActions, bestActionsPos):
-        if pos not in self.enemyCells:
-          selectedActionsAtHome.append(bestAction)
-        elif pos in self.enemyCells and pos not in self.deadEndPoses['enemyDeadEnd']:
-          distToHomeList.append(self.distToHome[pos][0])
-          actionsInEnermy.append(bestAction)
-        elif pos in self.enemyCells:
-          actionsInDeadEnd.append(bestAction)
-          actionsInDeadEndDist.append(self.distToHome[pos][0])
+      selectedActions = []
+      currentPos = gameState.getAgentPosition(self.index)
+      timeLeft = gameState.data.timeleft/4
+      myState = gameState.getAgentState(self.index)
+      needGoHome = self.needToCashIn(currentPos, myState, self.minPelletsToCashIn, timeLeft)
+      capsules = self.getCapsules(gameState)
+      if not needGoHome:
+        print("===NO need go home=== 848")
+        if capsules:
+          getCapAction = []
+          closeToCapAction = []
+          distToCapList = []
+          for bestAction, pos in zip(bestActions, bestActionsPos):
+            #successor = gameState.generateSuccessor(self.index, bestAction)
+            if pos in capsules:
+              getCapAction.append(bestAction)
+            elif pos not in capsules and pos not in self.deadEndPoses['enemyDeadEnd']:
+              minDist = 9999
+              for cap in capsules:
+                distToCap = self.getMazeDistance(cap, pos)
+                if minDist > distToCap:
+                  minDist = distToCap
+
+              distToCapList.append(minDist)
+              closeToCapAction.append(bestAction)
+          if getCapAction:
+            selectedActions = getCapAction
+          elif closeToCapAction:
+            closestToCap = min(distToCapList)
+            selectedActionsToCap= [a for a,d in zip(closeToCapAction, distToCapList) if d == closestToCap]
+            selectedActions = selectedActionsToCap
+
+        else:
+          getFoodAction = []
+          closeToFoodAction = []
+          distToFoodList = []
+          foodList = self.getFood(gameState).asList()
+          for bestAction, pos in zip(bestActions, bestActionsPos):
+            #successor = gameState.generateSuccessor(self.index, bestAction)
+            if pos in foodList and pos not in self.deadEndPoses['enemyDeadEnd']:
+              getFoodAction.append(bestAction)
+            elif pos not in foodList and pos not in self.deadEndPoses['enemyDeadEnd']:
+              minDist = 9999
+              for food in foodList:
+                distToFood = self.getMazeDistance(food, pos)
+                if minDist > distToFood:
+                  minDist = distToFood
+              print(minDist)
+              distToFoodList.append(minDist)
+              closeToFoodAction.append(bestAction)
+          if getFoodAction:
+            selectedActions = getFoodAction
+          elif closeToFoodAction:
+            closestToFood = min(distToFoodList)
+            selectedActionsToCap= [a for a,d in zip(closeToFoodAction, distToFoodList) if d == closestToFood]
+            selectedActions = selectedActionsToCap
+
+
+              
+            
+
+
+        
+      elif needGoHome:
+        print("===Need go home=== 848")
+        selectedActionsAtHome = []
+        distToHomeList = []
+        selectedActionsInEnermy = []
+        actionsInEnermy = []
+        actionsInDeadEnd = []
+        actionsInDeadEndDist = []
+        for bestAction, pos in zip(bestActions, bestActionsPos):
+          if pos not in self.enemyCells:
+            selectedActionsAtHome.append(bestAction)
+          elif pos in self.enemyCells and pos not in self.deadEndPoses['enemyDeadEnd']:
+            distToHomeList.append(self.distToHome[pos][0])
+            actionsInEnermy.append(bestAction)
+          elif pos in self.enemyCells:
+            actionsInDeadEnd.append(bestAction)
+            actionsInDeadEndDist.append(self.distToHome[pos][0])
 
   
-      if len(distToHomeList) !=0:
-        closestToHomeDist = min(distToHomeList)
-        selectedActionsInEnermy = [a for a,d in zip(actionsInEnermy, distToHomeList) if d == closestToHomeDist]
+        if len(distToHomeList) !=0:
+          closestToHomeDist = min(distToHomeList)
+          selectedActionsInEnermy = [a for a,d in zip(actionsInEnermy, distToHomeList) if d == closestToHomeDist]
 
-        selectedActions = selectedActionsAtHome + selectedActionsInEnermy
-      elif len(selectedActionsAtHome):
-        selectedActions = selectedActionsAtHome 
-      else:
-        closestToHomeDistInDeadEnd = min(actionsInDeadEndDist)
-        selectedActionsInEnermyDeadEnd = [a for a,d in zip(actionsInDeadEnd, actionsInDeadEndDist) if d == closestToHomeDistInDeadEnd]
-        selectedActions = selectedActionsInEnermyDeadEnd
+          selectedActions = selectedActionsAtHome + selectedActionsInEnermy
+        elif len(selectedActionsAtHome):
+          selectedActions = selectedActionsAtHome 
+        else:
+          closestToHomeDistInDeadEnd = min(actionsInDeadEndDist)
+          selectedActionsInEnermyDeadEnd = [a for a,d in zip(actionsInDeadEnd, actionsInDeadEndDist) if d == closestToHomeDistInDeadEnd]
+          selectedActions = selectedActionsInEnermyDeadEnd
+      
       if len(selectedActions) != 0:
         #print('407--', random.choice(selectedActions))
         return selectedActions
