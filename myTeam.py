@@ -1005,10 +1005,13 @@ class ClassicPlanAgent(CaptureAgent):
   def selectMiniMaxAction(self, bestActions, bestActionsPos, gameState, isPacman):
     if isPacman:
       selectedActions = []
+      defendFood = self.getFoodYouAreDefending(gameState).asList()
+      foodList= self.getFood(gameState).asList()
       currentPos = gameState.getAgentPosition(self.index)
       timeLeft = gameState.data.timeleft/4
       myState = gameState.getAgentState(self.index)
-      needGoHome = self.needToCashIn(currentPos, myState, self.minPelletsToCashIn, timeLeft)
+      needGoHome = self.needToCashIn(currentPos, myState, self.minPelletsToCashIn, timeLeft) or\
+         len(defendFood) > len(foodList)
       capsules = self.getCapsules(gameState)
       if not needGoHome:
         print("===NO need go home=== 848")
@@ -1472,7 +1475,7 @@ class ClassicPlanAgent(CaptureAgent):
     for index, pos in enemyGhost:
       dist = self.getMazeDistance(agentPos, pos)
       scared = gameState.data.agentStates[index].scaredTimer
-      if dist <= 5 and scared <=2 :
+      if dist <= 5 and scared <=4 :
         nearbyGhost.append((index, pos))
 
     if not nearbyGhost:

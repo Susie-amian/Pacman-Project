@@ -1,0 +1,4299 @@
+
+Red team myTeam with {}:
+myTeam.py
+Loading Team: myTeam.py
+Arguments: {}
+
+Blue team baselineTeam with {}:
+baselineTeam.py
+Loading Team: baselineTeam.py
+Arguments: {}
+1
+Blue team starts
+===Find dead end poses=== 145
+ 
+ {'enemyDeadEnd': {(32, 1), (22, 13), (32, 13), (32, 6), (32, 9), (21, 13), (32, 2), (31, 1), (24, 9), (32, 14), (24, 5), (28, 9), (32, 7), (32, 16), (32, 10), (24, 1), (32, 3), (30, 1), (32, 15), (28, 16), (23, 10), (24, 6), (28, 10), (26, 9), (22, 4), (32, 11), (30, 16), (32, 4), (24, 7), (28, 11), (25, 6), (23, 9), (32, 12), (24, 3), (32, 5), (32, 8), (23, 13), (25, 9)}, 'homeDeadEnd': {(1, 3), (5, 6), (9, 8), (1, 15), (1, 6), (5, 1), (1, 11), (5, 8), (1, 2), (10, 8), (10, 7), (1, 16), (1, 14), (1, 5), (9, 11), (1, 10), (3, 16), (1, 1), (11, 13), (2, 16), (9, 14), (10, 4), (11, 4), (1, 13), (8, 11), (1, 4), (9, 10), (9, 16), (1, 9), (1, 12), (3, 1), (5, 7), (1, 8), (8, 8), (12, 4), (1, 7), (7, 8), (9, 12)}}
+FAKE
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%   %   %.%  ..      .  %. % % %4%
+% %         .     % . %    %   %2%
+% % % . %.%%%%.%%%%% %%%% %% % % %
+% % %%% %%%.% o%     ...%  % % % %
+% % %   %.%   .%  %%%%%%%%     % %
+% % %.%  .% %%        . o. % % % %
+% %.%   %.%.   % %%%%.% %%%%.% % %
+% %.%%%%%%%%%.%%      %  ..%.% % %
+% % %.%..  %      %%.%%%%%%%%%.% %
+% % %.%%%% %.%%%% %   .%.%   %.% %
+% % % % .o .        %% %.  %.% % %
+% %     %%%%%%%%  %.   %.%   % % %
+% % % %  %...     %o %.%%% %%% % %
+% % % %% %%%% %%%%%.%%%%.% . % % %
+%1%   %    % . %     .         % %
+%3% % % .%  .      ..  %.%   %   %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%321%   %1%  ..      .  %. %1%1%18%
+%4%         .     % . %    %   %17%
+%5% % . %1%%%%.%%%%% %%%% %% % %16%
+%6% %%% %%%1% o%     123%  % % %15%
+%7% %   %3%   .%  %%%%%%%%     %14%
+%8% %.% 12% %%        . o. %1% %13%
+%9%.%   %3%.   % %%%%.%1%%%%2% %12%
+%10%.%%%%%%%%%.%%      %2345%3% %11%
+%11% %3%5432%      %%.%%%%%%%%%.%10%
+%12% %2%%%%1%.%%%% %   .%3%   %.%9%
+%13% %1% .o .        %% %21 %.% %8%
+%14%     %%%%%%%%  %.   %3%   % %7%
+%15% % %  %321     %o %1%%% %%% %6%
+%16% % %% %%%% %%%%%.%%%%1% . % %5%
+%17%   %    % . %     .         %4%
+%18%1%1% .%  .      ..  %1%   %123%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+===Find dead end poses=== 145
+ 
+ {'enemyDeadEnd': {(32, 1), (22, 13), (32, 13), (32, 6), (32, 9), (21, 13), (32, 2), (31, 1), (24, 9), (32, 14), (24, 5), (28, 9), (32, 7), (32, 16), (32, 10), (24, 1), (32, 3), (30, 1), (32, 15), (28, 16), (23, 10), (24, 6), (28, 10), (26, 9), (22, 4), (32, 11), (30, 16), (32, 4), (24, 7), (28, 11), (25, 6), (23, 9), (32, 12), (24, 3), (32, 5), (32, 8), (23, 13), (25, 9)}, 'homeDeadEnd': {(1, 3), (5, 6), (9, 8), (1, 15), (1, 6), (5, 1), (1, 11), (5, 8), (1, 2), (10, 8), (10, 7), (1, 16), (1, 14), (1, 5), (9, 11), (1, 10), (3, 16), (1, 1), (11, 13), (2, 16), (9, 14), (10, 4), (11, 4), (1, 13), (8, 11), (1, 4), (9, 10), (9, 16), (1, 9), (1, 12), (3, 1), (5, 7), (1, 8), (8, 8), (12, 4), (1, 7), (7, 8), (9, 12)}}
+FAKE
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%   %   %.%  ..      .  %. % % %4%
+% %         .     % . %    %   %2%
+% % % . %.%%%%.%%%%% %%%% %% % % %
+% % %%% %%%.% o%     ...%  % % % %
+% % %   %.%   .%  %%%%%%%%     % %
+% % %.%  .% %%        . o. % % % %
+% %.%   %.%.   % %%%%.% %%%%.% % %
+% %.%%%%%%%%%.%%      %  ..%.% % %
+% % %.%..  %      %%.%%%%%%%%%.% %
+% % %.%%%% %.%%%% %   .%.%   %.% %
+% % % % .o .        %% %.  %.% % %
+% %     %%%%%%%%  %.   %.%   % % %
+% % % %  %...     %o %.%%% %%% % %
+% % % %% %%%% %%%%%.%%%%.% . % % %
+%1%   %    % . %     .         % %
+%3% % % .%  .      ..  %.%   %   %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%321%   %1%  ..      .  %. %1%1%18%
+%4%         .     % . %    %   %17%
+%5% % . %1%%%%.%%%%% %%%% %% % %16%
+%6% %%% %%%1% o%     123%  % % %15%
+%7% %   %3%   .%  %%%%%%%%     %14%
+%8% %.% 12% %%        . o. %1% %13%
+%9%.%   %3%.   % %%%%.%1%%%%2% %12%
+%10%.%%%%%%%%%.%%      %2345%3% %11%
+%11% %3%5432%      %%.%%%%%%%%%.%10%
+%12% %2%%%%1%.%%%% %   .%3%   %.%9%
+%13% %1% .o .        %% %21 %.% %8%
+%14%     %%%%%%%%  %.   %3%   % %7%
+%15% % %  %321     %o %1%%% %%% %6%
+%16% % %% %%%% %%%%%.%%%%1% . % %5%
+%17%   %    % . %     .         %4%
+%18%1%1% .%  .      ..  %1%   %123%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+=== 1200 === 2 North 299.75 (1, 1)
+=== 1200 === 2 North 298.75 (1, 2)
+=== 1200 === 2 North 297.75 (1, 3)
+=== 1200 === 2 North 296.75 (1, 4)
+=== 1200 === 2 North 295.75 (1, 5)
+=== 1200 === 2 North 294.75 (1, 6)
+=== 1200 === 2 North 293.75 (1, 7)
+=== 1200 === 2 North 292.75 (1, 8)
+=== 1200 === 2 North 291.75 (1, 9)
+=== 1200 === 2 North 290.75 (1, 10)
+=== 1200 === 2 North 289.75 (1, 11)
+=== 1200 === 2 North 288.75 (1, 12)
+=== 1200 === 2 North 287.75 (1, 13)
+=== 1200 === 2 North 286.75 (1, 14)
+=== 1200 === 2 North 285.75 (1, 15)
+=== 1200 === 2 East 284.75 (1, 16)
+=== 1200 === 2 East 283.75 (2, 16)
+=== 1200 === 2 South 282.75 (3, 16)
+=== 1200 === 2 East 281.75 (3, 15)
+=== 1200 === 2 East 280.75 (4, 15)
+=== 1200 === 2 East 279.75 (5, 15)
+=== 1200 === 2 East 278.75 (6, 15)
+=== 1200 === 2 East 277.75 (7, 15)
+=== 1200 === 2 East 276.75 (8, 15)
+=== 1200 === 2 East 275.75 (9, 15)
+=== 1200 === 2 East 274.75 (10, 15)
+=== 1200 === 2 East 273.75 (11, 15)
+=== 1200 === 2 East 272.75 (12, 15)
+=== 1200 === 2 East 271.75 (13, 15)
+=== 1200 === 2 South 270.75 (14, 15)
+=== 1200 === 2 South 269.75 (14, 14)
+=== 366 === 0 West 269.25 (16, 15)
+=== 1200 === 2 South 268.75 (14, 13)
+=== 366 === 0 West 268.25 (15, 15)
+=== 1200 === 2 South 267.75 (14, 12)
+=== 366 === 0 South 267.25 (14, 15)
+=== 1200 === 2 East 266.75 (14, 11)
+=== 366 === 0 South 266.25 (14, 14)
+=== 1200 === 2 East 265.75 (15, 11)
+=== 366 === 0 South 265.25 (14, 13)
+=== 1200 === 2 East 264.75 (16, 11)
+=== 366 === 0 South 264.25 (14, 12)
+=== 1200 === 2 East 263.75 (17, 11)
+=== 366 === 0 East 263.25 (14, 11)
+=== 1200 === 2 East 262.75 (18, 11)
+=== 366 === 0 East 262.25 (15, 11)
+=== 1200 === 2 East 261.75 (19, 11)
+=== 366 === 0 East 261.25 (16, 11)
+=== 1200 === 2 East 260.75 (20, 11)
+=== 366 === 0 East 260.25 (17, 11)
+=== 1200 === 2 East 259.75 (21, 11)
+=== 366 === 0 East 259.25 (18, 11)
++++ 1 Enermy MINIMAX BEGIN+++551
+369++++ 0 6 North None
+369++++ 0 4 South None
+369++++ 0 6 East None
+352++++max  1 4 South South
+369++++ 0 4 North None
+369++++ 0 2 South None
+369++++ 0 4 East None
+352++++max  1 2 East South
+369++++ 0 6 North None
+369++++ 0 4 South None
+369++++ 0 6 East None
+352++++max  1 4 West South
+369++++ 2 4 North South
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 South West
+369++++ 0 2 East None
+369++++ 0 35 West None
+352++++max  1 2 East East
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 West West
+369++++ 2 2 West South
+352++++max  3 2 East West
+369++++ 0 8 North None
+369++++ 0 6 South None
+369++++ 0 8 East None
+352++++max  1 6 South South
+369++++ 0 6 North None
+369++++ 0 4 South None
+369++++ 0 6 East None
+352++++max  1 4 East South
+369++++ 0 8 North None
+369++++ 0 6 South None
+369++++ 0 8 East None
+352++++max  1 6 West South
+369++++ 2 6 North South
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 South West
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 East West
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 West West
+369++++ 2 4 West South
+352++++max  3 4 West West
+664 MINIMAX best actions ['West'] 4
+===NO need go home=== 848
++++1 Enermy MINIMAX RESULT 553 West
+=== 1114 minimax === 2 West 258.75 (22, 11)
+=== 366 === 0 East 258.25 (19, 11)
++++ 1 Enermy MINIMAX BEGIN+++551
+369++++ 0 6 North None
+369++++ 0 4 West None
+352++++max  1 4 North West
+369++++ 0 8 North None
+369++++ 0 6 West None
+352++++max  1 6 South West
+369++++ 2 6 East South
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 North West
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 South West
+369++++ 2 4 West South
+352++++max  3 4 South West
+369++++ 0 4 North None
+369++++ 0 2 West None
+352++++max  1 2 East West
+369++++ 0 6 North None
+369++++ 0 4 West None
+352++++max  1 4 West West
+369++++ 2 4 East West
+369++++ 0 2 East None
+369++++ 0 -200 West None
+352++++max  1 -200 East West
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 West West
+369++++ 2 2 West West
+352++++max  3 2 East West
+369++++ 0 6 North None
+369++++ 0 4 West None
+352++++max  1 4 East West
+369++++ 0 8 North None
+369++++ 0 6 West None
+352++++max  1 6 West West
+369++++ 2 6 East West
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 East West
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 West West
+369++++ 2 4 West West
+352++++max  3 4 West West
+664 MINIMAX best actions ['South', 'West'] 4
+===NO need go home=== 848
++++1 Enermy MINIMAX RESULT 553 West
+=== 1114 minimax === 2 West 257.75 (21, 11)
++++ 1 Enermy MINIMAX BEGIN+++551
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 South West
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 East West
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 West West
+369++++ 2 4 East South
+369++++ 0 4 South None
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 South West
+369++++ 0 2 South None
+369++++ 0 2 East None
+369++++ 0 -200 West None
+352++++max  1 -200 East West
+369++++ 0 4 South None
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 West West
+369++++ 2 2 West South
+352++++max  3 2 East West
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 East West
+369++++ 0 8 East None
+369++++ 0 6 West None
+352++++max  1 6 West West
+369++++ 2 6 East West
+369++++ 0 4 South None
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 East West
+369++++ 0 6 South None
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 West West
+369++++ 2 4 West West
+352++++max  3 4 West West
+664 MINIMAX best actions ['West'] 4
+===NO need go home=== 848
++++1 Enermy MINIMAX RESULT 553 West
+minimax 316 0 West (20, 11)
++++ 1 Enermy MINIMAX BEGIN+++551
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 South West
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 East West
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 West West
+369++++ 2 4 East South
+369++++ 0 4 South None
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 South West
+369++++ 0 2 South None
+369++++ 0 2 East None
+369++++ 0 -200 West None
+352++++max  1 -200 East West
+369++++ 0 4 South None
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 West West
+369++++ 2 2 West West
+352++++max  3 2 East West
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 East West
+369++++ 0 8 East None
+369++++ 0 6 West None
+352++++max  1 6 West West
+369++++ 2 6 East West
+369++++ 0 4 South None
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 East West
+369++++ 0 6 South None
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 West West
+369++++ 2 4 West West
+352++++max  3 4 West West
+664 MINIMAX best actions ['West'] 4
+===NO need go home=== 848
++++1 Enermy MINIMAX RESULT 553 West
+=== 1114 minimax === 2 West 256.75 (20, 11)
++++ 1 Enermy MINIMAX BEGIN+++551
+369++++ 0 2 North None
+369++++ 0 4 South None
+352++++max  1 2 East North
+369++++ 0 4 North None
+369++++ 0 6 South None
+352++++max  1 4 West North
+369++++ 2 4 South West
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 East West
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 West West
+369++++ 2 4 East West
+369++++ 0 2 East None
+369++++ 0 -200 West None
+352++++max  1 -200 East West
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 West West
+369++++ 2 2 West West
+352++++max  3 2 East West
+369++++ 0 4 North None
+369++++ 0 6 South None
+352++++max  1 4 East North
+369++++ 0 6 North None
+369++++ 0 8 South None
+352++++max  1 6 West North
+369++++ 2 6 South West
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 East West
+369++++ 0 8 East None
+369++++ 0 6 West None
+352++++max  1 6 West West
+369++++ 2 6 East West
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 East West
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 West West
+369++++ 2 4 West West
+352++++max  3 4 West West
+664 MINIMAX best actions ['West'] 4
+===NO need go home=== 848
++++1 Enermy MINIMAX RESULT 553 West
+minimax 316 0 West (19, 11)
++++ 1 Enermy MINIMAX BEGIN+++551
+369++++ 0 2 North None
+369++++ 0 4 South None
+352++++max  1 2 East North
+369++++ 0 4 North None
+369++++ 0 6 South None
+352++++max  1 4 West North
+369++++ 2 4 South West
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 East West
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 West West
+369++++ 2 4 East West
+369++++ 0 2 East None
+369++++ 0 -200 West None
+352++++max  1 -200 East West
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 West West
+369++++ 2 2 West West
+352++++max  3 2 East West
+369++++ 0 4 North None
+369++++ 0 6 South None
+352++++max  1 4 East North
+369++++ 0 6 North None
+369++++ 0 8 South None
+352++++max  1 6 West North
+369++++ 2 6 South West
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 East West
+369++++ 0 8 East None
+369++++ 0 6 West None
+352++++max  1 6 West West
+369++++ 2 6 East West
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 East West
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 West West
+369++++ 2 4 West West
+352++++max  3 4 West West
+664 MINIMAX best actions ['West'] 4
+===NO need go home=== 848
++++1 Enermy MINIMAX RESULT 553 West
+=== 1114 minimax === 2 West 255.75 (19, 11)
++++ 1 Enermy MINIMAX BEGIN+++551
+369++++ 0 4 South None
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 East West
+369++++ 0 6 South None
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 West West
+369++++ 2 4 East West
+369++++ 0 2 South None
+369++++ 0 2 East None
+369++++ 0 -200 West None
+352++++max  1 -200 East West
+369++++ 0 4 South None
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 West West
+369++++ 2 2 West West
+352++++max  3 2 East West
+369++++ 0 8 South None
+369++++ 0 8 East None
+369++++ 0 6 West None
+352++++max  1 6 North West
+369++++ 0 6 South None
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 East West
+369++++ 0 8 South None
+369++++ 0 8 East None
+369++++ 0 6 West None
+352++++max  1 6 West West
+369++++ 2 6 East West
+369++++ 0 6 South None
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 North West
+369++++ 0 4 South None
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 East West
+369++++ 0 6 South None
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 West West
+369++++ 2 4 West North
+352++++max  3 4 West West
+664 MINIMAX best actions ['West'] 4
+===NO need go home=== 848
++++1 Enermy MINIMAX RESULT 553 West
+minimax 316 0 West (18, 11)
++++ 1 Enermy MINIMAX BEGIN+++551
+369++++ 0 4 South None
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 East West
+369++++ 0 6 South None
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 West West
+369++++ 2 4 East West
+369++++ 0 2 South None
+369++++ 0 2 East None
+369++++ 0 -200 West None
+352++++max  1 -200 East West
+369++++ 0 4 South None
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 West West
+369++++ 2 2 West West
+352++++max  3 2 East West
+369++++ 0 8 South None
+369++++ 0 8 East None
+369++++ 0 6 West None
+352++++max  1 6 North West
+369++++ 0 6 South None
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 East West
+369++++ 0 8 South None
+369++++ 0 8 East None
+369++++ 0 6 West None
+352++++max  1 6 West West
+369++++ 2 6 East West
+369++++ 0 6 South None
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 North West
+369++++ 0 4 South None
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 East West
+369++++ 0 6 South None
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 West West
+369++++ 2 4 West West
+352++++max  3 4 West West
+664 MINIMAX best actions ['West'] 4
+===NO need go home=== 848
++++1 Enermy MINIMAX RESULT 553 West
+=== 1114 minimax === 2 West 254.75 (18, 11)
++++ 1 Enermy MINIMAX BEGIN+++551
+369++++ 0 6 North None
+369++++ 0 8 South None
+352++++max  1 6 North North
+369++++ 0 4 North None
+369++++ 0 6 South None
+352++++max  1 4 South North
+369++++ 0 6 North None
+369++++ 0 8 South None
+352++++max  1 6 West North
+369++++ 2 6 South West
+369++++ 0 8 East None
+369++++ 0 6 West None
+352++++max  1 6 North West
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 South West
+369++++ 0 8 East None
+369++++ 0 6 West None
+352++++max  1 6 West West
+369++++ 2 6 East North
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 North West
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 South West
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 West West
+369++++ 2 4 West West
+352++++max  3 4 North West
+369++++ 0 2 North None
+369++++ 0 4 South None
+352++++max  1 2 East North
+369++++ 0 4 North None
+369++++ 0 6 South None
+352++++max  1 4 West North
+369++++ 2 4 South West
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 East West
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 West West
+369++++ 2 4 East West
+369++++ 0 2 East None
+369++++ 0 -200 West None
+352++++max  1 -200 East West
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 West West
+369++++ 2 2 West West
+352++++max  3 2 East West
+369++++ 0 6 North None
+369++++ 0 8 South None
+352++++max  1 6 North North
+369++++ 0 6 North None
+369++++ 0 6 South None
+352++++max  1 6 South North
+369++++ 0 4 North None
+369++++ 0 6 South None
+352++++max  1 4 East North
+369++++ 0 6 North None
+369++++ 0 8 South None
+352++++max  1 6 West North
+369++++ 2 6 South South
+369++++ 0 8 East None
+369++++ 0 6 West None
+352++++max  1 6 North West
+369++++ 0 8 East None
+369++++ 0 6 West None
+352++++max  1 6 South West
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 East West
+369++++ 0 8 East None
+369++++ 0 6 West None
+352++++max  1 6 West West
+369++++ 2 6 East South
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 North West
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 South West
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 East West
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 West West
+369++++ 2 4 West South
+352++++max  3 4 West West
+664 MINIMAX best actions ['North', 'West'] 4
+===NO need go home=== 848
++++1 Enermy MINIMAX RESULT 553 North
+minimax 316 0 North (17, 11)
++++ 1 Enermy MINIMAX BEGIN+++551
+369++++ 0 6 North None
+369++++ 0 8 South None
+352++++max  1 6 North North
+369++++ 0 4 North None
+369++++ 0 6 South None
+352++++max  1 4 South North
+369++++ 0 6 North None
+369++++ 0 8 South None
+352++++max  1 6 West North
+369++++ 2 6 South North
+369++++ 0 8 East None
+369++++ 0 6 West None
+352++++max  1 6 North West
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 South West
+369++++ 0 8 East None
+369++++ 0 6 West None
+352++++max  1 6 West West
+369++++ 2 6 East North
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 North West
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 South West
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 West West
+369++++ 2 4 West West
+352++++max  3 4 North West
+369++++ 0 2 North None
+369++++ 0 4 South None
+352++++max  1 2 East North
+369++++ 0 4 North None
+369++++ 0 6 South None
+352++++max  1 4 West North
+369++++ 2 4 South West
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 East West
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 West West
+369++++ 2 4 East West
+369++++ 0 2 East None
+369++++ 0 -200 West None
+352++++max  1 -200 East West
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 West West
+369++++ 2 2 West West
+352++++max  3 2 East West
+369++++ 0 6 North None
+369++++ 0 8 South None
+352++++max  1 6 North North
+369++++ 0 6 North None
+369++++ 0 6 South None
+352++++max  1 6 South North
+369++++ 0 4 North None
+369++++ 0 6 South None
+352++++max  1 4 East North
+369++++ 0 6 North None
+369++++ 0 8 South None
+352++++max  1 6 West North
+369++++ 2 6 South South
+369++++ 0 8 East None
+369++++ 0 6 West None
+352++++max  1 6 North West
+369++++ 0 8 East None
+369++++ 0 6 West None
+352++++max  1 6 South West
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 East West
+369++++ 0 8 East None
+369++++ 0 6 West None
+352++++max  1 6 West West
+369++++ 2 6 East West
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 North West
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 South West
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 East West
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 West West
+369++++ 2 4 West West
+352++++max  3 4 West West
+664 MINIMAX best actions ['North', 'West'] 4
+===NO need go home=== 848
++++1 Enermy MINIMAX RESULT 553 North
+=== 1114 minimax === 2 North 253.75 (17, 11)
++++ 1 Enermy MINIMAX BEGIN+++551
+369++++ 0 6 South None
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 South West
+369++++ 0 8 South None
+369++++ 0 8 East None
+369++++ 0 6 West None
+352++++max  1 6 East West
+369++++ 0 8 South None
+369++++ 0 8 East None
+369++++ 0 6 West None
+352++++max  1 6 West West
+369++++ 2 6 East West
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 South West
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 East West
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 West West
+369++++ 2 4 West West
+352++++max  3 4 North West
+369++++ 0 6 South None
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 North West
+369++++ 0 4 South None
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 East West
+369++++ 0 6 South None
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 West West
+369++++ 2 4 East West
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 North West
+369++++ 0 2 East None
+369++++ 0 -200 West None
+352++++max  1 -200 East West
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 West West
+369++++ 2 2 West West
+352++++max  3 2 South West
+369++++ 0 8 South None
+369++++ 0 8 East None
+369++++ 0 6 West None
+352++++max  1 6 North West
+369++++ 0 6 South None
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 South West
+369++++ 0 6 South None
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 East West
+369++++ 2 6 East North
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 North West
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 South West
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 East West
+369++++ 2 4 West North
+352++++max  3 4 West West
+664 MINIMAX best actions ['North', 'West'] 4
+===NO need go home=== 848
++++1 Enermy MINIMAX RESULT 553 North
+minimax 316 0 North (17, 12)
++++ 1 Enermy MINIMAX BEGIN+++551
+369++++ 0 6 South None
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 South West
+369++++ 0 8 South None
+369++++ 0 8 East None
+369++++ 0 6 West None
+352++++max  1 6 East West
+369++++ 0 8 South None
+369++++ 0 8 East None
+369++++ 0 6 West None
+352++++max  1 6 West West
+369++++ 2 6 East West
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 South West
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 East West
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 West West
+369++++ 2 4 West East
+352++++max  3 4 North West
+369++++ 0 6 South None
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 North West
+369++++ 0 4 South None
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 East West
+369++++ 0 6 South None
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 West West
+369++++ 2 4 East North
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 North West
+369++++ 0 2 East None
+369++++ 0 -200 West None
+352++++max  1 -200 East West
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 West West
+369++++ 2 2 West West
+352++++max  3 2 South West
+369++++ 0 8 South None
+369++++ 0 8 East None
+369++++ 0 6 West None
+352++++max  1 6 North West
+369++++ 0 6 South None
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 South West
+369++++ 0 6 South None
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 East West
+369++++ 2 6 East North
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 North West
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 South West
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 East West
+369++++ 2 4 West North
+352++++max  3 4 West West
+664 MINIMAX best actions ['North', 'West'] 4
+===NO need go home=== 848
++++1 Enermy MINIMAX RESULT 553 West
+=== 1114 minimax === 2 West 252.75 (17, 12)
++++ 1 Enermy MINIMAX BEGIN+++551
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 North West
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 South West
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 West West
+369++++ 2 4 East West
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 North West
+369++++ 0 2 East None
+369++++ 0 -200 West None
+352++++max  1 -200 South West
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 West West
+369++++ 2 2 West West
+352++++max  3 2 South West
+369++++ 0 8 East None
+369++++ 0 6 West None
+352++++max  1 6 East West
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 West West
+369++++ 2 6 East East
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 East West
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 West West
+369++++ 2 4 West East
+352++++max  3 4 East West
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 South West
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 East West
+369++++ 2 4 East East
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 South West
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 East West
+369++++ 2 2 West South
+352++++max  3 2 West West
+664 MINIMAX best actions ['East'] 4
+===NO need go home=== 848
++++1 Enermy MINIMAX RESULT 553 East
+minimax 316 0 East (17, 13)
+=== 1165 === impasse 2 North 251.75 (16, 12)
++++ 1 Enermy MINIMAX BEGIN+++551
+369++++ 0 8 East None
+369++++ 0 6 West None
+352++++max  1 6 East West
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 West West
+369++++ 2 6 East East
+369++++ 0 4 North None
+369++++ 0 6 East None
+369++++ 0 6 West None
+352++++max  1 4 East North
+369++++ 0 2 North None
+369++++ 0 4 East None
+369++++ 0 4 West None
+352++++max  1 2 West North
+369++++ 2 4 West East
+352++++max  3 4 East West
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 South West
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 East West
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 West West
+369++++ 2 4 East West
+369++++ 0 -200 North None
+369++++ 0 2 East None
+369++++ 0 2 West None
+352++++max  1 -200 South North
+369++++ 0 2 North None
+369++++ 0 4 East None
+369++++ 0 4 West None
+352++++max  1 2 East North
+369++++ 0 2 North None
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 West North
+369++++ 2 2 West East
+352++++max  3 2 West West
+664 MINIMAX best actions ['East'] 4
+===NO need go home=== 848
++++1 Enermy MINIMAX RESULT 553 East
+minimax 316 0 East (18, 13)
+=== 1165 === impasse 2 South 250.75 (16, 13)
++++ 1 Enermy MINIMAX BEGIN+++551
+369++++ 0 4 North None
+369++++ 0 6 South None
+369++++ 0 44 West None
+352++++max  1 4 North North
+369++++ 0 4 North None
+369++++ 0 6 South None
+369++++ 0 46 West None
+352++++max  1 4 East North
+369++++ 0 2 North None
+369++++ 0 4 South None
+369++++ 0 46 West None
+352++++max  1 2 West North
+369++++ 2 4 North North
+369++++ 0 8 East None
+369++++ 0 6 West None
+352++++max  1 6 North West
+369++++ 0 8 East None
+369++++ 0 6 West None
+352++++max  1 6 East West
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 West West
+369++++ 2 6 East North
+369++++ 0 44 North None
+369++++ 0 8 South None
+369++++ 0 6 East None
+369++++ 0 8 West None
+352++++max  1 6 North East
+369++++ 0 46 North None
+369++++ 0 8 South None
+369++++ 0 6 East None
+369++++ 0 8 West None
+352++++max  1 6 East East
+369++++ 0 46 North None
+369++++ 0 6 South None
+369++++ 0 4 East None
+369++++ 0 6 West None
+352++++max  1 4 West East
+369++++ 2 6 West North
+352++++max  3 4 East North
+369++++ 0 2 North None
+369++++ 0 4 South None
+369++++ 0 46 West None
+352++++max  1 2 East North
+369++++ 0 -200 North None
+369++++ 0 2 South None
+369++++ 0 44 West None
+352++++max  1 -200 West North
+369++++ 2 2 North East
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 East West
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 West West
+369++++ 2 4 East East
+369++++ 0 46 North None
+369++++ 0 6 South None
+369++++ 0 4 East None
+369++++ 0 6 West None
+352++++max  1 4 East East
+369++++ 0 44 North None
+369++++ 0 4 South None
+369++++ 0 2 East None
+369++++ 0 4 West None
+352++++max  1 2 West East
+369++++ 2 4 West East
+352++++max  3 2 West North
+664 MINIMAX best actions ['East'] 4
+===NO need go home=== 848
++++1 Enermy MINIMAX RESULT 553 East
+minimax 316 0 East (19, 13)
+=== 1165 === impasse 2 North 249.75 (16, 12)
++++ 1 Enermy MINIMAX BEGIN+++551
+369++++ 0 6 South None
+369++++ 0 4 East None
+369++++ 0 43 West None
+352++++max  1 4 North East
+369++++ 0 4 South None
+369++++ 0 2 East None
+369++++ 0 45 West None
+352++++max  1 2 South East
+369++++ 2 4 North North
+369++++ 0 6 North None
+369++++ 0 8 East None
+369++++ 0 8 West None
+352++++max  1 6 North North
+369++++ 0 4 North None
+369++++ 0 6 East None
+369++++ 0 6 West None
+352++++max  1 4 South North
+369++++ 2 6 South North
+369++++ 0 43 North None
+369++++ 0 8 South None
+369++++ 0 6 East None
+352++++max  1 6 North East
+369++++ 0 45 North None
+369++++ 0 6 South None
+369++++ 0 4 East None
+352++++max  1 4 South East
+369++++ 2 6 West North
+352++++max  3 4 North North
+369++++ 0 6 South None
+369++++ 0 4 East None
+369++++ 0 47 West None
+352++++max  1 4 East East
+369++++ 0 4 South None
+369++++ 0 2 East None
+369++++ 0 45 West None
+352++++max  1 2 West East
+369++++ 2 4 North East
+369++++ 0 6 North None
+369++++ 0 8 East None
+369++++ 0 8 West None
+352++++max  1 6 East North
+369++++ 0 4 North None
+369++++ 0 6 East None
+369++++ 0 6 West None
+352++++max  1 4 West North
+369++++ 2 6 South East
+369++++ 0 47 North None
+369++++ 0 8 South None
+369++++ 0 6 East None
+352++++max  1 6 East East
+369++++ 0 45 North None
+369++++ 0 6 South None
+369++++ 0 4 East None
+352++++max  1 4 West East
+369++++ 2 6 West East
+352++++max  3 4 East North
+369++++ 0 4 South None
+369++++ 0 2 East None
+369++++ 0 45 West None
+352++++max  1 2 East East
+369++++ 0 2 South None
+369++++ 0 -200 East None
+369++++ 0 45 West None
+352++++max  1 -200 West East
+369++++ 2 2 North East
+369++++ 0 4 North None
+369++++ 0 6 East None
+369++++ 0 6 West None
+352++++max  1 4 East North
+369++++ 0 2 North None
+369++++ 0 4 East None
+369++++ 0 4 West None
+352++++max  1 2 West North
+369++++ 2 4 South East
+369++++ 0 45 North None
+369++++ 0 6 South None
+369++++ 0 4 East None
+352++++max  1 4 East East
+369++++ 0 45 North None
+369++++ 0 4 South None
+369++++ 0 2 East None
+352++++max  1 2 West East
+369++++ 2 4 West East
+352++++max  3 2 West North
+664 MINIMAX best actions ['North', 'East'] 4
+===NO need go home=== 848
++++1 Enermy MINIMAX RESULT 553 North
+minimax 316 0 North (20, 13)
+=== 1165 === impasse 2 South 248.75 (16, 13)
++++ 1 Enermy MINIMAX BEGIN+++551
+369++++ 0 6 North None
+369++++ 0 8 South None
+369++++ 0 42 West None
+352++++max  1 6 North North
+369++++ 0 4 North None
+369++++ 0 6 South None
+369++++ 0 44 West None
+352++++max  1 4 South North
+369++++ 0 6 North None
+369++++ 0 8 South None
+369++++ 0 42 West None
+352++++max  1 6 East North
+369++++ 0 6 North None
+369++++ 0 8 South None
+369++++ 0 44 West None
+352++++max  1 6 West North
+369++++ 2 6 South West
+369++++ 0 4 East None
+369++++ 0 6 West None
+352++++max  1 4 North East
+369++++ 0 2 East None
+369++++ 0 4 West None
+352++++max  1 2 South East
+369++++ 0 4 East None
+369++++ 0 6 West None
+352++++max  1 4 East East
+369++++ 0 4 East None
+369++++ 0 6 West None
+352++++max  1 4 West East
+369++++ 2 4 East East
+369++++ 0 42 South None
+369++++ 0 6 East None
+352++++max  1 6 North East
+369++++ 0 44 South None
+369++++ 0 4 East None
+352++++max  1 4 South East
+369++++ 0 42 South None
+369++++ 0 6 East None
+352++++max  1 6 East East
+369++++ 0 44 South None
+369++++ 0 6 East None
+352++++max  1 6 West East
+369++++ 2 6 West East
+352++++max  3 4 North East
+369++++ 0 4 North None
+369++++ 0 6 South None
+369++++ 0 44 West None
+352++++max  1 4 North North
+369++++ 0 4 North None
+369++++ 0 6 South None
+369++++ 0 46 West None
+352++++max  1 4 East North
+369++++ 0 2 North None
+369++++ 0 4 South None
+369++++ 0 46 West None
+352++++max  1 2 West North
+369++++ 2 4 South East
+369++++ 0 2 East None
+369++++ 0 4 West None
+352++++max  1 2 North East
+369++++ 0 2 East None
+369++++ 0 4 West None
+352++++max  1 2 East East
+369++++ 0 -200 East None
+369++++ 0 2 West None
+352++++max  1 -200 West East
+369++++ 2 2 East East
+369++++ 0 44 South None
+369++++ 0 4 East None
+352++++max  1 4 North East
+369++++ 0 46 South None
+369++++ 0 4 East None
+352++++max  1 4 East East
+369++++ 0 46 South None
+369++++ 0 2 East None
+352++++max  1 2 West East
+369++++ 2 4 West East
+352++++max  3 2 South East
+664 MINIMAX best actions ['North'] 4
+===NO need go home=== 848
++++1 Enermy MINIMAX RESULT 553 North
+minimax 316 0 North (20, 14)
+=== 1165 === impasse 2 South 247.75 (16, 12)
++++ 1 Enermy MINIMAX BEGIN+++551
+369++++ 0 2 East None
+369++++ 0 4 West None
+352++++max  1 2 South East
+369++++ 0 4 East None
+369++++ 0 6 West None
+352++++max  1 4 East East
+369++++ 0 4 East None
+369++++ 0 6 West None
+352++++max  1 4 West East
+369++++ 2 4 East East
+369++++ 0 6 South None
+369++++ 0 4 East None
+369++++ 0 6 West None
+352++++max  1 4 South East
+369++++ 0 8 South None
+369++++ 0 6 East None
+369++++ 0 8 West None
+352++++max  1 6 East East
+369++++ 0 8 South None
+369++++ 0 6 East None
+369++++ 0 8 West None
+352++++max  1 6 West East
+369++++ 2 6 West East
+352++++max  3 4 North East
+369++++ 0 2 East None
+369++++ 0 4 West None
+352++++max  1 2 North East
+369++++ 0 -200 East None
+369++++ 0 2 West None
+352++++max  1 -200 South East
+369++++ 2 2 East North
+369++++ 0 6 South None
+369++++ 0 4 East None
+369++++ 0 6 West None
+352++++max  1 4 North East
+369++++ 0 4 South None
+369++++ 0 2 East None
+369++++ 0 4 West None
+352++++max  1 2 South East
+369++++ 2 4 West North
+352++++max  3 2 South East
+369++++ 0 4 East None
+369++++ 0 6 West None
+352++++max  1 4 North East
+369++++ 0 2 East None
+369++++ 0 4 West None
+352++++max  1 2 West East
+369++++ 2 4 East North
+369++++ 0 8 South None
+369++++ 0 6 East None
+369++++ 0 8 West None
+352++++max  1 6 North East
+369++++ 0 6 South None
+369++++ 0 4 East None
+369++++ 0 6 West None
+352++++max  1 4 West East
+369++++ 2 6 West North
+352++++max  3 4 East East
+369++++ 0 4 East None
+369++++ 0 6 West None
+352++++max  1 4 North East
+369++++ 0 2 East None
+369++++ 0 4 West None
+352++++max  1 2 East East
+369++++ 2 4 East North
+369++++ 0 8 South None
+369++++ 0 6 East None
+369++++ 0 8 West None
+352++++max  1 6 North East
+369++++ 0 6 South None
+369++++ 0 4 East None
+369++++ 0 6 West None
+352++++max  1 4 East East
+369++++ 2 6 West North
+352++++max  3 4 West East
+664 MINIMAX best actions ['North', 'East', 'West'] 4
+===NO need go home=== 848
++++1 Enermy MINIMAX RESULT 553 East
+minimax 316 0 East (20, 15)
+=== 1165 === impasse 2 West 246.75 (16, 11)
++++ 1 Enermy MINIMAX BEGIN+++551
+369++++ 0 2 North None
+369++++ 0 4 East None
+369++++ 0 4 West None
+352++++max  1 2 South North
+369++++ 0 4 North None
+369++++ 0 6 East None
+369++++ 0 6 West None
+352++++max  1 4 East North
+369++++ 0 2 North None
+369++++ 0 4 East None
+369++++ 0 4 West None
+352++++max  1 2 West North
+369++++ 2 4 East East
+369++++ 0 4 East None
+369++++ 0 6 West None
+352++++max  1 4 South East
+369++++ 0 6 East None
+369++++ 0 8 West None
+352++++max  1 6 East East
+369++++ 0 4 East None
+369++++ 0 6 West None
+352++++max  1 4 West East
+369++++ 2 6 West East
+352++++max  3 4 North East
+369++++ 0 2 North None
+369++++ 0 4 East None
+369++++ 0 4 West None
+352++++max  1 2 North North
+369++++ 0 -200 North None
+369++++ 0 2 East None
+369++++ 0 2 West None
+352++++max  1 -200 South North
+369++++ 0 2 North None
+369++++ 0 4 East None
+369++++ 0 4 West None
+352++++max  1 2 East North
+369++++ 0 2 North None
+369++++ 0 4 East None
+369++++ 0 4 West None
+352++++max  1 2 West North
+369++++ 2 2 East West
+369++++ 0 4 East None
+369++++ 0 6 West None
+352++++max  1 4 North East
+369++++ 0 2 East None
+369++++ 0 4 West None
+352++++max  1 2 South East
+369++++ 0 4 East None
+369++++ 0 6 West None
+352++++max  1 4 East East
+369++++ 0 4 East None
+369++++ 0 6 West None
+352++++max  1 4 West East
+369++++ 2 4 West East
+352++++max  3 2 West East
+664 MINIMAX best actions ['North'] 4
+===NO need go home=== 848
++++1 Enermy MINIMAX RESULT 553 North
+minimax 316 0 North (21, 15)
+=== 1200 === 2 East 245.75 (15, 11)
++++ 1 Enermy MINIMAX BEGIN+++551
+369++++ 0 2 North None
+369++++ 0 4 South None
+352++++max  1 2 North North
+369++++ 0 -200 North None
+369++++ 0 2 South None
+352++++max  1 -200 West North
+369++++ 2 2 North North
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 North West
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 West West
+369++++ 2 4 East North
+369++++ 0 4 East None
+369++++ 0 6 West None
+352++++max  1 4 North East
+369++++ 0 2 East None
+369++++ 0 4 West None
+352++++max  1 2 West East
+369++++ 2 4 West North
+352++++max  3 2 South North
+369++++ 0 4 North None
+369++++ 0 6 South None
+352++++max  1 4 East North
+369++++ 0 2 North None
+369++++ 0 4 South None
+352++++max  1 2 West North
+369++++ 2 4 North East
+369++++ 0 8 East None
+369++++ 0 6 West None
+352++++max  1 6 East West
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 West West
+369++++ 2 6 East East
+369++++ 0 6 East None
+369++++ 0 8 West None
+352++++max  1 6 East East
+369++++ 0 4 East None
+369++++ 0 6 West None
+352++++max  1 4 West East
+369++++ 2 6 West East
+352++++max  3 4 East North
+369++++ 0 -200 North None
+369++++ 0 2 South None
+352++++max  1 -200 South North
+369++++ 0 2 North None
+369++++ 0 4 South None
+352++++max  1 2 East North
+369++++ 0 2 North None
+369++++ 0 4 South None
+352++++max  1 2 West North
+369++++ 2 2 North East
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 South West
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 East West
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 West West
+369++++ 2 4 East West
+369++++ 0 2 East None
+369++++ 0 4 West None
+352++++max  1 2 South East
+369++++ 0 4 East None
+369++++ 0 6 West None
+352++++max  1 4 East East
+369++++ 0 4 East None
+369++++ 0 6 West None
+352++++max  1 4 West East
+369++++ 2 4 West West
+352++++max  3 2 West North
+664 MINIMAX best actions ['East'] 4
+===NO need go home=== 848
++++1 Enermy MINIMAX RESULT 553 East
+minimax 316 0 East (21, 16)
+=== 1200 === 2 East 244.75 (16, 11)
++++ 1 Enermy MINIMAX BEGIN+++551
+369++++ 0 4 North None
+369++++ 0 6 South None
+369++++ 0 4 East None
+369++++ 0 6 West None
+352++++max  1 4 South North
+369++++ 0 2 North None
+369++++ 0 4 South None
+369++++ 0 2 East None
+369++++ 0 4 West None
+352++++max  1 2 West North
+369++++ 2 4 North South
+369++++ 0 6 North None
+369++++ 0 8 East None
+369++++ 0 8 West None
+352++++max  1 6 South North
+369++++ 0 4 North None
+369++++ 0 6 East None
+369++++ 0 6 West None
+352++++max  1 4 West North
+369++++ 2 6 South South
+352++++max  3 4 East North
+369++++ 0 2 North None
+369++++ 0 2 South None
+369++++ 0 -200 East None
+369++++ 0 2 West None
+352++++max  1 -200 South East
+369++++ 0 2 North None
+369++++ 0 4 South None
+369++++ 0 2 East None
+369++++ 0 4 West None
+352++++max  1 2 East North
+369++++ 0 -200 North None
+369++++ 0 2 South None
+369++++ 0 2 East None
+369++++ 0 2 West None
+352++++max  1 -200 West North
+369++++ 2 2 North East
+369++++ 0 2 North None
+369++++ 0 4 East None
+369++++ 0 4 West None
+352++++max  1 2 South North
+369++++ 0 4 North None
+369++++ 0 6 East None
+369++++ 0 6 West None
+352++++max  1 4 East North
+369++++ 0 2 North None
+369++++ 0 4 East None
+369++++ 0 4 West None
+352++++max  1 2 West North
+369++++ 2 4 South East
+352++++max  3 2 West North
+664 MINIMAX best actions ['East'] 4
+===NO need go home=== 848
++++1 Enermy MINIMAX RESULT 553 East
+minimax 316 0 East (22, 16)
+=== 1200 === 2 East 243.75 (17, 11)
++++ 1 Enermy MINIMAX BEGIN+++551
+369++++ 0 4 South None
+369++++ 0 2 East None
+369++++ 0 4 West None
+352++++max  1 2 North East
+369++++ 0 6 South None
+369++++ 0 4 East None
+369++++ 0 6 West None
+352++++max  1 4 East East
+369++++ 2 4 North East
+369++++ 0 4 North None
+369++++ 0 6 South None
+352++++max  1 4 North North
+369++++ 0 6 North None
+369++++ 0 8 South None
+352++++max  1 6 East North
+369++++ 2 6 South East
+369++++ 0 2 North None
+369++++ 0 4 West None
+352++++max  1 2 North North
+369++++ 0 4 North None
+369++++ 0 6 West None
+352++++max  1 4 East North
+369++++ 2 4 East East
+369++++ 0 4 North None
+369++++ 0 4 East None
+352++++max  1 4 North North
+369++++ 0 6 North None
+369++++ 0 6 East None
+352++++max  1 6 East North
+369++++ 2 6 West East
+352++++max  3 4 South North
+369++++ 0 4 South None
+369++++ 0 2 East None
+369++++ 0 4 West None
+352++++max  1 2 East East
+369++++ 0 2 South None
+369++++ 0 -200 East None
+369++++ 0 2 West None
+352++++max  1 -200 West East
+369++++ 2 2 North East
+369++++ 0 4 North None
+369++++ 0 6 South None
+352++++max  1 4 East North
+369++++ 0 2 North None
+369++++ 0 4 South None
+352++++max  1 2 West North
+369++++ 2 4 South East
+369++++ 0 2 North None
+369++++ 0 4 West None
+352++++max  1 2 East North
+369++++ 0 -200 North None
+369++++ 0 2 West None
+352++++max  1 -200 West North
+369++++ 2 2 East East
+369++++ 0 4 North None
+369++++ 0 4 East None
+352++++max  1 4 East North
+369++++ 0 2 North None
+369++++ 0 2 East None
+352++++max  1 2 West North
+369++++ 2 4 West East
+352++++max  3 2 West North
+664 MINIMAX best actions ['South'] 4
+===NO need go home=== 848
++++1 Enermy MINIMAX RESULT 553 South
+minimax 316 0 South (23, 16)
+=== 1200 === 2 East 242.75 (18, 11)
++++ 1 Enermy MINIMAX BEGIN+++551
+369++++ 0 4 North None
+369++++ 0 6 South None
+369++++ 0 4 East None
+369++++ 0 6 West None
+352++++max  1 4 South North
+369++++ 0 2 North None
+369++++ 0 4 South None
+369++++ 0 2 East None
+369++++ 0 4 West None
+352++++max  1 2 West North
+369++++ 2 4 South South
+369++++ 0 4 South None
+369++++ 0 2 East None
+369++++ 0 4 West None
+352++++max  1 2 South East
+369++++ 0 2 South None
+369++++ 0 -200 East None
+369++++ 0 2 West None
+352++++max  1 -200 West East
+369++++ 2 2 East South
+369++++ 0 6 South None
+369++++ 0 4 East None
+369++++ 0 6 West None
+352++++max  1 4 South East
+369++++ 0 4 South None
+369++++ 0 2 East None
+369++++ 0 4 West None
+352++++max  1 2 West East
+369++++ 2 4 West South
+352++++max  3 2 North East
+369++++ 0 6 North None
+369++++ 0 8 South None
+369++++ 0 6 East None
+369++++ 0 8 West None
+352++++max  1 6 East North
+369++++ 0 4 North None
+369++++ 0 6 South None
+369++++ 0 4 East None
+369++++ 0 6 West None
+352++++max  1 4 West North
+369++++ 2 6 South East
+369++++ 0 6 South None
+369++++ 0 4 East None
+369++++ 0 6 West None
+352++++max  1 4 East East
+369++++ 0 4 South None
+369++++ 0 2 East None
+369++++ 0 4 West None
+352++++max  1 2 West East
+369++++ 2 4 East East
+369++++ 0 8 South None
+369++++ 0 6 East None
+369++++ 0 8 West None
+352++++max  1 6 East East
+369++++ 0 6 South None
+369++++ 0 4 East None
+369++++ 0 6 West None
+352++++max  1 4 West East
+369++++ 2 6 West East
+352++++max  3 4 East East
+664 MINIMAX best actions ['East'] 4
+===NO need go home=== 848
++++1 Enermy MINIMAX RESULT 553 East
+minimax 316 0 East (23, 15)
+=== 1200 === 2 East 241.75 (19, 11)
++++ 1 Enermy MINIMAX BEGIN+++551
+369++++ 0 6 North None
+369++++ 0 8 West None
+352++++max  1 6 North North
+369++++ 0 6 North None
+369++++ 0 8 West None
+352++++max  1 6 South North
+369++++ 0 6 North None
+369++++ 0 8 West None
+352++++max  1 6 East North
+369++++ 0 4 North None
+369++++ 0 6 West None
+352++++max  1 4 West North
+369++++ 2 6 South South
+369++++ 0 4 East None
+369++++ 0 6 West None
+352++++max  1 4 North East
+369++++ 0 4 East None
+369++++ 0 6 West None
+352++++max  1 4 South East
+369++++ 0 4 East None
+369++++ 0 6 West None
+352++++max  1 4 East East
+369++++ 0 2 East None
+369++++ 0 4 West None
+352++++max  1 2 West East
+369++++ 2 4 East East
+369++++ 0 8 South None
+369++++ 0 6 East None
+369++++ 0 8 West None
+352++++max  1 6 North East
+369++++ 0 8 South None
+369++++ 0 6 East None
+369++++ 0 8 West None
+352++++max  1 6 South East
+369++++ 0 8 South None
+369++++ 0 6 East None
+369++++ 0 8 West None
+352++++max  1 6 East East
+369++++ 0 6 South None
+369++++ 0 4 East None
+369++++ 0 6 West None
+352++++max  1 4 West East
+369++++ 2 6 West North
+352++++max  3 4 East East
+369++++ 0 2 North None
+369++++ 0 4 West None
+352++++max  1 2 North North
+369++++ 0 4 North None
+369++++ 0 6 West None
+352++++max  1 4 East North
+369++++ 2 4 South East
+369++++ 0 -200 East None
+369++++ 0 2 West None
+352++++max  1 -200 North East
+369++++ 0 2 East None
+369++++ 0 4 West None
+352++++max  1 2 East East
+369++++ 2 2 East East
+369++++ 0 4 South None
+369++++ 0 2 East None
+369++++ 0 4 West None
+352++++max  1 2 North East
+369++++ 0 6 South None
+369++++ 0 4 East None
+369++++ 0 6 West None
+352++++max  1 4 East East
+369++++ 2 4 West East
+352++++max  3 2 West East
+664 MINIMAX best actions ['East'] 4
+===NO need go home=== 848
++++1 Enermy MINIMAX RESULT 553 East
+minimax 316 0 East (24, 15)
+=== 1200 === 2 East 240.75 (20, 11)
++++ 1 Enermy MINIMAX BEGIN+++551
+369++++ 0 2 South None
+369++++ 0 4 West None
+352++++max  1 2 South South
+369++++ 0 4 South None
+369++++ 0 6 West None
+352++++max  1 4 East South
+369++++ 2 4 East East
+369++++ 0 6 South None
+369++++ 0 4 East None
+369++++ 0 6 West None
+352++++max  1 4 South East
+369++++ 0 8 South None
+369++++ 0 6 East None
+369++++ 0 8 West None
+352++++max  1 6 East East
+369++++ 2 6 West East
+352++++max  3 4 North East
+369++++ 0 2 South None
+369++++ 0 4 West None
+352++++max  1 2 North South
+369++++ 0 4 South None
+369++++ 0 6 West None
+352++++max  1 4 South South
+369++++ 2 4 East South
+369++++ 0 6 South None
+369++++ 0 4 East None
+369++++ 0 6 West None
+352++++max  1 4 North East
+369++++ 0 8 South None
+369++++ 0 6 East None
+369++++ 0 8 West None
+352++++max  1 6 South East
+369++++ 2 6 West South
+352++++max  3 4 South East
+369++++ 0 4 South None
+369++++ 0 6 West None
+352++++max  1 4 North South
+369++++ 0 2 South None
+369++++ 0 4 West None
+352++++max  1 2 West South
+369++++ 2 4 East North
+369++++ 0 8 South None
+369++++ 0 6 East None
+369++++ 0 8 West None
+352++++max  1 6 North East
+369++++ 0 6 South None
+369++++ 0 4 East None
+369++++ 0 6 West None
+352++++max  1 4 West East
+369++++ 2 6 West North
+352++++max  3 4 East East
+369++++ 0 2 South None
+369++++ 0 4 West None
+352++++max  1 2 East South
+369++++ 0 -200 South None
+369++++ 0 2 West None
+352++++max  1 -200 West South
+369++++ 2 2 East East
+369++++ 0 6 South None
+369++++ 0 4 East None
+369++++ 0 6 West None
+352++++max  1 4 East East
+369++++ 0 4 South None
+369++++ 0 2 East None
+369++++ 0 4 West None
+352++++max  1 2 West East
+369++++ 2 4 West East
+352++++max  3 2 West East
+664 MINIMAX best actions ['North', 'South', 'East'] 4
+===NO need go home=== 848
++++1 Enermy MINIMAX RESULT 553 South
+minimax 316 0 South (25, 15)
+=== 1200 === 2 South 239.75 (21, 11)
++++ 1 Enermy MINIMAX BEGIN+++551
+369++++ 0 4 North None
+369++++ 0 2 East None
+352++++max  1 2 North East
+369++++ 0 4 North None
+369++++ 0 2 East None
+352++++max  1 2 South East
+369++++ 0 4 North None
+369++++ 0 2 East None
+352++++max  1 2 East East
+369++++ 0 2 North None
+369++++ 0 -200 East None
+352++++max  1 -200 West East
+369++++ 2 2 South East
+369++++ 0 4 East None
+369++++ 0 6 West None
+352++++max  1 4 North East
+369++++ 0 4 East None
+369++++ 0 6 West None
+352++++max  1 4 South East
+369++++ 0 4 East None
+369++++ 0 6 West None
+352++++max  1 4 East East
+369++++ 0 2 East None
+369++++ 0 4 West None
+352++++max  1 2 West East
+369++++ 2 4 West North
+352++++max  3 2 North South
+369++++ 0 4 North None
+369++++ 0 2 East None
+352++++max  1 2 North East
+369++++ 0 6 North None
+369++++ 0 4 East None
+352++++max  1 4 East East
+369++++ 2 4 South East
+369++++ 0 4 East None
+369++++ 0 6 West None
+352++++max  1 4 North East
+369++++ 0 6 East None
+369++++ 0 8 West None
+352++++max  1 6 East East
+369++++ 2 6 West East
+352++++max  3 4 South South
+664 MINIMAX best actions ['South'] 4
+===NO need go home=== 848
++++1 Enermy MINIMAX RESULT 553 South
+minimax 316 0 South (25, 14)
+=== 1200 === 2 South 238.75 (21, 10)
++++ 1 Enermy MINIMAX BEGIN+++551
+369++++ 0 2 South None
+369++++ 0 4 West None
+352++++max  1 2 North South
+369++++ 0 4 South None
+369++++ 0 6 West None
+352++++max  1 4 South South
+369++++ 2 4 North South
+369++++ 0 -200 East None
+369++++ 0 2 West None
+352++++max  1 -200 North East
+369++++ 0 2 East None
+369++++ 0 4 West None
+352++++max  1 2 South East
+369++++ 2 2 East South
+352++++max  3 2 North East
+369++++ 0 6 South None
+369++++ 0 8 West None
+352++++max  1 6 South South
+369++++ 0 4 South None
+369++++ 0 6 West None
+352++++max  1 4 West South
+369++++ 2 6 North South
+369++++ 0 4 East None
+369++++ 0 6 West None
+352++++max  1 4 South East
+369++++ 0 2 East None
+369++++ 0 4 West None
+352++++max  1 2 West East
+369++++ 2 4 East South
+352++++max  3 4 East East
+664 MINIMAX best actions ['East'] 4
+===NO need go home=== 848
++++1 Enermy MINIMAX RESULT 553 East
+minimax 316 0 East (25, 13)
+=== 1200 === 2 West 237.75 (21, 9)
++++ 1 Enermy MINIMAX BEGIN+++551
+369++++ 0 4 North None
+369++++ 0 2 South None
+369++++ 0 4 East None
+369++++ 0 4 West None
+352++++max  1 2 North South
+369++++ 0 6 North None
+369++++ 0 4 South None
+369++++ 0 6 East None
+369++++ 0 6 West None
+352++++max  1 4 South South
+369++++ 0 6 North None
+369++++ 0 4 South None
+369++++ 0 6 East None
+369++++ 0 6 West None
+352++++max  1 4 East South
+369++++ 2 4 East South
+369++++ 0 6 North None
+369++++ 0 4 East None
+352++++max  1 4 North East
+369++++ 0 8 North None
+369++++ 0 6 East None
+352++++max  1 6 South East
+369++++ 0 8 North None
+369++++ 0 6 East None
+352++++max  1 6 East East
+369++++ 2 6 West East
+352++++max  3 4 South East
+369++++ 0 2 North None
+369++++ 0 -200 South None
+369++++ 0 2 East None
+369++++ 0 2 West None
+352++++max  1 -200 North South
+369++++ 0 4 North None
+369++++ 0 2 South None
+369++++ 0 4 East None
+369++++ 0 4 West None
+352++++max  1 2 East South
+369++++ 2 2 East East
+369++++ 0 4 North None
+369++++ 0 2 East None
+352++++max  1 2 North East
+369++++ 0 6 North None
+369++++ 0 4 East None
+352++++max  1 4 East East
+369++++ 2 4 West East
+352++++max  3 2 West East
+664 MINIMAX best actions ['South'] 4
+===NO need go home=== 848
++++1 Enermy MINIMAX RESULT 553 South
+minimax 316 0 South (26, 13)
+=== 1200 === 2 South 236.75 (20, 9)
++++ 1 Enermy MINIMAX BEGIN+++551
+369++++ 0 4 South None
+369++++ 0 6 East None
+352++++max  1 4 South South
+369++++ 0 2 South None
+369++++ 0 4 East None
+352++++max  1 2 West South
+369++++ 2 4 North South
+369++++ 0 4 North None
+369++++ 0 2 South None
+352++++max  1 2 South South
+369++++ 0 2 North None
+369++++ 0 -200 South None
+352++++max  1 -200 West South
+369++++ 2 2 South South
+369++++ 0 6 North None
+369++++ 0 4 West None
+352++++max  1 4 South West
+369++++ 0 4 North None
+369++++ 0 2 West None
+352++++max  1 2 West West
+369++++ 2 4 East South
+369++++ 0 4 East None
+369++++ 0 6 West None
+352++++max  1 4 South East
+369++++ 0 2 East None
+369++++ 0 4 West None
+352++++max  1 2 West East
+369++++ 2 4 West South
+352++++max  3 2 North South
+369++++ 0 4 South None
+369++++ 0 6 East None
+352++++max  1 4 North South
+369++++ 0 6 South None
+369++++ 0 8 East None
+352++++max  1 6 West South
+369++++ 2 6 North West
+369++++ 0 4 North None
+369++++ 0 2 South None
+352++++max  1 2 North South
+369++++ 0 6 North None
+369++++ 0 4 South None
+352++++max  1 4 West South
+369++++ 2 4 South West
+369++++ 0 6 North None
+369++++ 0 4 West None
+352++++max  1 4 North West
+369++++ 0 8 North None
+369++++ 0 6 West None
+352++++max  1 6 West West
+369++++ 2 6 East West
+369++++ 0 4 East None
+369++++ 0 6 West None
+352++++max  1 4 North East
+369++++ 0 6 East None
+369++++ 0 8 West None
+352++++max  1 6 West East
+369++++ 2 6 West West
+352++++max  3 4 South South
+369++++ 0 6 South None
+369++++ 0 8 East None
+352++++max  1 6 East South
+369++++ 0 4 South None
+369++++ 0 6 East None
+352++++max  1 4 West South
+369++++ 2 6 North East
+369++++ 0 6 North None
+369++++ 0 4 South None
+352++++max  1 4 East South
+369++++ 0 4 North None
+369++++ 0 2 South None
+352++++max  1 2 West South
+369++++ 2 4 South East
+369++++ 0 8 North None
+369++++ 0 6 West None
+352++++max  1 6 East West
+369++++ 0 6 North None
+369++++ 0 4 West None
+352++++max  1 4 West West
+369++++ 2 6 East East
+369++++ 0 6 East None
+369++++ 0 8 West None
+352++++max  1 6 East East
+369++++ 0 4 East None
+369++++ 0 6 West None
+352++++max  1 4 West East
+369++++ 2 6 West East
+352++++max  3 4 East South
+664 MINIMAX best actions ['South', 'East'] 4
+===NO need go home=== 848
++++1 Enermy MINIMAX RESULT 553 South
+minimax 316 0 South (26, 12)
+=== 1200 === 2 South 235.75 (20, 8)
++++ 1 Enermy MINIMAX BEGIN+++551
+369++++ 0 4 North None
+369++++ 0 2 South None
+369++++ 0 4 East None
+369++++ 0 4 West None
+352++++max  1 2 North South
+369++++ 0 6 North None
+369++++ 0 4 South None
+369++++ 0 6 East None
+369++++ 0 6 West None
+352++++max  1 4 South South
+369++++ 0 6 North None
+369++++ 0 4 South None
+369++++ 0 6 East None
+369++++ 0 6 West None
+352++++max  1 4 East South
+369++++ 2 4 North South
+369++++ 0 2 North None
+369++++ 0 -200 East None
+352++++max  1 -200 North East
+369++++ 0 4 North None
+369++++ 0 2 East None
+352++++max  1 2 South East
+369++++ 0 4 North None
+369++++ 0 2 East None
+352++++max  1 2 East East
+369++++ 2 2 South East
+352++++max  3 2 North South
+369++++ 0 6 North None
+369++++ 0 4 South None
+369++++ 0 6 East None
+369++++ 0 6 West None
+352++++max  1 4 East South
+369++++ 0 8 North None
+369++++ 0 6 South None
+369++++ 0 8 East None
+369++++ 0 8 West None
+352++++max  1 6 West South
+369++++ 2 6 North West
+369++++ 0 4 North None
+369++++ 0 2 East None
+352++++max  1 2 East East
+369++++ 0 6 North None
+369++++ 0 4 East None
+352++++max  1 4 West East
+369++++ 2 4 South West
+352++++max  3 4 West South
+664 MINIMAX best actions ['West'] 4
+===NO need go home=== 848
++++1 Enermy MINIMAX RESULT 553 West
+minimax 316 0 West (26, 11)
+=== 1200 === 2 West 234.75 (20, 7)
++++ 1 Enermy MINIMAX BEGIN+++551
+369++++ 0 4 North None
+369++++ 0 2 South None
+352++++max  1 2 North South
+369++++ 0 6 North None
+369++++ 0 4 South None
+352++++max  1 4 West South
+369++++ 2 4 North West
+369++++ 0 -200 South None
+369++++ 0 2 West None
+352++++max  1 -200 North South
+369++++ 0 2 South None
+369++++ 0 4 West None
+352++++max  1 2 West South
+369++++ 2 2 East West
+352++++max  3 2 East East
+369++++ 0 6 North None
+369++++ 0 4 South None
+352++++max  1 4 East South
+369++++ 0 8 North None
+369++++ 0 6 South None
+352++++max  1 6 West South
+369++++ 2 6 North West
+369++++ 0 2 South None
+369++++ 0 4 West None
+352++++max  1 2 East South
+369++++ 0 4 South None
+369++++ 0 6 West None
+352++++max  1 4 West South
+369++++ 2 4 East West
+352++++max  3 4 West East
+664 MINIMAX best actions ['West'] 4
+===NO need go home=== 848
++++1 Enermy MINIMAX RESULT 553 West
+minimax 316 0 West (25, 11)
+=== 1200 === 2 South 233.75 (19, 7)
+evaluateDeepFood = 512 features {'successorScore': -24, 'distanceToDeepFood': 14, 'distanceToCapsule': 13, 'distToGhost': 0, 'reverse': 1, 'numInvaders': 0, 'isPacman': True}
+evaluateDeepFood = 512 features {'successorScore': -24, 'distanceToDeepFood': 13, 'distanceToCapsule': 11, 'distToGhost': 0, 'numInvaders': 0, 'isPacman': True}
+evaluateDeepFood = 512 features {'successorScore': -24, 'distanceToDeepFood': 14, 'distanceToCapsule': 12, 'distToGhost': 0, 'stop': 1, 'numInvaders': 0, 'isPacman': True}
+=== 457 eatCap and eat eat  === 0 West 233.25 (24, 11)
+=== 1200 === 2 South 232.75 (19, 6)
+evaluateDeepFood = 512 features {'successorScore': -23, 'distanceToDeepFood': 12, 'distanceToCapsule': 12, 'distToGhost': 0, 'numInvaders': 0, 'isPacman': True}
+evaluateDeepFood = 512 features {'successorScore': -23, 'distanceToDeepFood': 14, 'distanceToCapsule': 12, 'distToGhost': 0, 'reverse': 1, 'numInvaders': 0, 'isPacman': True}
+evaluateDeepFood = 512 features {'successorScore': -23, 'distanceToDeepFood': 14, 'distanceToCapsule': 10, 'distToGhost': 0, 'numInvaders': 0, 'isPacman': True}
+evaluateDeepFood = 512 features {'successorScore': -23, 'distanceToDeepFood': 13, 'distanceToCapsule': 11, 'distToGhost': 0, 'stop': 1, 'numInvaders': 0, 'isPacman': True}
+=== 457 eatCap and eat eat  === 0 South 232.25 (23, 11)
+=== 1200 === 2 South 231.75 (19, 5)
+evaluateDeepFood = 512 features {'successorScore': -23, 'distanceToDeepFood': 13, 'distanceToCapsule': 0, 'distToGhost': 0, 'reverse': 1, 'numInvaders': 0, 'isPacman': True}
+evaluateDeepFood = 512 features {'successorScore': -23, 'distanceToDeepFood': 11, 'distanceToCapsule': 0, 'distToGhost': 0, 'numInvaders': 0, 'isPacman': True}
+evaluateDeepFood = 512 features {'successorScore': -23, 'distanceToDeepFood': 12, 'distanceToCapsule': 0, 'distToGhost': 0, 'stop': 1, 'numInvaders': 0, 'isPacman': True}
+=== 457 eatCap and eat eat  === 0 South 231.25 (23, 10)
+=== 1200 === 2 South 230.75 (19, 4)
+evaluateDeepFood = 512 features {'successorScore': -22, 'distanceToDeepFood': 12, 'distanceToCapsule': 0, 'distToGhost': 0, 'reverse': 1, 'numInvaders': 0, 'isPacman': True}
+evaluateDeepFood = 512 features {'successorScore': -22, 'distanceToDeepFood': 10, 'distanceToCapsule': 0, 'distToGhost': 0, 'numInvaders': 0, 'isPacman': True}
+evaluateDeepFood = 512 features {'successorScore': -22, 'distanceToDeepFood': 11, 'distanceToCapsule': 0, 'distToGhost': 0, 'stop': 1, 'numInvaders': 0, 'isPacman': True}
+=== 457 eatCap and eat eat  === 0 East 230.25 (23, 9)
+=== 1200 === 2 South 229.75 (19, 3)
+evaluateDeepFood = 512 features {'successorScore': -21, 'distanceToDeepFood': 10, 'distanceToCapsule': 0, 'distToGhost': 0, 'numInvaders': 0, 'isPacman': True}
+evaluateDeepFood = 512 features {'successorScore': -22, 'distanceToDeepFood': 11, 'distanceToCapsule': 0, 'distToGhost': 0, 'reverse': 1, 'numInvaders': 0, 'isPacman': True}
+evaluateDeepFood = 512 features {'successorScore': -22, 'distanceToDeepFood': 10, 'distanceToCapsule': 0, 'distToGhost': 0, 'stop': 1, 'numInvaders': 0, 'isPacman': True}
+=== 457 eatCap and eat eat  === 0 East 229.25 (24, 9)
+=== 1200 === 2 South 228.75 (19, 2)
+evaluateDeepFood = 512 features {'successorScore': -19, 'distanceToDeepFood': 21, 'distanceToCapsule': 0, 'distToGhost': 0, 'numInvaders': 0, 'isPacman': True}
+evaluateDeepFood = 512 features {'successorScore': -20, 'distanceToDeepFood': 11, 'distanceToCapsule': 0, 'distToGhost': 0, 'reverse': 1, 'numInvaders': 0, 'isPacman': True}
+evaluateDeepFood = 512 features {'successorScore': -20, 'distanceToDeepFood': 10, 'distanceToCapsule': 0, 'distToGhost': 0, 'stop': 1, 'numInvaders': 0, 'isPacman': True}
+=== 457 eatCap and eat eat  === 0 East 228.25 (25, 9)
+=== 1200 === 2 East 227.75 (19, 1)
+evaluateDeepFood = 512 features {'successorScore': -18, 'distanceToDeepFood': 20, 'distanceToCapsule': 0, 'distToGhost': 0, 'reverse': 1, 'numInvaders': 0, 'isPacman': True}
+evaluateDeepFood = 512 features {'successorScore': -18, 'distanceToDeepFood': 21, 'distanceToCapsule': 0, 'distToGhost': 0, 'stop': 1, 'numInvaders': 0, 'isPacman': True}
+=== 457 eatCap and eat eat  === 0 West 227.25 (26, 9)
+=== 1200 === 2 North 226.75 (20, 1)
+evaluateDeepFood = 512 features {'successorScore': -18, 'distanceToDeepFood': 21, 'distanceToCapsule': 0, 'distToGhost': 0, 'reverse': 1, 'numInvaders': 0, 'isPacman': True}
+evaluateDeepFood = 512 features {'successorScore': -18, 'distanceToDeepFood': 19, 'distanceToCapsule': 0, 'distToGhost': 0, 'numInvaders': 0, 'isPacman': True}
+evaluateDeepFood = 512 features {'successorScore': -18, 'distanceToDeepFood': 20, 'distanceToCapsule': 0, 'distToGhost': 0, 'stop': 1, 'numInvaders': 0, 'isPacman': True}
+=== 457 eatCap and eat eat  === 0 West 226.25 (25, 9)
+=== 1200 === 2 East 225.75 (20, 2)
+evaluateDeepFood = 512 features {'successorScore': -17, 'distanceToDeepFood': 20, 'distanceToCapsule': 0, 'distToGhost': 0, 'reverse': 1, 'numInvaders': 0, 'isPacman': True}
+evaluateDeepFood = 512 features {'successorScore': -17, 'distanceToDeepFood': 18, 'distanceToCapsule': 0, 'distToGhost': 0, 'numInvaders': 0, 'isPacman': True}
+evaluateDeepFood = 512 features {'successorScore': -17, 'distanceToDeepFood': 19, 'distanceToCapsule': 0, 'distToGhost': 0, 'stop': 1, 'numInvaders': 0, 'isPacman': True}
+=== 457 eatCap and eat eat  === 0 West 225.25 (24, 9)
+=== 1200 === 2 East 224.75 (21, 2)
+evaluateDeepFood = 512 features {'successorScore': -17, 'distanceToDeepFood': 17, 'distanceToCapsule': 0, 'distToGhost': 0, 'numInvaders': 0, 'isPacman': True}
+evaluateDeepFood = 512 features {'successorScore': -17, 'distanceToDeepFood': 19, 'distanceToCapsule': 0, 'distToGhost': 0, 'reverse': 1, 'numInvaders': 0, 'isPacman': True}
+evaluateDeepFood = 512 features {'successorScore': -17, 'distanceToDeepFood': 18, 'distanceToCapsule': 0, 'distToGhost': 0, 'stop': 1, 'numInvaders': 0, 'isPacman': True}
+=== 457 eatCap and eat eat  === 0 North 224.25 (23, 9)
+=== 1200 === 2 East 223.75 (22, 2)
+evaluateDeepFood = 512 features {'successorScore': -17, 'distanceToDeepFood': 16, 'distanceToCapsule': 0, 'distToGhost': 0, 'numInvaders': 0, 'isPacman': True}
+evaluateDeepFood = 512 features {'successorScore': -17, 'distanceToDeepFood': 18, 'distanceToCapsule': 0, 'distToGhost': 0, 'reverse': 1, 'numInvaders': 0, 'isPacman': True}
+evaluateDeepFood = 512 features {'successorScore': -17, 'distanceToDeepFood': 17, 'distanceToCapsule': 0, 'distToGhost': 0, 'stop': 1, 'numInvaders': 0, 'isPacman': True}
+=== 457 eatCap and eat eat  === 0 North 223.25 (23, 10)
+=== 1200 === 2 East 222.75 (23, 2)
+evaluateDeepFood = 512 features {'successorScore': -17, 'distanceToDeepFood': 17, 'distanceToCapsule': 0, 'distToGhost': 0, 'reverse': 1, 'numInvaders': 0, 'isPacman': True}
+evaluateDeepFood = 512 features {'successorScore': -17, 'distanceToDeepFood': 15, 'distanceToCapsule': 0, 'distToGhost': 0, 'numInvaders': 0, 'isPacman': True}
+evaluateDeepFood = 512 features {'successorScore': -17, 'distanceToDeepFood': 16, 'distanceToCapsule': 0, 'distToGhost': 0, 'numInvaders': 0, 'isPacman': True}
+evaluateDeepFood = 512 features {'successorScore': -17, 'distanceToDeepFood': 16, 'distanceToCapsule': 0, 'distToGhost': 0, 'stop': 1, 'numInvaders': 0, 'isPacman': True}
+=== 457 eatCap and eat eat  === 0 East 222.25 (23, 11)
+=== 1200 === 2 North 221.75 (24, 2)
+evaluateDeepFood = 512 features {'successorScore': -16, 'distanceToDeepFood': 14, 'distanceToCapsule': 0, 'distToGhost': 0, 'numInvaders': 0, 'isPacman': True}
+evaluateDeepFood = 512 features {'successorScore': -16, 'distanceToDeepFood': 16, 'distanceToCapsule': 0, 'distToGhost': 0, 'reverse': 1, 'numInvaders': 0, 'isPacman': True}
+evaluateDeepFood = 512 features {'successorScore': -16, 'distanceToDeepFood': 15, 'distanceToCapsule': 0, 'distToGhost': 0, 'stop': 1, 'numInvaders': 0, 'isPacman': True}
+=== 457 eatCap and eat eat  === 0 East 221.25 (24, 11)
+=== 1200 === 2 South 220.75 (24, 3)
+evaluateDeepFood = 512 features {'successorScore': -16, 'distanceToDeepFood': 13, 'distanceToCapsule': 0, 'distToGhost': 0, 'numInvaders': 0, 'isPacman': True}
+evaluateDeepFood = 512 features {'successorScore': -16, 'distanceToDeepFood': 15, 'distanceToCapsule': 0, 'distToGhost': 0, 'reverse': 1, 'numInvaders': 0, 'isPacman': True}
+evaluateDeepFood = 512 features {'successorScore': -16, 'distanceToDeepFood': 14, 'distanceToCapsule': 0, 'distToGhost': 0, 'stop': 1, 'numInvaders': 0, 'isPacman': True}
+=== 457 eatCap and eat eat  === 0 East 220.25 (25, 11)
+=== 1200 === 2 South 219.75 (24, 2)
+evaluateDeepFood = 512 features {'successorScore': -15, 'distanceToDeepFood': 12, 'distanceToCapsule': 0, 'distToGhost': 0, 'numInvaders': 0, 'isPacman': True}
+evaluateDeepFood = 512 features {'successorScore': -15, 'distanceToDeepFood': 14, 'distanceToCapsule': 0, 'distToGhost': 0, 'reverse': 1, 'numInvaders': 0, 'isPacman': True}
+evaluateDeepFood = 512 features {'successorScore': -15, 'distanceToDeepFood': 13, 'distanceToCapsule': 0, 'distToGhost': 0, 'stop': 1, 'numInvaders': 0, 'isPacman': True}
+=== 457 eatCap and eat eat  === 0 North 219.25 (26, 11)
+=== 1200 === 2 North 218.75 (24, 1)
+evaluateDeepFood = 512 features {'successorScore': -15, 'distanceToDeepFood': 13, 'distanceToCapsule': 0, 'distToGhost': 0, 'numInvaders': 0, 'isPacman': True}
+evaluateDeepFood = 512 features {'successorScore': -15, 'distanceToDeepFood': 13, 'distanceToCapsule': 0, 'distToGhost': 0, 'reverse': 1, 'numInvaders': 0, 'isPacman': True}
+evaluateDeepFood = 512 features {'successorScore': -15, 'distanceToDeepFood': 11, 'distanceToCapsule': 0, 'distToGhost': 0, 'numInvaders': 0, 'isPacman': True}
+evaluateDeepFood = 512 features {'successorScore': -15, 'distanceToDeepFood': 12, 'distanceToCapsule': 0, 'distToGhost': 0, 'stop': 1, 'numInvaders': 0, 'isPacman': True}
+=== 457 eatCap and eat eat  === 0 East 218.25 (26, 12)
+=== 1200 === 2 East 217.75 (24, 2)
+evaluateDeepFood = 512 features {'successorScore': -15, 'distanceToDeepFood': 10, 'distanceToCapsule': 0, 'distToGhost': 0, 'numInvaders': 0, 'isPacman': True}
+evaluateDeepFood = 512 features {'successorScore': -15, 'distanceToDeepFood': 12, 'distanceToCapsule': 0, 'distToGhost': 0, 'reverse': 1, 'numInvaders': 0, 'isPacman': True}
+evaluateDeepFood = 512 features {'successorScore': -15, 'distanceToDeepFood': 11, 'distanceToCapsule': 0, 'distToGhost': 0, 'stop': 1, 'numInvaders': 0, 'isPacman': True}
+=== 457 eatCap and eat eat  === 0 East 217.25 (27, 12)
+=== 1200 === 2 East 216.75 (25, 2)
+evaluateDeepFood = 512 features {'successorScore': -15, 'distanceToDeepFood': 11, 'distanceToCapsule': 0, 'distToGhost': 0, 'numInvaders': 0, 'isPacman': True}
+evaluateDeepFood = 512 features {'successorScore': -15, 'distanceToDeepFood': 9, 'distanceToCapsule': 0, 'distToGhost': 0, 'numInvaders': 0, 'isPacman': True}
+evaluateDeepFood = 512 features {'successorScore': -15, 'distanceToDeepFood': 11, 'distanceToCapsule': 0, 'distToGhost': 0, 'numInvaders': 0, 'isPacman': True}
+evaluateDeepFood = 512 features {'successorScore': -15, 'distanceToDeepFood': 11, 'distanceToCapsule': 0, 'distToGhost': 0, 'reverse': 1, 'numInvaders': 0, 'isPacman': True}
+evaluateDeepFood = 512 features {'successorScore': -15, 'distanceToDeepFood': 10, 'distanceToCapsule': 0, 'distToGhost': 0, 'stop': 1, 'numInvaders': 0, 'isPacman': True}
+=== 457 eatCap and eat eat  === 0 South 216.25 (28, 12)
+=== 1200 === 2 North 215.75 (26, 2)
+evaluateDeepFood = 512 features {'successorScore': -15, 'distanceToDeepFood': 10, 'distanceToCapsule': 0, 'distToGhost': 0, 'reverse': 1, 'numInvaders': 0, 'isPacman': True}
+evaluateDeepFood = 512 features {'successorScore': -14, 'distanceToDeepFood': 10, 'distanceToCapsule': 0, 'distToGhost': 0, 'numInvaders': 0, 'isPacman': True}
+evaluateDeepFood = 512 features {'successorScore': -15, 'distanceToDeepFood': 9, 'distanceToCapsule': 0, 'distToGhost': 0, 'stop': 1, 'numInvaders': 0, 'isPacman': True}
+=== 457 eatCap and eat eat  === 0 South 215.25 (28, 11)
+=== 1200 === 2 East 214.75 (26, 3)
+evaluateDeepFood = 512 features {'successorScore': -13, 'distanceToDeepFood': 11, 'distanceToCapsule': 0, 'distToGhost': 0, 'reverse': 1, 'numInvaders': 0, 'isPacman': True}
+evaluateDeepFood = 512 features {'successorScore': -12, 'distanceToDeepFood': 24, 'distanceToCapsule': 0, 'distToGhost': 0, 'numInvaders': 0, 'isPacman': True}
+evaluateDeepFood = 512 features {'successorScore': -13, 'distanceToDeepFood': 10, 'distanceToCapsule': 0, 'distToGhost': 0, 'stop': 1, 'numInvaders': 0, 'isPacman': True}
+=== 457 eatCap and eat eat  === 0 South 214.25 (28, 10)
+evaluateDeepFood = 512 features {'successorScore': -12, 'distanceToDeepFood': 23, 'distanceToCapsule': 0, 'distToGhost': 0, 'reverse': 1, 'numInvaders': 0, 'isPacman': True}
+evaluateDeepFood = 512 features {'successorScore': -12, 'distanceToDeepFood': 24, 'distanceToCapsule': 0, 'distToGhost': 0, 'stop': 1, 'numInvaders': 0, 'isPacman': True}
+=== 457 eatCap and eat eat  === 0 North 213.25 (28, 9)
+evaluateDeepFood = 512 features {'successorScore': -12, 'distanceToDeepFood': 22, 'distanceToCapsule': 0, 'distToGhost': 0, 'numInvaders': 0, 'isPacman': True}
+evaluateDeepFood = 512 features {'successorScore': -12, 'distanceToDeepFood': 24, 'distanceToCapsule': 0, 'distToGhost': 0, 'reverse': 1, 'numInvaders': 0, 'isPacman': True}
+evaluateDeepFood = 512 features {'successorScore': -12, 'distanceToDeepFood': 23, 'distanceToCapsule': 0, 'distToGhost': 0, 'stop': 1, 'numInvaders': 0, 'isPacman': True}
+=== 457 eatCap and eat eat  === 0 North 212.25 (28, 10)
+evaluateDeepFood = 512 features {'successorScore': -12, 'distanceToDeepFood': 21, 'distanceToCapsule': 0, 'distToGhost': 0, 'numInvaders': 0, 'isPacman': True}
+evaluateDeepFood = 512 features {'successorScore': -12, 'distanceToDeepFood': 23, 'distanceToCapsule': 0, 'distToGhost': 0, 'reverse': 1, 'numInvaders': 0, 'isPacman': True}
+evaluateDeepFood = 512 features {'successorScore': -12, 'distanceToDeepFood': 22, 'distanceToCapsule': 0, 'distToGhost': 0, 'stop': 1, 'numInvaders': 0, 'isPacman': True}
+=== 457 eatCap and eat eat  === 0 North 211.25 (28, 11)
+evaluateDeepFood = 512 features {'successorScore': -12, 'distanceToDeepFood': 22, 'distanceToCapsule': 0, 'distToGhost': 0, 'numInvaders': 0, 'isPacman': True}
+evaluateDeepFood = 512 features {'successorScore': -12, 'distanceToDeepFood': 22, 'distanceToCapsule': 0, 'distToGhost': 0, 'reverse': 1, 'numInvaders': 0, 'isPacman': True}
+evaluateDeepFood = 512 features {'successorScore': -12, 'distanceToDeepFood': 22, 'distanceToCapsule': 0, 'distToGhost': 0, 'numInvaders': 0, 'isPacman': True}
+evaluateDeepFood = 512 features {'successorScore': -12, 'distanceToDeepFood': 20, 'distanceToCapsule': 0, 'distToGhost': 0, 'numInvaders': 0, 'isPacman': True}
+evaluateDeepFood = 512 features {'successorScore': -12, 'distanceToDeepFood': 21, 'distanceToCapsule': 0, 'distToGhost': 0, 'stop': 1, 'numInvaders': 0, 'isPacman': True}
+=== 457 eatCap and eat eat  === 0 West 210.25 (28, 12)
+evaluateDeepFood = 512 features {'successorScore': -12, 'distanceToDeepFood': 21, 'distanceToCapsule': 0, 'distToGhost': 0, 'reverse': 1, 'numInvaders': 0, 'isPacman': True}
+evaluateDeepFood = 512 features {'successorScore': -12, 'distanceToDeepFood': 19, 'distanceToCapsule': 0, 'distToGhost': 0, 'numInvaders': 0, 'isPacman': True}
+evaluateDeepFood = 512 features {'successorScore': -12, 'distanceToDeepFood': 20, 'distanceToCapsule': 0, 'distToGhost': 0, 'stop': 1, 'numInvaders': 0, 'isPacman': True}
+=== 457 eatCap and eat eat  === 0 West 209.25 (27, 12)
+evaluateDeepFood = 512 features {'successorScore': -12, 'distanceToDeepFood': 18, 'distanceToCapsule': 0, 'distToGhost': 0, 'numInvaders': 0, 'isPacman': True}
+evaluateDeepFood = 512 features {'successorScore': -12, 'distanceToDeepFood': 20, 'distanceToCapsule': 0, 'distToGhost': 0, 'numInvaders': 0, 'isPacman': True}
+evaluateDeepFood = 512 features {'successorScore': -12, 'distanceToDeepFood': 20, 'distanceToCapsule': 0, 'distToGhost': 0, 'reverse': 1, 'numInvaders': 0, 'isPacman': True}
+evaluateDeepFood = 512 features {'successorScore': -12, 'distanceToDeepFood': 19, 'distanceToCapsule': 0, 'distToGhost': 0, 'stop': 1, 'numInvaders': 0, 'isPacman': True}
+=== 457 eatCap and eat eat  === 0 North 208.25 (26, 12)
+evaluateDeepFood = 512 features {'successorScore': -12, 'distanceToDeepFood': 19, 'distanceToCapsule': 0, 'distToGhost': 0, 'reverse': 1, 'numInvaders': 0, 'isPacman': True}
+evaluateDeepFood = 512 features {'successorScore': -12, 'distanceToDeepFood': 17, 'distanceToCapsule': 0, 'distToGhost': 0, 'numInvaders': 0, 'isPacman': True}
+evaluateDeepFood = 512 features {'successorScore': -12, 'distanceToDeepFood': 18, 'distanceToCapsule': 0, 'distToGhost': 0, 'stop': 1, 'numInvaders': 0, 'isPacman': True}
+=== 457 eatCap and eat eat  === 0 West 207.25 (26, 13)
+evaluateDeepFood = 512 features {'successorScore': -12, 'distanceToDeepFood': 16, 'distanceToCapsule': 0, 'distToGhost': 0, 'numInvaders': 0, 'isPacman': True}
+evaluateDeepFood = 512 features {'successorScore': -12, 'distanceToDeepFood': 18, 'distanceToCapsule': 0, 'distToGhost': 0, 'reverse': 1, 'numInvaders': 0, 'isPacman': True}
+evaluateDeepFood = 512 features {'successorScore': -12, 'distanceToDeepFood': 17, 'distanceToCapsule': 0, 'distToGhost': 0, 'stop': 1, 'numInvaders': 0, 'isPacman': True}
+=== 457 eatCap and eat eat  === 0 North 206.25 (25, 13)
+evaluateDeepFood = 512 features {'successorScore': -12, 'distanceToDeepFood': 15, 'distanceToCapsule': 0, 'distToGhost': 0, 'numInvaders': 0, 'isPacman': True}
+evaluateDeepFood = 512 features {'successorScore': -12, 'distanceToDeepFood': 17, 'distanceToCapsule': 0, 'distToGhost': 0, 'reverse': 1, 'numInvaders': 0, 'isPacman': True}
+evaluateDeepFood = 512 features {'successorScore': -12, 'distanceToDeepFood': 16, 'distanceToCapsule': 0, 'distToGhost': 0, 'stop': 1, 'numInvaders': 0, 'isPacman': True}
+=== 457 eatCap and eat eat  === 0 North 205.25 (25, 14)
+evaluateDeepFood = 512 features {'successorScore': -11, 'distanceToDeepFood': 16, 'distanceToCapsule': 0, 'distToGhost': 0, 'numInvaders': 0, 'isPacman': True}
+evaluateDeepFood = 512 features {'successorScore': -12, 'distanceToDeepFood': 16, 'distanceToCapsule': 0, 'distToGhost': 0, 'reverse': 1, 'numInvaders': 0, 'isPacman': True}
+evaluateDeepFood = 512 features {'successorScore': -12, 'distanceToDeepFood': 16, 'distanceToCapsule': 0, 'distToGhost': 0, 'numInvaders': 0, 'isPacman': True}
+evaluateDeepFood = 512 features {'successorScore': -12, 'distanceToDeepFood': 14, 'distanceToCapsule': 0, 'distToGhost': 0, 'numInvaders': 0, 'isPacman': True}
+evaluateDeepFood = 512 features {'successorScore': -12, 'distanceToDeepFood': 15, 'distanceToCapsule': 0, 'distToGhost': 0, 'stop': 1, 'numInvaders': 0, 'isPacman': True}
+=== 457 eatCap and eat eat  === 0 North 204.25 (25, 15)
+evaluateDeepFood = 512 features {'successorScore': -11, 'distanceToDeepFood': 15, 'distanceToCapsule': 0, 'distToGhost': 0, 'reverse': 1, 'numInvaders': 0, 'isPacman': True}
+evaluateDeepFood = 512 features {'successorScore': -11, 'distanceToDeepFood': 17, 'distanceToCapsule': 0, 'distToGhost': 0, 'numInvaders': 0, 'isPacman': True}
+evaluateDeepFood = 512 features {'successorScore': -11, 'distanceToDeepFood': 16, 'distanceToCapsule': 0, 'distToGhost': 0, 'stop': 1, 'numInvaders': 0, 'isPacman': True}
+=== 457 eatCap and eat eat  === 0 South 203.25 (25, 16)
+evaluateDeepFood = 512 features {'successorScore': -11, 'distanceToDeepFood': 16, 'distanceToCapsule': 0, 'distToGhost': 0, 'reverse': 1, 'numInvaders': 0, 'isPacman': True}
+evaluateDeepFood = 512 features {'successorScore': -11, 'distanceToDeepFood': 16, 'distanceToCapsule': 0, 'distToGhost': 0, 'numInvaders': 0, 'isPacman': True}
+evaluateDeepFood = 512 features {'successorScore': -11, 'distanceToDeepFood': 16, 'distanceToCapsule': 0, 'distToGhost': 0, 'numInvaders': 0, 'isPacman': True}
+evaluateDeepFood = 512 features {'successorScore': -11, 'distanceToDeepFood': 14, 'distanceToCapsule': 0, 'distToGhost': 0, 'numInvaders': 0, 'isPacman': True}
+evaluateDeepFood = 512 features {'successorScore': -11, 'distanceToDeepFood': 15, 'distanceToCapsule': 0, 'distToGhost': 0, 'stop': 1, 'numInvaders': 0, 'isPacman': True}
+=== 457 eatCap and eat eat  === 0 West 202.25 (25, 15)
+=== 1200 === 2 East 201.75 (16, 2)
+evaluateDeepFood = 512 features {'successorScore': -11, 'distanceToDeepFood': 15, 'distanceToCapsule': 0, 'distToGhost': 0, 'reverse': 1, 'numInvaders': 0, 'isPacman': True}
+evaluateDeepFood = 512 features {'successorScore': -11, 'distanceToDeepFood': 13, 'distanceToCapsule': 0, 'distToGhost': 0, 'numInvaders': 0, 'isPacman': True}
+evaluateDeepFood = 512 features {'successorScore': -11, 'distanceToDeepFood': 14, 'distanceToCapsule': 0, 'distToGhost': 0, 'stop': 1, 'numInvaders': 0, 'isPacman': True}
+=== 457 eatCap and eat eat  === 0 West 201.25 (24, 15)
+=== 1200 === 2 East 200.75 (17, 2)
+evaluateDeepFood = 512 features {'successorScore': -11, 'distanceToDeepFood': 12, 'distanceToCapsule': 0, 'distToGhost': 0, 'numInvaders': 0, 'isPacman': True}
+evaluateDeepFood = 512 features {'successorScore': -11, 'distanceToDeepFood': 14, 'distanceToCapsule': 0, 'distToGhost': 0, 'reverse': 1, 'numInvaders': 0, 'isPacman': True}
+evaluateDeepFood = 512 features {'successorScore': -11, 'distanceToDeepFood': 13, 'distanceToCapsule': 0, 'distToGhost': 0, 'stop': 1, 'numInvaders': 0, 'isPacman': True}
+=== 457 eatCap and eat eat  === 0 North 200.25 (23, 15)
+=== 1200 === 2 East 199.75 (18, 2)
+evaluateDeepFood = 512 features {'successorScore': -11, 'distanceToDeepFood': 13, 'distanceToCapsule': 0, 'distToGhost': 0, 'reverse': 1, 'numInvaders': 0, 'isPacman': True}
+evaluateDeepFood = 512 features {'successorScore': -11, 'distanceToDeepFood': 11, 'distanceToCapsule': 0, 'distToGhost': 0, 'numInvaders': 0, 'isPacman': True}
+evaluateDeepFood = 512 features {'successorScore': -11, 'distanceToDeepFood': 12, 'distanceToCapsule': 0, 'distToGhost': 0, 'stop': 1, 'numInvaders': 0, 'isPacman': True}
+=== 457 eatCap and eat eat  === 0 West 199.25 (23, 16)
+=== 1200 === 2 North 198.75 (19, 2)
+evaluateDeepFood = 512 features {'successorScore': -11, 'distanceToDeepFood': 12, 'distanceToCapsule': 0, 'distToGhost': 0, 'reverse': 1, 'numInvaders': 0, 'isPacman': True}
+evaluateDeepFood = 512 features {'successorScore': -11, 'distanceToDeepFood': 10, 'distanceToCapsule': 0, 'distToGhost': 0, 'numInvaders': 0, 'isPacman': True}
+evaluateDeepFood = 512 features {'successorScore': -11, 'distanceToDeepFood': 11, 'distanceToCapsule': 0, 'distToGhost': 0, 'stop': 1, 'numInvaders': 0, 'isPacman': True}
+=== 457 eatCap and eat eat  === 0 West 198.25 (22, 16)
+=== 1200 === 2 North 197.75 (19, 3)
+evaluateDeepFood = 512 features {'successorScore': -11, 'distanceToDeepFood': 9, 'distanceToCapsule': 0, 'distToGhost': 0, 'numInvaders': 0, 'isPacman': True}
+evaluateDeepFood = 512 features {'successorScore': -11, 'distanceToDeepFood': 11, 'distanceToCapsule': 0, 'distToGhost': 0, 'reverse': 1, 'numInvaders': 0, 'isPacman': True}
+evaluateDeepFood = 512 features {'successorScore': -11, 'distanceToDeepFood': 9, 'distanceToCapsule': 0, 'distToGhost': 0, 'numInvaders': 0, 'isPacman': True}
+evaluateDeepFood = 512 features {'successorScore': -11, 'distanceToDeepFood': 10, 'distanceToCapsule': 0, 'distToGhost': 0, 'stop': 1, 'numInvaders': 0, 'isPacman': True}
+=== 457 eatCap and eat eat  === 0 West 197.25 (21, 16)
+=== 1200 === 2 North 196.75 (19, 4)
++++ 1 Enermy MINIMAX BEGIN+++551
+369++++ 0 4 South None
+369++++ 0 2 West None
+352++++max  1 2 North West
+369++++ 0 6 South None
+369++++ 0 4 West None
+352++++max  1 4 South West
+369++++ 0 4 South None
+369++++ 0 2 West None
+352++++max  1 2 East West
+369++++ 0 6 South None
+369++++ 0 4 West None
+352++++max  1 4 West West
+369++++ 2 4 East West
+369++++ 0 2 South None
+369++++ 0 2 East None
+369++++ 0 42 West None
+352++++max  1 2 North South
+369++++ 0 2 South None
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 South South
+369++++ 0 42 South None
+369++++ 0 2 East None
+369++++ 0 2 West None
+352++++max  1 2 East East
+369++++ 0 2 South None
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 West South
+369++++ 2 2 West North
+352++++max  3 2 South West
+369++++ 0 4 South None
+369++++ 0 2 West None
+352++++max  1 2 South West
+369++++ 0 2 South None
+369++++ 0 40 West None
+352++++max  1 2 East South
+369++++ 0 4 South None
+369++++ 0 2 West None
+352++++max  1 2 West West
+369++++ 2 2 East South
+369++++ 0 41 South None
+352++++max  1 41 South South
+369++++ 0 39 South None
+352++++max  1 39 East South
+369++++ 0 41 South None
+352++++max  1 41 West South
+369++++ 2 41 West West
+352++++max  3 2 East East
+369++++ 0 6 South None
+369++++ 0 4 West None
+352++++max  1 4 South West
+369++++ 0 4 South None
+369++++ 0 2 West None
+352++++max  1 2 East West
+369++++ 0 6 South None
+369++++ 0 4 West None
+352++++max  1 4 West West
+369++++ 2 4 East South
+369++++ 0 2 South None
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 South South
+369++++ 0 2 South None
+369++++ 0 2 East None
+369++++ 0 42 West None
+352++++max  1 2 East South
+369++++ 0 4 South None
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 West West
+369++++ 2 2 West West
+352++++max  3 2 West West
+664 MINIMAX best actions ['South', 'East', 'West'] 2
+===NO need go home=== 848
+3
+5
+5
++++1 Enermy MINIMAX RESULT 553 South
+minimax 316 0 South (20, 16)
+=== 1200 === 2 North 195.75 (19, 5)
++++ 1 Enermy MINIMAX BEGIN+++551
+369++++ 0 2 North None
+369++++ 0 43 West None
+352++++max  1 2 South North
+369++++ 0 41 North None
+369++++ 0 2 West None
+352++++max  1 2 East West
+369++++ 0 2 North None
+369++++ 0 2 West None
+352++++max  1 2 West North
+369++++ 2 2 South West
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 South West
+369++++ 0 2 East None
+369++++ 0 41 West None
+352++++max  1 2 East East
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 West West
+369++++ 2 2 East West
+369++++ 0 42 South None
+352++++max  1 42 South South
+369++++ 0 40 South None
+352++++max  1 40 East South
+369++++ 0 42 South None
+352++++max  1 42 West South
+369++++ 2 42 West West
+352++++max  3 2 North South
+369++++ 0 2 North None
+369++++ 0 43 West None
+352++++max  1 2 North North
+369++++ 0 4 North None
+369++++ 0 2 West None
+352++++max  1 2 South West
+369++++ 2 2 South North
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 North West
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 South West
+369++++ 2 4 East South
+369++++ 0 43 South None
+369++++ 0 2 East None
+369++++ 0 2 West None
+352++++max  1 2 North East
+369++++ 0 2 South None
+369++++ 0 4 East None
+369++++ 0 4 West None
+352++++max  1 2 South South
+369++++ 2 2 West South
+352++++max  3 2 South South
+369++++ 0 40 South None
+352++++max  1 40 North South
+369++++ 0 42 South None
+352++++max  1 42 West South
+369++++ 2 42 South West
+369++++ 0 2 East None
+369++++ 0 41 West None
+352++++max  1 2 North East
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 West West
+369++++ 2 2 East West
+369++++ 0 2 South None
+369++++ 0 41 East None
+369++++ 0 2 West None
+352++++max  1 2 North South
+369++++ 0 43 South None
+369++++ 0 2 East None
+369++++ 0 2 West None
+352++++max  1 2 West East
+369++++ 2 2 West North
+352++++max  3 2 East East
+369++++ 0 2 North None
+369++++ 0 2 West None
+352++++max  1 2 North North
+369++++ 0 2 North None
+369++++ 0 43 West None
+352++++max  1 2 East North
+369++++ 2 2 South North
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 North West
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 East West
+369++++ 2 2 East East
+369++++ 0 2 South None
+369++++ 0 2 East None
+369++++ 0 43 West None
+352++++max  1 2 North South
+369++++ 0 43 South None
+369++++ 0 2 East None
+369++++ 0 2 West None
+352++++max  1 2 East East
+369++++ 2 2 West East
+352++++max  3 2 West South
+664 MINIMAX best actions ['North', 'South', 'East', 'West'] 2
+===NO need go home=== 848
+4
+2
+4
+4
++++1 Enermy MINIMAX RESULT 553 South
+minimax 316 0 South (20, 15)
+=== 1200 === 2 West 194.75 (19, 6)
++++ 1 Enermy MINIMAX BEGIN+++551
+369++++ 0 41 South None
+352++++max  1 41 North South
+369++++ 0 43 South None
+352++++max  1 43 South South
+369++++ 0 41 South None
+352++++max  1 41 East South
+369++++ 0 43 South None
+352++++max  1 43 West South
+369++++ 2 43 South West
+369++++ 0 2 South None
+369++++ 0 2 East None
+369++++ 0 42 West None
+352++++max  1 2 North South
+369++++ 0 2 South None
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 South South
+369++++ 0 42 South None
+369++++ 0 2 East None
+369++++ 0 2 West None
+352++++max  1 2 East East
+369++++ 0 2 South None
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 West South
+369++++ 2 2 East West
+369++++ 0 2 South None
+369++++ 0 42 East None
+369++++ 0 2 West None
+352++++max  1 2 North South
+369++++ 0 2 South None
+369++++ 0 2 East None
+369++++ 0 4 West None
+352++++max  1 2 South South
+369++++ 0 2 South None
+369++++ 0 2 East None
+369++++ 0 4 West None
+352++++max  1 2 East South
+369++++ 0 44 South None
+369++++ 0 2 East None
+369++++ 0 2 West None
+352++++max  1 2 West East
+369++++ 2 2 West West
+352++++max  3 2 North East
+369++++ 0 2 North None
+369++++ 0 44 South None
+369++++ 0 2 East None
+369++++ 0 2 West None
+352++++max  1 2 North North
+369++++ 0 4 North None
+369++++ 0 2 South None
+369++++ 0 4 East None
+369++++ 0 4 West None
+352++++max  1 2 East South
+369++++ 0 4 North None
+369++++ 0 2 South None
+369++++ 0 4 East None
+369++++ 0 4 West None
+352++++max  1 2 West South
+369++++ 2 2 South East
+369++++ 0 2 South None
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 North South
+369++++ 0 4 South None
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 East South
+369++++ 0 4 South None
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 West South
+369++++ 2 4 East West
+369++++ 0 2 South None
+369++++ 0 2 East None
+369++++ 0 4 West None
+352++++max  1 2 North South
+369++++ 0 4 South None
+369++++ 0 4 East None
+369++++ 0 6 West None
+352++++max  1 4 East South
+369++++ 0 4 South None
+369++++ 0 4 East None
+369++++ 0 6 West None
+352++++max  1 4 West South
+369++++ 2 4 West East
+352++++max  3 2 South South
+664 MINIMAX best actions ['North', 'South'] 2
+===NO need go home=== 848
+3
+1
++++1 Enermy MINIMAX RESULT 553 South
+minimax 316 0 South (20, 14)
+=== 1200 === 2 West 193.75 (18, 6)
++++ 1 Enermy MINIMAX BEGIN+++551
+369++++ 0 -200 South None
+369++++ 0 2 East None
+369++++ 0 2 West None
+352++++max  1 -200 North South
+369++++ 0 2 South None
+369++++ 0 4 East None
+369++++ 0 4 West None
+352++++max  1 2 South South
+369++++ 2 2 North South
+369++++ 0 42 South None
+352++++max  1 42 North South
+369++++ 0 44 South None
+352++++max  1 44 South South
+369++++ 2 44 South South
+369++++ 0 2 North None
+369++++ 0 -200 West None
+352++++max  1 -200 North West
+369++++ 0 4 North None
+369++++ 0 2 West None
+352++++max  1 2 South West
+369++++ 2 2 East South
+369++++ 0 2 North None
+369++++ 0 -200 East None
+352++++max  1 -200 North East
+369++++ 0 4 North None
+369++++ 0 2 East None
+352++++max  1 2 South East
+369++++ 2 2 West South
+352++++max  3 2 North North
+369++++ 0 4 South None
+369++++ 0 6 East None
+369++++ 0 6 West None
+352++++max  1 4 East South
+369++++ 0 2 South None
+369++++ 0 4 East None
+369++++ 0 4 West None
+352++++max  1 2 West South
+369++++ 2 4 North East
+369++++ 0 4 North None
+369++++ 0 2 South None
+352++++max  1 2 East South
+369++++ 0 2 North None
+369++++ 0 -200 South None
+352++++max  1 -200 West South
+369++++ 2 2 South East
+369++++ 0 6 North None
+369++++ 0 4 West None
+352++++max  1 4 East West
+369++++ 0 4 North None
+369++++ 0 2 West None
+352++++max  1 2 West West
+369++++ 2 4 East East
+369++++ 0 6 North None
+369++++ 0 4 East None
+352++++max  1 4 East East
+369++++ 0 4 North None
+369++++ 0 2 East None
+352++++max  1 2 West East
+369++++ 2 4 West East
+352++++max  3 2 East South
+369++++ 0 2 South None
+369++++ 0 4 East None
+369++++ 0 4 West None
+352++++max  1 2 East South
+369++++ 0 4 South None
+369++++ 0 6 East None
+369++++ 0 6 West None
+352++++max  1 4 West South
+369++++ 2 4 North West
+369++++ 0 2 North None
+369++++ 0 -200 South None
+352++++max  1 -200 East South
+369++++ 0 4 North None
+369++++ 0 2 South None
+352++++max  1 2 West South
+369++++ 2 2 South West
+369++++ 0 4 North None
+369++++ 0 2 West None
+352++++max  1 2 East West
+369++++ 0 6 North None
+369++++ 0 4 West None
+352++++max  1 4 West West
+369++++ 2 4 East West
+369++++ 0 4 North None
+369++++ 0 2 East None
+352++++max  1 2 East East
+369++++ 0 6 North None
+369++++ 0 4 East None
+352++++max  1 4 West East
+369++++ 2 4 West West
+352++++max  3 2 West South
+664 MINIMAX best actions ['North', 'East', 'West'] 2
+===NO need go home=== 848
+2
+2
++++1 Enermy MINIMAX RESULT 553 North
+minimax 316 0 North (20, 13)
+=== 1200 === 2 West 192.75 (17, 6)
++++ 1 Enermy MINIMAX BEGIN+++551
+369++++ 0 2 South None
+369++++ 0 -200 East None
+369++++ 0 2 West None
+352++++max  1 -200 North East
+369++++ 0 2 South None
+369++++ 0 2 East None
+369++++ 0 4 West None
+352++++max  1 2 South South
+369++++ 0 2 South None
+369++++ 0 2 East None
+369++++ 0 4 West None
+352++++max  1 2 East South
+369++++ 0 -200 South None
+369++++ 0 2 East None
+369++++ 0 2 West None
+352++++max  1 -200 West South
+369++++ 2 2 North East
+369++++ 0 34 North None
+369++++ 0 36 South None
+369++++ 0 36 East None
+369++++ 0 34 West None
+352++++max  1 34 North North
+369++++ 0 36 North None
+369++++ 0 38 South None
+369++++ 0 38 East None
+369++++ 0 36 West None
+352++++max  1 36 South North
+369++++ 2 -200 East South
+352++++max  3 -200 North East
+369++++ 0 2 South None
+369++++ 0 2 East None
+369++++ 0 4 West None
+352++++max  1 2 North South
+369++++ 0 4 South None
+369++++ 0 4 East None
+369++++ 0 6 West None
+352++++max  1 4 East South
+369++++ 0 4 South None
+369++++ 0 4 East None
+369++++ 0 6 West None
+352++++max  1 4 West South
+369++++ 2 4 North West
+369++++ 0 2 North None
+369++++ 0 -200 South None
+369++++ 0 2 East None
+369++++ 0 2 West None
+352++++max  1 -200 North South
+369++++ 0 4 North None
+369++++ 0 2 South None
+369++++ 0 4 East None
+369++++ 0 4 West None
+352++++max  1 2 East South
+369++++ 0 4 North None
+369++++ 0 2 South None
+369++++ 0 4 East None
+369++++ 0 4 West None
+352++++max  1 2 West South
+369++++ 2 2 East East
+352++++max  3 2 South East
+664 MINIMAX best actions ['South'] 2
+===NO need go home=== 848
+1
++++1 Enermy MINIMAX RESULT 553 South
+minimax 316 0 South (20, 14)
+=== 1200 === 2 West 191.75 (16, 6)
++++ 1 Enermy MINIMAX BEGIN+++551
+369++++ 0 -200 South None
+369++++ 0 2 East None
+369++++ 0 2 West None
+352++++max  1 -200 North South
+369++++ 0 2 South None
+369++++ 0 4 East None
+369++++ 0 4 West None
+352++++max  1 2 South South
+369++++ 2 2 North South
+369++++ 0 35 North None
+369++++ 0 37 South None
+352++++max  1 35 North North
+369++++ 0 37 North None
+369++++ 0 39 South None
+352++++max  1 37 South North
+369++++ 2 -200 South South
+369++++ 0 2 North None
+369++++ 0 -200 West None
+352++++max  1 -200 North West
+369++++ 0 4 North None
+369++++ 0 2 West None
+352++++max  1 2 South West
+369++++ 2 2 East South
+369++++ 0 2 North None
+369++++ 0 -200 East None
+352++++max  1 -200 North East
+369++++ 0 4 North None
+369++++ 0 2 East None
+352++++max  1 2 South East
+369++++ 2 2 West South
+352++++max  3 -200 North South
+369++++ 0 4 South None
+369++++ 0 6 East None
+369++++ 0 6 West None
+352++++max  1 4 East South
+369++++ 0 2 South None
+369++++ 0 4 East None
+369++++ 0 4 West None
+352++++max  1 2 West South
+369++++ 2 4 North East
+369++++ 0 4 North None
+369++++ 0 2 South None
+352++++max  1 2 East South
+369++++ 0 2 North None
+369++++ 0 -200 South None
+352++++max  1 -200 West South
+369++++ 2 2 South East
+369++++ 0 6 North None
+369++++ 0 4 West None
+352++++max  1 4 East West
+369++++ 0 4 North None
+369++++ 0 2 West None
+352++++max  1 2 West West
+369++++ 2 4 East East
+369++++ 0 6 North None
+369++++ 0 4 East None
+352++++max  1 4 East East
+369++++ 0 4 North None
+369++++ 0 2 East None
+352++++max  1 2 West East
+369++++ 2 4 West East
+352++++max  3 2 East South
+369++++ 0 2 South None
+369++++ 0 4 East None
+369++++ 0 4 West None
+352++++max  1 2 East South
+369++++ 0 4 South None
+369++++ 0 6 East None
+369++++ 0 6 West None
+352++++max  1 4 West South
+369++++ 2 4 North West
+369++++ 0 2 North None
+369++++ 0 -200 South None
+352++++max  1 -200 East South
+369++++ 0 4 North None
+369++++ 0 2 South None
+352++++max  1 2 West South
+369++++ 2 2 South West
+369++++ 0 4 North None
+369++++ 0 2 West None
+352++++max  1 2 East West
+369++++ 0 6 North None
+369++++ 0 4 West None
+352++++max  1 4 West West
+369++++ 2 4 East West
+369++++ 0 4 North None
+369++++ 0 2 East None
+352++++max  1 2 East East
+369++++ 0 6 North None
+369++++ 0 4 East None
+352++++max  1 4 West East
+369++++ 2 4 West West
+352++++max  3 2 West South
+664 MINIMAX best actions ['East', 'West'] 2
+===NO need go home=== 848
+2
++++1 Enermy MINIMAX RESULT 553 West
+minimax 316 0 West (20, 13)
+=== 1200 === 2 West 190.75 (15, 6)
++++ 1 Enermy MINIMAX BEGIN+++551
+369++++ 0 2 North None
+369++++ 0 -200 South None
+369++++ 0 2 East None
+369++++ 0 2 West None
+352++++max  1 -200 North South
+369++++ 0 4 North None
+369++++ 0 2 South None
+369++++ 0 4 East None
+369++++ 0 4 West None
+352++++max  1 2 East South
+369++++ 0 4 North None
+369++++ 0 2 South None
+369++++ 0 4 East None
+369++++ 0 4 West None
+352++++max  1 2 West South
+369++++ 2 2 North West
+369++++ 0 36 North None
+369++++ 0 38 East None
+369++++ 0 38 West None
+352++++max  1 36 North North
+369++++ 0 38 North None
+369++++ 0 40 East None
+369++++ 0 40 West None
+352++++max  1 38 South North
+369++++ 2 -200 South South
+352++++max  3 -200 East South
+369++++ 0 4 North None
+369++++ 0 2 South None
+369++++ 0 4 East None
+369++++ 0 4 West None
+352++++max  1 2 East South
+369++++ 0 6 North None
+369++++ 0 4 South None
+369++++ 0 6 East None
+369++++ 0 6 West None
+352++++max  1 4 West South
+369++++ 2 4 North West
+369++++ 0 2 North None
+369++++ 0 2 East None
+369++++ 0 -200 West None
+352++++max  1 -200 East West
+369++++ 0 4 North None
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 West West
+369++++ 2 2 South West
+352++++max  3 2 West South
+664 MINIMAX best actions ['West'] 2
+===NO need go home=== 848
+3
++++1 Enermy MINIMAX RESULT 553 West
+minimax 316 0 West (19, 13)
+=== 1200 === 2 West 189.75 (14, 6)
++++ 1 Enermy MINIMAX BEGIN+++551
+369++++ 0 2 North None
+369++++ 0 -200 South None
+352++++max  1 -200 East South
+369++++ 0 4 North None
+369++++ 0 2 South None
+352++++max  1 2 West South
+369++++ 2 2 North West
+369++++ 0 2 East None
+369++++ 0 -200 West None
+352++++max  1 -200 East West
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 West West
+369++++ 2 2 East West
+369++++ 0 37 East None
+369++++ 0 37 West None
+352++++max  1 37 North East
+369++++ 0 39 East None
+369++++ 0 39 West None
+352++++max  1 39 South East
+369++++ 2 -200 West South
+352++++max  3 -200 East West
+369++++ 0 6 North None
+369++++ 0 4 South None
+352++++max  1 4 South South
+369++++ 0 4 North None
+369++++ 0 2 South None
+352++++max  1 2 East South
+369++++ 0 6 North None
+369++++ 0 4 South None
+352++++max  1 4 West South
+369++++ 2 4 North South
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 South West
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 East West
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 West West
+369++++ 2 4 East South
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 South West
+369++++ 0 2 East None
+369++++ 0 -200 West None
+352++++max  1 -200 East West
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 West West
+369++++ 2 2 West West
+352++++max  3 2 West West
+664 MINIMAX best actions ['West'] 2
+===NO need go home=== 848
+4
++++1 Enermy MINIMAX RESULT 553 West
+minimax 316 0 West (18, 13)
+=== 1200 === 2 West 188.75 (13, 6)
++++ 1 Enermy MINIMAX BEGIN+++551
+369++++ 0 4 North None
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 North West
+369++++ 0 6 North None
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 South West
+369++++ 0 6 North None
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 West West
+369++++ 2 4 East West
+369++++ 0 2 East None
+369++++ 0 -200 West None
+352++++max  1 -200 North West
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 South West
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 West West
+369++++ 2 2 West South
+352++++max  3 2 South West
+369++++ 0 2 North None
+369++++ 0 2 East None
+369++++ 0 -200 West None
+352++++max  1 -200 East West
+369++++ 0 4 North None
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 West West
+369++++ 2 2 East West
+369++++ 0 38 East None
+369++++ 0 36 West None
+352++++max  1 36 North West
+369++++ 0 40 East None
+369++++ 0 38 West None
+352++++max  1 38 South West
+369++++ 2 -200 West South
+352++++max  3 -200 East West
+369++++ 0 6 North None
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 South West
+369++++ 0 4 North None
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 East West
+369++++ 2 4 East South
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 South West
+369++++ 0 2 East None
+369++++ 0 -200 West None
+352++++max  1 -200 East West
+369++++ 2 2 West South
+352++++max  3 2 West West
+664 MINIMAX best actions ['South', 'West'] 2
+===NO need go home=== 848
+5
+5
++++1 Enermy MINIMAX RESULT 553 West
+minimax 316 0 West (17, 13)
+=== 1200 === 2 West 187.75 (12, 6)
+=== 364 === impasse 0 South 187.25 (16, 13)
+=== 1200 === 2 West 186.75 (11, 6)
+=== 364 === impasse 0 South 186.25 (16, 12)
+=== 1123 === 2 East 185.75 (10, 6)
+=== 364 === impasse 0 South 185.25 (16, 11)
+=== 1123 === 2 East 184.75 (11, 6)
+=== 364 === impasse 0 South 184.25 (16, 10)
+=== 1123 === 2 East 183.75 (12, 6)
+=== 364 === impasse 0 South 183.25 (16, 9)
+=== 1123 === 2 East 182.75 (13, 6)
+=== 366 === 0 East 182.25 (16, 8)
+=== 1123 === 2 East 181.75 (14, 6)
+=== 366 === 0 North 181.25 (17, 8)
+=== 1123 === 2 East 180.75 (15, 6)
++++ 1 Enermy MINIMAX BEGIN+++551
+369++++ 0 6 North None
+369++++ 0 4 South None
+369++++ 0 4 West None
+352++++max  1 4 North South
+369++++ 0 8 North None
+369++++ 0 6 South None
+369++++ 0 6 West None
+352++++max  1 6 South South
+369++++ 0 6 North None
+369++++ 0 4 South None
+369++++ 0 4 West None
+352++++max  1 4 West South
+369++++ 2 6 North South
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 North West
+369++++ 0 8 East None
+369++++ 0 6 West None
+352++++max  1 6 South West
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 West West
+369++++ 2 6 East South
+369++++ 0 4 North None
+369++++ 0 2 South None
+369++++ 0 4 East None
+369++++ 0 4 West None
+352++++max  1 2 North South
+369++++ 0 6 North None
+369++++ 0 4 South None
+369++++ 0 6 East None
+369++++ 0 6 West None
+352++++max  1 4 South South
+369++++ 0 4 North None
+369++++ 0 2 South None
+369++++ 0 4 East None
+369++++ 0 4 West None
+352++++max  1 2 West South
+369++++ 2 4 West South
+352++++max  3 4 South West
+369++++ 0 8 North None
+369++++ 0 6 South None
+369++++ 0 6 West None
+352++++max  1 6 East South
+369++++ 0 6 North None
+369++++ 0 4 South None
+369++++ 0 4 West None
+352++++max  1 4 West South
+369++++ 2 6 North East
+369++++ 0 6 East None
+369++++ 0 6 West None
+352++++max  1 6 East East
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 West West
+369++++ 2 6 East East
+369++++ 0 6 North None
+369++++ 0 4 South None
+369++++ 0 6 East None
+369++++ 0 6 West None
+352++++max  1 4 East South
+369++++ 0 4 North None
+369++++ 0 2 South None
+369++++ 0 4 East None
+369++++ 0 4 West None
+352++++max  1 2 West South
+369++++ 2 4 West East
+352++++max  3 4 East West
+369++++ 0 4 North None
+369++++ 0 2 South None
+369++++ 0 2 West None
+352++++max  1 2 North South
+369++++ 0 6 North None
+369++++ 0 4 South None
+369++++ 0 4 West None
+352++++max  1 4 South South
+369++++ 0 6 North None
+369++++ 0 4 South None
+369++++ 0 4 West None
+352++++max  1 4 East South
+369++++ 2 4 North East
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 North West
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 South West
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 East West
+369++++ 2 4 East South
+369++++ 0 2 North None
+369++++ 0 40 South None
+369++++ 0 2 East None
+369++++ 0 2 West None
+352++++max  1 2 North North
+369++++ 0 4 North None
+369++++ 0 2 South None
+369++++ 0 4 East None
+369++++ 0 4 West None
+352++++max  1 2 South South
+369++++ 0 4 North None
+369++++ 0 2 South None
+369++++ 0 4 East None
+369++++ 0 4 West None
+352++++max  1 2 East South
+369++++ 2 2 West North
+352++++max  3 2 West West
+664 MINIMAX best actions ['South', 'East'] 4
+===NO need go home=== 848
+8
+6
++++1 Enermy MINIMAX RESULT 553 East
+minimax 316 0 East (17, 9)
+=== 1123 === 2 South 179.75 (16, 6)
+=== 366 === 0 East 179.25 (18, 9)
+=== 1123 === 2 South 178.75 (16, 5)
+=== 366 === 0 East 178.25 (19, 9)
+=== 1123 === 2 North 177.75 (16, 4)
+=== 366 === 0 South 177.25 (20, 9)
+=== 1123 === 2 North 176.75 (16, 5)
+=== 366 === 0 South 176.25 (20, 8)
+=== 1123 === 2 Stop 175.75 (16, 6)
+=== 366 === 0 East 175.25 (20, 7)
+=== 1123 === 2 Stop 174.75 (16, 6)
+=== 366 === 0 East 174.25 (21, 7)
+=== 1123 === 2 Stop 173.75 (16, 6)
+=== 366 === 0 South 173.25 (22, 7)
+=== 1123 === 2 Stop 172.75 (16, 6)
+=== 366 === 0 South 172.25 (22, 6)
+=== 1123 === 2 Stop 171.75 (16, 6)
+=== 366 === 0 South 171.25 (22, 5)
+=== 1123 === 2 Stop 170.75 (16, 6)
+=== 366 === 0 North 170.25 (22, 4)
+=== 1123 === 2 Stop 169.75 (16, 6)
+=== 366 === 0 North 169.25 (22, 5)
+=== 1123 === 2 South 168.75 (16, 6)
+=== 366 === 0 North 168.25 (22, 6)
+=== 1123 === 2 North 167.75 (16, 5)
+=== 366 === 0 West 167.25 (22, 7)
+=== 1123 === 2 Stop 166.75 (16, 6)
+=== 366 === 0 West 166.25 (21, 7)
+=== 1123 === 2 South 165.75 (16, 6)
++++ 1 Enermy MINIMAX BEGIN+++551
+369++++ 0 4 North None
+369++++ 0 6 South None
+352++++max  1 4 North North
+369++++ 0 6 North None
+369++++ 0 4 South None
+352++++max  1 4 South South
+369++++ 2 4 North South
+369++++ 0 6 North None
+369++++ 0 8 South None
+369++++ 0 37 West None
+352++++max  1 6 North North
+369++++ 0 4 North None
+369++++ 0 6 South None
+369++++ 0 35 West None
+352++++max  1 4 South North
+369++++ 2 6 South North
+369++++ 0 4 East None
+369++++ 0 6 West None
+352++++max  1 4 North East
+369++++ 0 2 East None
+369++++ 0 4 West None
+352++++max  1 2 South East
+369++++ 2 4 East North
+369++++ 0 37 South None
+369++++ 0 6 East None
+369++++ 0 8 West None
+352++++max  1 6 North East
+369++++ 0 35 South None
+369++++ 0 4 East None
+369++++ 0 6 West None
+352++++max  1 4 South East
+369++++ 2 6 West North
+352++++max  3 4 North North
+369++++ 0 8 North None
+369++++ 0 6 South None
+352++++max  1 6 East South
+369++++ 0 6 North None
+369++++ 0 4 South None
+352++++max  1 4 West South
+369++++ 2 6 North East
+369++++ 0 6 North None
+369++++ 0 8 South None
+369++++ 0 37 West None
+352++++max  1 6 East North
+369++++ 0 4 North None
+369++++ 0 6 South None
+369++++ 0 35 West None
+352++++max  1 4 West North
+369++++ 2 6 South East
+369++++ 0 4 East None
+369++++ 0 6 West None
+352++++max  1 4 East East
+369++++ 0 2 East None
+369++++ 0 4 West None
+352++++max  1 2 West East
+369++++ 2 4 East East
+369++++ 0 37 South None
+369++++ 0 6 East None
+369++++ 0 8 West None
+352++++max  1 6 East East
+369++++ 0 35 South None
+369++++ 0 4 East None
+369++++ 0 6 West None
+352++++max  1 4 West East
+369++++ 2 6 West East
+352++++max  3 4 East East
+369++++ 0 4 North None
+369++++ 0 2 South None
+352++++max  1 2 South South
+369++++ 0 6 North None
+369++++ 0 4 South None
+352++++max  1 4 East South
+369++++ 2 4 North East
+369++++ 0 2 North None
+369++++ 0 4 South None
+369++++ 0 33 West None
+352++++max  1 2 South North
+369++++ 0 4 North None
+369++++ 0 6 South None
+369++++ 0 35 West None
+352++++max  1 4 East North
+369++++ 2 4 South East
+369++++ 0 -200 East None
+369++++ 0 2 West None
+352++++max  1 -200 South East
+369++++ 0 2 East None
+369++++ 0 4 West None
+352++++max  1 2 East East
+369++++ 2 2 East East
+369++++ 0 33 South None
+369++++ 0 2 East None
+369++++ 0 4 West None
+352++++max  1 2 South East
+369++++ 0 35 South None
+369++++ 0 4 East None
+369++++ 0 6 West None
+352++++max  1 4 East East
+369++++ 2 4 West East
+352++++max  3 2 West East
+664 MINIMAX best actions ['North', 'East'] 4
+===NO need go home=== 848
+14
+16
++++1 Enermy MINIMAX RESULT 553 North
+minimax 316 0 North (20, 7)
+=== 1123 === 2 Stop 164.75 (16, 5)
++++ 1 Enermy MINIMAX BEGIN+++551
+369++++ 0 2 North None
+369++++ 0 4 South None
+369++++ 0 4 West None
+352++++max  1 2 South North
+369++++ 0 4 North None
+369++++ 0 6 South None
+369++++ 0 6 West None
+352++++max  1 4 East North
+369++++ 0 4 North None
+369++++ 0 6 South None
+369++++ 0 6 West None
+352++++max  1 4 West North
+369++++ 2 4 East West
+369++++ 0 6 North None
+369++++ 0 6 South None
+369++++ 0 4 East None
+369++++ 0 6 West None
+352++++max  1 4 South East
+369++++ 0 6 North None
+369++++ 0 8 South None
+369++++ 0 6 East None
+369++++ 0 8 West None
+352++++max  1 6 East North
+369++++ 0 4 North None
+369++++ 0 6 South None
+369++++ 0 6 East None
+369++++ 0 6 West None
+352++++max  1 4 West North
+369++++ 2 6 West East
+352++++max  3 4 North East
+369++++ 0 2 North None
+369++++ 0 4 South None
+369++++ 0 4 West None
+352++++max  1 2 North North
+369++++ 0 2 North None
+369++++ 0 4 South None
+369++++ 0 4 West None
+352++++max  1 2 East North
+369++++ 0 -200 North None
+369++++ 0 2 South None
+369++++ 0 2 West None
+352++++max  1 -200 West North
+369++++ 2 2 East North
+369++++ 0 6 North None
+369++++ 0 6 South None
+369++++ 0 4 East None
+369++++ 0 6 West None
+352++++max  1 4 North East
+369++++ 0 6 North None
+369++++ 0 6 South None
+369++++ 0 4 East None
+369++++ 0 6 West None
+352++++max  1 4 East East
+369++++ 0 4 North None
+369++++ 0 4 South None
+369++++ 0 2 East None
+369++++ 0 4 West None
+352++++max  1 2 West East
+369++++ 2 4 West East
+352++++max  3 2 South East
+664 MINIMAX best actions ['North'] 4
+===NO need go home=== 848
+13
++++1 Enermy MINIMAX RESULT 553 North
+minimax 316 0 North (20, 8)
+=== 1123 === 2 South 163.75 (16, 5)
++++ 1 Enermy MINIMAX BEGIN+++551
+369++++ 0 4 South None
+369++++ 0 2 East None
+352++++max  1 2 North East
+369++++ 0 2 South None
+369++++ 0 -200 East None
+352++++max  1 -200 South East
+369++++ 2 2 North North
+369++++ 0 4 North None
+369++++ 0 6 South None
+369++++ 0 6 East None
+352++++max  1 4 North North
+369++++ 0 2 North None
+369++++ 0 4 South None
+369++++ 0 4 East None
+352++++max  1 2 South North
+369++++ 2 4 South North
+369++++ 0 4 East None
+369++++ 0 6 West None
+352++++max  1 4 North East
+369++++ 0 2 East None
+369++++ 0 4 West None
+352++++max  1 2 South East
+369++++ 2 4 West North
+352++++max  3 2 South North
+369++++ 0 6 South None
+369++++ 0 4 East None
+352++++max  1 4 North East
+369++++ 0 4 South None
+369++++ 0 2 East None
+352++++max  1 2 West East
+369++++ 2 4 North North
+369++++ 0 6 North None
+369++++ 0 8 South None
+369++++ 0 8 East None
+352++++max  1 6 North North
+369++++ 0 4 North None
+369++++ 0 6 South None
+369++++ 0 6 East None
+352++++max  1 4 West North
+369++++ 2 6 South North
+369++++ 0 6 East None
+369++++ 0 8 West None
+352++++max  1 6 North East
+369++++ 0 4 East None
+369++++ 0 6 West None
+352++++max  1 4 West East
+369++++ 2 6 West North
+352++++max  3 4 East North
+369++++ 0 4 South None
+369++++ 0 2 East None
+352++++max  1 2 East East
+369++++ 0 6 South None
+369++++ 0 4 East None
+352++++max  1 4 West East
+369++++ 2 4 North West
+369++++ 0 4 North None
+369++++ 0 6 South None
+369++++ 0 6 East None
+352++++max  1 4 East North
+369++++ 0 6 North None
+369++++ 0 8 South None
+369++++ 0 8 East None
+352++++max  1 6 West North
+369++++ 2 6 South West
+369++++ 0 4 East None
+369++++ 0 6 West None
+352++++max  1 4 East East
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 West West
+369++++ 2 4 West East
+352++++max  3 4 West North
+664 MINIMAX best actions ['East', 'West'] 4
+===NO need go home=== 848
+12
+12
++++1 Enermy MINIMAX RESULT 553 East
+minimax 316 0 East (20, 9)
+=== 1123 === 2 Stop 162.75 (16, 4)
++++ 1 Enermy MINIMAX BEGIN+++551
+369++++ 0 6 North None
+369++++ 0 8 South None
+369++++ 0 8 West None
+352++++max  1 6 North North
+369++++ 0 4 North None
+369++++ 0 6 South None
+369++++ 0 6 West None
+352++++max  1 4 South North
+369++++ 2 6 South North
+369++++ 0 4 North None
+369++++ 0 6 East None
+369++++ 0 6 West None
+352++++max  1 4 North North
+369++++ 0 2 North None
+369++++ 0 4 East None
+369++++ 0 4 West None
+352++++max  1 2 South North
+369++++ 2 4 East North
+352++++max  3 4 North East
+369++++ 0 2 North None
+369++++ 0 4 South None
+369++++ 0 4 West None
+352++++max  1 2 South North
+369++++ 0 4 North None
+369++++ 0 6 South None
+369++++ 0 6 West None
+352++++max  1 4 East North
+369++++ 0 4 North None
+369++++ 0 6 South None
+369++++ 0 6 West None
+352++++max  1 4 West North
+369++++ 2 4 South East
+369++++ 0 -200 North None
+369++++ 0 2 East None
+369++++ 0 2 West None
+352++++max  1 -200 South North
+369++++ 0 2 North None
+369++++ 0 4 East None
+369++++ 0 4 West None
+352++++max  1 2 East North
+369++++ 0 2 North None
+369++++ 0 4 East None
+369++++ 0 4 West None
+352++++max  1 2 West North
+369++++ 2 2 East East
+352++++max  3 2 West East
+664 MINIMAX best actions ['North'] 4
+===NO need go home=== 848
+11
++++1 Enermy MINIMAX RESULT 553 North
+minimax 316 0 North (21, 9)
+=== 1123 === 2 North 161.75 (16, 4)
++++ 1 Enermy MINIMAX BEGIN+++551
+369++++ 0 2 North None
+369++++ 0 4 South None
+352++++max  1 2 South North
+369++++ 0 4 North None
+369++++ 0 6 South None
+352++++max  1 4 East North
+369++++ 0 4 North None
+369++++ 0 6 South None
+352++++max  1 4 West North
+369++++ 2 4 North West
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 South West
+369++++ 0 8 East None
+369++++ 0 6 West None
+352++++max  1 6 East West
+369++++ 0 8 East None
+369++++ 0 6 West None
+352++++max  1 6 West West
+369++++ 2 6 East West
+369++++ 0 6 South None
+369++++ 0 4 East None
+352++++max  1 4 South East
+369++++ 0 8 South None
+369++++ 0 6 East None
+352++++max  1 6 East East
+369++++ 0 8 South None
+369++++ 0 6 East None
+352++++max  1 6 West East
+369++++ 2 6 West West
+352++++max  3 4 North North
+369++++ 0 2 North None
+369++++ 0 4 South None
+352++++max  1 2 North North
+369++++ 0 -200 North None
+369++++ 0 2 South None
+352++++max  1 -200 West North
+369++++ 2 2 North North
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 North West
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 West West
+369++++ 2 4 East North
+369++++ 0 6 South None
+369++++ 0 4 East None
+352++++max  1 4 North East
+369++++ 0 4 South None
+369++++ 0 2 East None
+352++++max  1 2 West East
+369++++ 2 4 West North
+352++++max  3 2 South North
+664 MINIMAX best actions ['North'] 4
+===NO need go home=== 848
+10
++++1 Enermy MINIMAX RESULT 553 North
+minimax 316 0 North (21, 10)
+=== 1123 === 2 North 160.75 (16, 5)
+=== 366 === 0 West 160.25 (21, 11)
+=== 1123 === 2 South 159.75 (16, 6)
+=== 366 === 0 West 159.25 (20, 11)
+=== 1123 === 2 South 158.75 (16, 5)
+=== 366 === 0 West 158.25 (19, 11)
+=== 1123 === 2 Stop 157.75 (16, 4)
+=== 366 === 0 West 157.25 (18, 11)
+=== 1123 === 2 Stop 156.75 (16, 4)
+=== 366 === 0 North 156.25 (17, 11)
+=== 1123 === 2 North 155.75 (16, 4)
+=== 366 === 0 North 155.25 (17, 12)
+=== 1123 === 2 North 154.75 (16, 5)
+=== 366 === 0 East 154.25 (17, 13)
+=== 1123 === 2 South 153.75 (16, 6)
+=== 366 === 0 East 153.25 (18, 13)
+=== 1123 === 2 North 152.75 (16, 5)
+=== 366 === 0 East 152.25 (19, 13)
+=== 1123 === 2 South 151.75 (16, 6)
+=== 366 === 0 East 151.25 (20, 13)
+=== 1123 === 2 North 150.75 (16, 5)
+=== 366 === 0 East 150.25 (21, 13)
+=== 1123 === 2 Stop 149.75 (16, 6)
+=== 366 === 0 East 149.25 (22, 13)
+=== 1123 === 2 Stop 148.75 (16, 6)
+=== 366 === 0 West 148.25 (23, 13)
+=== 1123 === 2 South 147.75 (16, 6)
+=== 366 === 0 West 147.25 (22, 13)
+=== 1123 === 2 North 146.75 (16, 5)
+=== 366 === 0 West 146.25 (21, 13)
+=== 1200 === 2 East 145.75 (16, 6)
+=== 366 === 0 North 145.25 (20, 13)
+=== 1200 === 2 East 144.75 (17, 6)
+=== 366 === 0 North 144.25 (20, 14)
+=== 1200 === 2 East 143.75 (18, 6)
+=== 366 === 0 North 143.25 (20, 15)
+=== 1200 === 2 South 142.75 (19, 6)
+=== 366 === 0 East 142.25 (20, 16)
+=== 1200 === 2 South 141.75 (19, 5)
+=== 366 === 0 East 141.25 (21, 16)
+=== 1200 === 2 South 140.75 (19, 4)
+=== 366 === 0 East 140.25 (22, 16)
+=== 1200 === 2 South 139.75 (19, 3)
+=== 366 === 0 South 139.25 (23, 16)
++++ 1 Enermy MINIMAX BEGIN+++551
+369++++ 0 8 North None
+369++++ 0 8 South None
+369++++ 0 8 East None
+369++++ 0 6 West None
+352++++max  1 6 North West
+369++++ 0 6 North None
+369++++ 0 6 South None
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 South West
+369++++ 2 6 East North
+369++++ 0 6 South None
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 North West
+369++++ 0 4 South None
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 South West
+369++++ 2 4 West North
+352++++max  3 4 North West
+369++++ 0 6 North None
+369++++ 0 6 South None
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 North West
+369++++ 0 6 North None
+369++++ 0 6 South None
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 East West
+369++++ 0 8 North None
+369++++ 0 8 South None
+369++++ 0 8 East None
+369++++ 0 6 West None
+352++++max  1 6 West West
+369++++ 2 6 East West
+369++++ 0 4 South None
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 North West
+369++++ 0 2 South None
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 East South
+369++++ 0 4 South None
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 West South
+369++++ 2 4 West West
+352++++max  3 4 South West
+369++++ 0 6 North None
+369++++ 0 6 South None
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 South West
+369++++ 0 4 North None
+369++++ 0 4 South None
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 East West
+369++++ 0 6 North None
+369++++ 0 6 South None
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 West West
+369++++ 2 4 East West
+369++++ 0 2 South None
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 South South
+369++++ 0 2 South None
+369++++ 0 2 East None
+369++++ 0 -200 West None
+352++++max  1 -200 East West
+369++++ 0 4 South None
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 West West
+369++++ 2 2 West South
+352++++max  3 2 East West
+369++++ 0 8 North None
+369++++ 0 8 South None
+369++++ 0 8 East None
+369++++ 0 6 West None
+352++++max  1 6 South West
+369++++ 0 6 North None
+369++++ 0 6 South None
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 East West
+369++++ 0 8 North None
+369++++ 0 8 South None
+369++++ 0 8 East None
+369++++ 0 6 West None
+352++++max  1 6 West West
+369++++ 2 6 East South
+369++++ 0 4 South None
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 South South
+369++++ 0 4 South None
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 East West
+369++++ 0 6 South None
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 West West
+369++++ 2 4 West South
+352++++max  3 4 West West
+664 MINIMAX best actions ['North', 'South', 'West'] 4
+===Need go home=== 848
++++1 Enermy MINIMAX RESULT 553 West
+=== 1114 minimax === 2 West 138.75 (19, 2)
+=== 366 === 0 East 138.25 (23, 15)
++++ 1 Enermy MINIMAX BEGIN+++551
+369++++ 0 4 North None
+369++++ 0 4 West None
+352++++max  1 4 North North
+369++++ 0 4 North None
+369++++ 0 2 West None
+352++++max  1 2 East West
+369++++ 0 6 North None
+369++++ 0 4 West None
+352++++max  1 4 West West
+369++++ 2 4 South West
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 North West
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 East West
+369++++ 0 8 East None
+369++++ 0 6 West None
+352++++max  1 6 West West
+369++++ 2 6 East West
+369++++ 0 4 South None
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 North West
+369++++ 0 2 South None
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 East South
+369++++ 0 4 South None
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 West South
+369++++ 2 4 West West
+352++++max  3 4 South South
+369++++ 0 4 North None
+369++++ 0 4 West None
+352++++max  1 4 North North
+369++++ 0 4 North None
+369++++ 0 2 West None
+352++++max  1 2 South West
+369++++ 0 2 North None
+369++++ 0 2 West None
+352++++max  1 2 East North
+369++++ 0 4 North None
+369++++ 0 4 West None
+352++++max  1 4 West North
+369++++ 2 4 South North
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 North West
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 South West
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 East West
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 West West
+369++++ 2 4 East North
+369++++ 0 4 South None
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 North West
+369++++ 0 2 South None
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 South South
+369++++ 0 2 South None
+369++++ 0 2 East None
+369++++ 0 -200 West None
+352++++max  1 -200 East West
+369++++ 0 4 South None
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 West West
+369++++ 2 2 West West
+352++++max  3 2 East West
+369++++ 0 6 North None
+369++++ 0 4 West None
+352++++max  1 4 South West
+369++++ 0 4 North None
+369++++ 0 4 West None
+352++++max  1 4 East North
+369++++ 0 6 North None
+369++++ 0 6 West None
+352++++max  1 6 West North
+369++++ 2 6 South West
+369++++ 0 8 East None
+369++++ 0 6 West None
+352++++max  1 6 South West
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 East West
+369++++ 0 8 East None
+369++++ 0 6 West None
+352++++max  1 6 West West
+369++++ 2 6 East South
+369++++ 0 4 South None
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 South South
+369++++ 0 4 South None
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 East West
+369++++ 0 6 South None
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 West West
+369++++ 2 4 West South
+352++++max  3 4 West West
+664 MINIMAX best actions ['South', 'West'] 4
+===Need go home=== 848
++++1 Enermy MINIMAX RESULT 553 West
+=== 1114 minimax === 2 West 137.75 (18, 2)
+=== 366 === 0 East 137.25 (24, 15)
++++ 1 Enermy MINIMAX BEGIN+++551
+369++++ 0 4 North None
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 North North
+369++++ 0 4 North None
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 East West
+369++++ 0 6 North None
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 West West
+369++++ 2 4 South North
+369++++ 0 6 South None
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 North West
+369++++ 0 4 South None
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 East South
+369++++ 0 6 South None
+369++++ 0 8 East None
+369++++ 0 6 West None
+352++++max  1 6 West South
+369++++ 2 6 East West
+369++++ 0 4 South None
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 North West
+369++++ 0 2 South None
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 East South
+369++++ 0 4 South None
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 West South
+369++++ 2 4 West West
+352++++max  3 4 South South
+369++++ 0 4 North None
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 South West
+369++++ 0 2 North None
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 East North
+369++++ 0 4 North None
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 West North
+369++++ 2 4 South West
+369++++ 0 4 South None
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 South South
+369++++ 0 4 South None
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 East West
+369++++ 0 6 South None
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 West West
+369++++ 2 4 East West
+369++++ 0 2 South None
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 South South
+369++++ 0 2 South None
+369++++ 0 2 East None
+369++++ 0 -200 West None
+352++++max  1 -200 East West
+369++++ 0 4 South None
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 West West
+369++++ 2 2 West West
+352++++max  3 2 East West
+369++++ 0 6 North None
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 South West
+369++++ 0 4 North None
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 East North
+369++++ 2 4 South East
+369++++ 0 6 South None
+369++++ 0 8 East None
+369++++ 0 6 West None
+352++++max  1 6 South South
+369++++ 0 6 South None
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 East West
+369++++ 2 6 East South
+369++++ 0 4 South None
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 South South
+369++++ 0 4 South None
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 East West
+369++++ 2 4 West South
+352++++max  3 4 West South
+664 MINIMAX best actions ['South', 'West'] 4
+===Need go home=== 848
++++1 Enermy MINIMAX RESULT 553 West
+=== 1114 minimax === 2 West 136.75 (17, 2)
+=== 366 === 0 South 136.25 (25, 15)
+=== 1200 === 2 East 135.75 (16, 2)
+=== 366 === 0 South 135.25 (25, 14)
++++ 1 Enermy MINIMAX BEGIN+++551
+369++++ 0 4 South None
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 North West
+369++++ 0 2 South None
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 East South
+369++++ 0 4 South None
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 West South
+369++++ 2 4 North West
+369++++ 0 4 North None
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 North North
+369++++ 0 4 North None
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 East West
+369++++ 0 6 North None
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 West West
+369++++ 2 4 East West
+369++++ 0 2 North None
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 North North
+369++++ 0 2 North None
+369++++ 0 2 East None
+369++++ 0 -200 West None
+352++++max  1 -200 East West
+369++++ 0 4 North None
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 West West
+369++++ 2 2 West North
+352++++max  3 2 South West
+369++++ 0 2 South None
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 South South
+369++++ 0 2 South None
+369++++ 0 2 East None
+369++++ 0 -200 West None
+352++++max  1 -200 East West
+369++++ 0 4 South None
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 West West
+369++++ 2 2 North South
+369++++ 0 4 North None
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 South West
+369++++ 0 2 North None
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 East North
+369++++ 0 4 North None
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 West North
+369++++ 2 4 East West
+369++++ 0 2 North None
+369++++ 0 2 East None
+369++++ 0 -200 West None
+352++++max  1 -200 South West
+369++++ 0 -200 North None
+369++++ 0 2 East None
+369++++ 0 2 West None
+352++++max  1 -200 East North
+369++++ 0 2 North None
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 West North
+369++++ 2 2 West West
+352++++max  3 2 East North
+369++++ 0 4 South None
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 South South
+369++++ 0 4 South None
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 East West
+369++++ 2 4 North South
+369++++ 0 6 North None
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 South West
+369++++ 0 4 North None
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 East North
+369++++ 2 4 East South
+369++++ 0 4 North None
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 South West
+369++++ 0 2 North None
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 East North
+369++++ 2 2 West South
+352++++max  3 2 West West
+664 MINIMAX best actions ['South', 'East', 'West'] 2
+===Need go home=== 848
++++1 Enermy MINIMAX RESULT 553 South
+=== 1114 minimax === 2 South 134.75 (17, 2)
+=== 366 === 0 East 134.25 (25, 13)
++++ 1 Enermy MINIMAX BEGIN+++551
+369++++ 0 4 North None
+369++++ 0 2 South None
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 South South
+369++++ 0 2 North None
+369++++ 0 2 South None
+369++++ 0 2 East None
+369++++ 0 -200 West None
+352++++max  1 -200 East West
+369++++ 0 4 North None
+369++++ 0 4 South None
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 West West
+369++++ 2 2 North South
+369++++ 0 4 North None
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 South West
+369++++ 0 2 North None
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 East North
+369++++ 0 4 North None
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 West North
+369++++ 2 4 East West
+369++++ 0 2 North None
+369++++ 0 2 East None
+369++++ 0 -200 West None
+352++++max  1 -200 South West
+369++++ 0 -200 North None
+369++++ 0 2 East None
+369++++ 0 2 West None
+352++++max  1 -200 East North
+369++++ 0 2 North None
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 West North
+369++++ 2 2 West West
+352++++max  3 2 North North
+369++++ 0 2 North None
+369++++ 0 2 South None
+369++++ 0 2 East None
+369++++ 0 -200 West None
+352++++max  1 -200 North West
+369++++ 0 2 North None
+369++++ 0 -200 South None
+369++++ 0 2 East None
+369++++ 0 2 West None
+352++++max  1 -200 East South
+369++++ 0 4 North None
+369++++ 0 2 South None
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 West South
+369++++ 2 2 North West
+369++++ 0 2 North None
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 North North
+369++++ 0 2 North None
+369++++ 0 2 East None
+369++++ 0 -200 West None
+352++++max  1 -200 East West
+369++++ 0 4 North None
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 West West
+369++++ 2 2 East North
+369++++ 0 47 North None
+369++++ 0 47 East None
+369++++ 0 45 West None
+352++++max  1 45 North West
+369++++ 2 -200 West North
+352++++max  3 -200 East West
+369++++ 0 4 North None
+369++++ 0 4 South None
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 North West
+369++++ 0 4 North None
+369++++ 0 2 South None
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 East South
+369++++ 0 6 North None
+369++++ 0 4 South None
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 West South
+369++++ 2 4 North West
+369++++ 0 4 North None
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 North North
+369++++ 0 4 North None
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 East West
+369++++ 0 6 North None
+369++++ 0 6 East None
+369++++ 0 4 West None
+352++++max  1 4 West West
+369++++ 2 4 East West
+369++++ 0 2 North None
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 North North
+369++++ 0 2 North None
+369++++ 0 2 East None
+369++++ 0 -200 West None
+352++++max  1 -200 East West
+369++++ 0 4 North None
+369++++ 0 4 East None
+369++++ 0 2 West None
+352++++max  1 2 West West
+369++++ 2 2 West West
+352++++max  3 2 West West
+664 MINIMAX best actions ['North', 'West'] 2
+===Need go home=== 848
++++1 Enermy MINIMAX RESULT 553 West
+=== 1114 minimax === 2 West 133.75 (17, 1)
+=== 366 === 0 South 133.25 (26, 13)
+=== 1165 === impasse 2 North 132.75 (16, 1)
+=== 366 === 0 East 132.25 (26, 12)
+=== 1165 === impasse 2 Stop 131.75 (16, 2)
+=== 366 === 0 East 131.25 (27, 12)
+=== 1165 === impasse 2 East 130.75 (16, 2)
+=== 366 === 0 East 130.25 (28, 12)
+=== 1200 === 2 North 129.75 (1, 1)
+=== 366 === 0 East 129.25 (29, 12)
+=== 1200 === 2 North 128.75 (1, 2)
+=== 366 === 0 South 128.25 (30, 12)
+=== 1200 === 2 North 127.75 (1, 3)
+=== 366 === 0 South 127.25 (30, 11)
+=== 1200 === 2 North 126.75 (1, 4)
+=== 366 === 0 South 126.25 (30, 10)
+=== 1200 === 2 North 125.75 (1, 5)
+=== 366 === 0 South 125.25 (30, 9)
+=== 1200 === 2 North 124.75 (1, 6)
+=== 366 === 0 South 124.25 (30, 8)
+=== 1200 === 2 North 123.75 (1, 7)
+=== 366 === 0 South 123.25 (30, 7)
+=== 1200 === 2 North 122.75 (1, 8)
+=== 366 === 0 South 122.25 (30, 6)
+=== 1200 === 2 North 121.75 (1, 9)
+=== 366 === 0 South 121.25 (30, 5)
+=== 1200 === 2 North 120.75 (1, 10)
+=== 366 === 0 South 120.25 (30, 4)
+=== 1200 === 2 North 119.75 (1, 11)
+=== 366 === 0 South 119.25 (30, 3)
+=== 1200 === 2 North 118.75 (1, 12)
+=== 366 === 0 West 118.25 (30, 2)
+=== 1200 === 2 North 117.75 (1, 13)
+=== 366 === 0 West 117.25 (29, 2)
+=== 1200 === 2 North 116.75 (1, 14)
+=== 366 === 0 North 116.25 (28, 2)
+=== 1200 === 2 North 115.75 (1, 15)
+=== 366 === 0 West 115.25 (28, 3)
+=== 1200 === 2 East 114.75 (1, 16)
+=== 366 === 0 West 114.25 (27, 3)
+=== 1200 === 2 East 113.75 (2, 16)
+=== 366 === 0 North 113.25 (26, 3)
+=== 1200 === 2 South 112.75 (3, 16)
+=== 366 === 0 North 112.25 (26, 4)
+=== 1200 === 2 East 111.75 (3, 15)
+=== 366 === 0 North 111.25 (26, 5)
+=== 1200 === 2 East 110.75 (4, 15)
+=== 366 === 0 West 110.25 (26, 6)
+=== 1200 === 2 East 109.75 (5, 15)
+=== 366 === 0 West 109.25 (25, 6)
+=== 1200 === 2 East 108.75 (6, 15)
+=== 366 === 0 South 108.25 (24, 6)
+=== 1161 === 2 West 107.75 (7, 15)
+=== 333 === 0 North 107.25 (24, 5)
+=== 1161 === 2 West 106.75 (6, 15)
+=== 333 === 0 East 106.25 (24, 6)
+=== 1161 === 2 West 105.75 (5, 15)
+=== 333 === 0 East 105.25 (25, 6)
+=== 1161 === 2 West 104.75 (4, 15)
+=== 333 === 0 South 104.25 (26, 6)
+=== 1161 === 2 North 103.75 (3, 15)
+=== 333 === 0 South 103.25 (26, 5)
+=== 1161 === 2 West 102.75 (3, 16)
+=== 333 === 0 South 102.25 (26, 4)
+=== 1161 === 2 West 101.75 (2, 16)
+=== 333 === 0 South 101.25 (26, 3)
+=== 1161 === 2 South 100.75 (1, 16)
+=== 333 === 0 West 100.25 (26, 2)
+=== 1161 === 2 South 99.75 (1, 15)
+=== 333 === 0 West 99.25 (25, 2)
+=== 1161 === 2 South 98.75 (1, 14)
+=== 333 === 0 West 98.25 (24, 2)
+=== 1161 === 2 South 97.75 (1, 13)
+=== 333 === 0 West 97.25 (23, 2)
+=== 1161 === 2 South 96.75 (1, 12)
+=== 333 === 0 West 96.25 (22, 2)
+=== 1161 === 2 South 95.75 (1, 11)
+=== 333 === 0 West 95.25 (21, 2)
+=== 1161 === 2 South 94.75 (1, 10)
+=== 333 === 0 West 94.25 (20, 2)
+=== 1161 === 2 South 93.75 (1, 9)
+=== 333 === 0 North 93.25 (19, 2)
+=== 1161 === 2 South 92.75 (1, 8)
+=== 333 === 0 North 92.25 (19, 3)
+=== 1161 === 2 South 91.75 (1, 7)
+=== 333 === 0 North 91.25 (19, 4)
+=== 1161 === 2 South 90.75 (1, 6)
+=== 333 === 0 North 90.25 (19, 5)
+=== 1161 === 2 South 89.75 (1, 5)
+=== 333 === 0 West 89.25 (19, 6)
+=== 1161 === 2 South 88.75 (1, 4)
+=== 333 === 0 West 88.25 (18, 6)
+=== 1161 === 2 South 87.75 (1, 3)
+=== 333 === 0 North 87.25 (17, 6)
+=== 1200 === 2 North 86.75 (1, 2)
+=== 333 === 0 North 86.25 (17, 7)
+=== 1200 === 2 North 85.75 (1, 3)
+=== 333 === 0 North 85.25 (17, 8)
+=== 1200 === 2 North 84.75 (1, 4)
+=== 333 === 0 West 84.25 (17, 9)
+The Red team has returned at least 28 of the opponents' dots.
+recorded
+
+Total Time Game: 185.0
