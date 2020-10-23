@@ -450,6 +450,7 @@ class ClassicPlanAgent(CaptureAgent):
 
     # ACTION SENARIO: POWERFUL STATE: GO FOR DEEP DANGEROUS FOOD
     distToHome = self.distToHome[myPos]
+    notGoHome = False
     if distToHome:
       if not (timeLeft < 1.5*distToHome[0] and myState.numCarrying):
         notGoHome = True 
@@ -554,7 +555,7 @@ class ClassicPlanAgent(CaptureAgent):
   def evaluateDeepFood(self, gameState, action):
     features = self.getFeaturesDeepFood(gameState, action)
     weights = self.getWeightsDeepFood(gameState, action)
-    print("evaluateDeepFood = 512 features",features)
+    print("evaluateDeepFood = 512 features",action, features)
     
     return features * weights
   
@@ -569,14 +570,18 @@ class ClassicPlanAgent(CaptureAgent):
     features['successorScore'] = -len(foodList)
 
     # Compute distance to the nearest food
-    if len(self.deepFoodDict.keys()) > 0: # This should always be True,  but better safe than sorry
-      #print("528 fFOOD DIst",[(self.getFoodDistance(nextPos, food, gameState),food) for food in self.deepFoodDict.keys() if food in foodList])
-      minDistance = min([self.getFoodDistance(nextPos, food, gameState) for food in foodList if self.deepFoodDict[food]>0])
+    if len(foodList) > 0: # This should always be True,  but better safe than sorry
+      #print("528 fFOOD DIst",[(self.getFoodDistance(nextPos, fcood, gameState),food) for food in self.deepFoodDict.keys() if food in foodList])
+      #maxDepth = [depth for food,depth in self.deepFoodDict.items() if food in foodList]
+      goalFoodDeep = max([depth for food,depth in self.deepFoodDict.items() if food in foodList])/2
+      goalFood = [food for food,depth in self.deepFoodDict.items() if depth >= goalFoodDeep and food in foodList ]
+      print(goalFood)
+      minDistance = min([self.getFoodDistance(nextPos, food, gameState) for food in goalFood])
       features['distanceToDeepFood'] = minDistance
 
     if len(foodList) > 0: # This should always be True,  but better safe than sorry
       minDistance = min([self.getFoodDistance(nextPos, food, gameState) for food in foodList])
-      #features['distanceToFood'] = minDistance
+      features['distanceToFood'] = minDistance
 
     # Distance to Power Capsule
     capsule = self.getCapsules(gameState)
@@ -626,7 +631,7 @@ class ClassicPlanAgent(CaptureAgent):
     return features
 
   def getWeightsDeepFood(self, gameState, action):
-    return {'successorScore': 80, 'distanceToFood': -1, 'distanceToDeepFood': -3, \
+    return {'successorScore': 80, 'distanceToFood': -1, 'distanceToDeepFood': -2, \
     'distanceToCapsule': 1, 'distToGhost': 20, 'cashIn': 10, \
     'stop': -12, 'reverse': -2, 'invaderDistance': -1, \
     'numInvaders': -2, 'isPacman': 3, 'isEaten': -40}
