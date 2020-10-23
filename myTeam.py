@@ -631,7 +631,7 @@ class ClassicPlanAgent(CaptureAgent):
     return features
 
   def getWeightsDeepFood(self, gameState, action):
-    return {'successorScore': 80, 'distanceToFood': -1, 'distanceToDeepFood': -2, \
+    return {'successorScore': 120, 'distanceToFood': -1, 'distanceToDeepFood': -2, \
     'distanceToCapsule': 1, 'distToGhost': 20, 'cashIn': 10, \
     'stop': -12, 'reverse': -2, 'invaderDistance': -1, \
     'numInvaders': -2, 'isPacman': 3, 'isEaten': -40}
