@@ -405,7 +405,8 @@ class ClassicPlanAgent(CaptureAgent):
 
     
     # ACTION SENARIO: MUST DEFEND OUR FOOOD, OFFENSIVE ONLY DEFEND WHEN WE SECURE WINNING
-    if len(defendFood) <= self.totalFoodNum/5 and len(defendFood) > len(foodList):
+    
+    if len(defendFood) <= self.totalFoodNum/5 + 2 and self.getScore(gameState):
       values = [self.evaluatePatrol(gameState, a) for a in actions]
       maxValue = max(values)
       bestActions = [a for a, v in zip(actions, values) if v == maxValue]
@@ -452,6 +453,10 @@ class ClassicPlanAgent(CaptureAgent):
     # ACTION SENARIO: POWERFUL STATE: GO FOR DEEP DANGEROUS FOOD
     distToHome = self.distToHome[myPos]
     notGoHome = False
+
+    enemyStatus = [gameState.data.agentStates[enemyInd].isPacman for enemyInd in self.enemies]
+    enemyAllPacman = enemyStatus[0] and enemyStatus[1]
+    
     if distToHome:
       if not (timeLeft < 1.5*distToHome[0] and myState.numCarrying):
         notGoHome = True 
@@ -459,7 +464,7 @@ class ClassicPlanAgent(CaptureAgent):
     for enemy in self.enemies:
       if gameState.data.agentStates[enemy].scaredTimer > 2:
         enemyScared = 1
-    if enemyScared and notGoHome:
+    if (enemyScared and notGoHome) or (enemyAllPacman and notGoHome):
     
       values = [self.evaluateDeepFood(gameState, a) for a in actions]
       maxValue = max(values)
