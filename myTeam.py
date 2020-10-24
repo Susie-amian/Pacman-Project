@@ -1,5 +1,5 @@
 # myTeam.py
-# version 2.3 fix bug
+# version 2.9 prepare to run tournament 10/24 4PM
 # Time; 10/17/2020 
 # ---------
 # Licensing Information:  You are free to use or extend these projects for
