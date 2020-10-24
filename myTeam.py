@@ -391,13 +391,16 @@ class ClassicPlanAgent(CaptureAgent):
     
     # CONTINUE FOR IMPASSE
     if self.impassePath:
-      return self.impassePath.pop(0)
+      ToAct = self.impassePath.pop(0)
+      print('IMPASSE RUN 394', ToAct)
+      return ToAct
 
     # ACTION SENARIO: DETECTS GHOST === USE MINIMAX ===
     if gstPos and Pacman:
       enermyIndex = [tup[0] for tup in gstPos]
       toAct = self.minimax(gameState, self.index, enermyIndex) 
-      print("minimax 316", self.index, toAct, myPos)    
+      print("minimax 316", self.index, toAct, myPos) 
+      self.impassePath = []   
       return toAct
 
     
@@ -408,29 +411,25 @@ class ClassicPlanAgent(CaptureAgent):
       bestActions = [a for a, v in zip(actions, values) if v == maxValue]
       toAct = random.choice(bestActions)
       print('=== 228 ===', self.index, toAct, timeLeft, myPos)
+      self.impassePath = []
       return toAct
 
     # ACTION SENARIO: NORMAL
     # ACTION STEP 1: reach frontier first
     if self.actionFrontier:
       toAct = self.actionFrontier.pop(0)
+      self.impassePath = []
       return toAct
 
     # ACTION STEP 2: after reaching frontier
     # === REACHED-AN-IMPASSE SENARIO ===
     isInImpasse = self.reachedImpasse(gameState, myPos)
     if isInImpasse:
-      values = [self.evaluateImpasse(gameState, a) for a in actions]
-      maxValue = max(values)
-      bestActions = [a for a, v in zip(actions, values) if v == maxValue]
-      bestAction = random.choice(bestActions)
-      if bestAction == Directions.STOP and len(bestActions) == 1:    # if stop is the inly option
-        end = self.getFurtherestCell(myPos)
-        _, self.impassePath = self.getImpassePath(gameState, end, myPos)
-
-      print('=== 364 === impasse', self.index, bestAction, timeLeft,myPos)
-      #print('\n=== 364 ===', enemyProbPos)
-      return bestAction
+      end = self.getFurtherestCell(myPos)
+      _, self.impassePath = self.getImpassePath(gameState, end, myPos)
+      if self.impassePath:
+        return self.impassePath.pop(0)
+      return random.choice(actions)
     
     
 
@@ -447,6 +446,7 @@ class ClassicPlanAgent(CaptureAgent):
           bestAction = action
           bestDist = dist
       print('=== 333 ===', self.index, bestAction, timeLeft, myPos)
+      self.impassePath = []
       return bestAction
 
     # ACTION SENARIO: POWERFUL STATE: GO FOR DEEP DANGEROUS FOOD
@@ -466,6 +466,7 @@ class ClassicPlanAgent(CaptureAgent):
       bestActions = [a for a, v in zip(actions, values) if v == maxValue]
       toAct = random.choice(bestActions)
       print('=== 457 eatCap and eat eat  ===', self.index, toAct, timeLeft, myPos)
+      self.impassePath = []
       return toAct
 
     # ACTION SENARIO 4: if food more than threshold, need to cash in
@@ -487,9 +488,11 @@ class ClassicPlanAgent(CaptureAgent):
         enermyIndex = [tup[0] for tup in gstPos]
         
         toAct = self.minimax(gameState, self.index, enermyIndex) 
-        print('=== 406 === need to cash in and threatened action', toAct)    
+        print('=== 406 === need to cash in and threatened action', toAct)  
+        self.impassePath = []  
         return toAct
       print('=== 408 === need to cash in and no threat action', toAct, myPos)
+      self.impassePath = []
       return toAct
  
     
@@ -500,7 +503,7 @@ class ClassicPlanAgent(CaptureAgent):
     bestActions = [a for a, v in zip(actions, values) if v == maxValue]
     toAct = random.choice(bestActions)
     print('=== 366 ===', self.index, toAct, timeLeft, myPos)
-
+    self.impassePath = []
     return toAct
 
   def getImpassePath(self, gameState, end, start):
@@ -1361,7 +1364,7 @@ class ClassicPlanAgent(CaptureAgent):
     return dists/i
 
   def getWeightsPatrol(self, gameState, action):
-    return {'numInvaders': -70, 'onDefense': 100, 'distToPatrol': -10, 'invaderDistance': -20, 'distToBelief': -12}
+    return {'numInvaders': -100, 'onDefense': 100, 'distToPatrol': -10, 'invaderDistance': -40, 'distToBelief': -20}
 
   def getSuccessor(self, gameState, action):
     """
@@ -1448,8 +1451,13 @@ class ClassicPlanAgent(CaptureAgent):
     """
     Force one agent to eat top food
     """
-    favoredY = self.favoredY
-    return self.getMazeDistance(myPos, food) + abs(favoredY - food[1])
+    
+    friendState = gameState.data.agentStates[self.myFriend]
+    if friendState.isPacman:
+      favoredY = self.favoredY
+      return self.getMazeDistance(myPos, food) + abs(favoredY - food[1])
+    else:
+      return self.getMazeDistance(myPos, food)
 
   def needToCashIn(self, myPos, nextState, maxCarry, timeLeft):
     # if we have enough pellets, attempt to cash in
