@@ -383,9 +383,10 @@ class ClassicPlanAgent(CaptureAgent):
     scared = gameState.data.agentStates[self.index].scaredTimer
     enemyPacmanPos = self.checkStateSafeAtHome(gameState)
     if scared > 0 and enemyPacmanPos and not Pacman:
+      self.impassePath = []
       enermyIndex = [tup[0] for tup in enemyPacmanPos]
       toAct = self.minimax(gameState, self.index, enermyIndex, False)
-      print('=== 1140 ===scared, the enermy eat the cap', toAct,self.index,timeLeft,myPos)
+      print('=== 388 ===scared, the enermy eat the cap', toAct,self.index,timeLeft,myPos)
       return toAct 
     
     # CONTINUE FOR IMPASSE
