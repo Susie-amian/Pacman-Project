@@ -1,12 +1,12 @@
 # Team Information
 
-**Course:** _[fill your course code and name]_
+**Course:** COMP90054_2020_SM2 AI Planning for Autonomy
 
 **Semester:** Semester 2, 2020
 
-**Instructor:** _[name of your instructor]_
+**Instructor:** Nir Lipovetzky
 
-**Team name:** _[replace this with team name in plan text]_
+**Team name:** hairline
 
 **Team members:**
 
