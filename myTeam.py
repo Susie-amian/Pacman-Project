@@ -390,9 +390,12 @@ class ClassicPlanAgent(CaptureAgent):
       return toAct 
     
     # CONTINUE FOR IMPASSE
+    if myPos == self.start:
+      self.impassePath = []
     if self.impassePath:
       ToAct = self.impassePath.pop(0)
-      print('IMPASSE RUN 394', ToAct)
+
+      print('IMPASSE RUN 394', ToAct, myPos, self.impassePath)
       return ToAct
 
     # ACTION SENARIO: DETECTS GHOST === USE MINIMAX ===
@@ -427,7 +430,8 @@ class ClassicPlanAgent(CaptureAgent):
     isInImpasse = self.reachedImpasse(gameState, myPos)
     if isInImpasse:
       end = self.getFurtherestCell(myPos)
-      _, self.impassePath = self.getImpassePath(gameState, end, myPos)
+      states, self.impassePath = self.getImpassePath(gameState, end, myPos)
+      print("434=== iimpasse path", states)
       if self.impassePath:
         return self.impassePath.pop(0)
       return random.choice(actions)
@@ -535,7 +539,7 @@ class ClassicPlanAgent(CaptureAgent):
         coor = successor.getAgentPosition(self.index)
         if coor not in self.myCells:    # route planned in our territory
           pass
-        if coor not in explored:
+        elif coor not in explored:
           explored.append(coor)
           states.push((successor, action+[a]))
 
