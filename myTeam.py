@@ -538,7 +538,7 @@ class ClassicPlanAgent(CaptureAgent):
         successor = state.generateSuccessor(self.index, a)
         coor = successor.getAgentPosition(self.index)
         if coor not in self.myCells:    # route planned in our territory
-          pass
+          continue
         elif coor not in explored:
           explored.append(coor)
           states.push((successor, action+[a]))
