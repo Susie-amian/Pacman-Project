@@ -134,8 +134,9 @@ class ClassicPlanAgent(CaptureAgent):
     self.trackPosition = {}   # track historical positions the enemy has been to
     
     self.findDeadEnd(gameState)
-    self.deepFoodDict = self.getDepthFood(gameState)
-
+    #self.deepFoodDict = self.getDepthFood(gameState)
+    #print(self.deepFoodDict)
+     
     self.impassePath = []
     
     print("===Find dead end poses=== 145\n", "\n",self.deadEndPoses)
@@ -586,8 +587,9 @@ class ClassicPlanAgent(CaptureAgent):
     if len(foodList) > 0: # This should always be True,  but better safe than sorry
       #print("528 fFOOD DIst",[(self.getFoodDistance(nextPos, fcood, gameState),food) for food in self.deepFoodDict.keys() if food in foodList])
       #maxDepth = [depth for food,depth in self.deepFoodDict.items() if food in foodList]
-      goalFoodDeep = max([depth for food,depth in self.deepFoodDict.items() if food in foodList])/2
-      goalFood = [food for food,depth in self.deepFoodDict.items() if depth >= goalFoodDeep and food in foodList ]
+      deepFoodDict = self.getDepthFood(successor)
+      goalFoodDeep = max([depth for food,depth in deepFoodDict.items() if food in foodList])/2
+      goalFood = [food for food,depth in deepFoodDict.items() if depth >= goalFoodDeep and food in foodList ]
       print(goalFood)
       minDistance = min([self.getFoodDistance(nextPos, food, gameState) for food in goalFood])
       features['distanceToDeepFood'] = minDistance
@@ -652,6 +654,7 @@ class ClassicPlanAgent(CaptureAgent):
 
   #get depth of food if food in dead end position
   def getDepthFood(self, gameState):
+    
     foodList =  self.getFood(gameState).asList()
     deepFoodDict = {}
     for food in foodList:
@@ -659,6 +662,8 @@ class ClassicPlanAgent(CaptureAgent):
         deepFoodDict[food] = self.deadEndDepth[food]
       else:
         deepFoodDict[food] = 0
+    for food in foodList: 
+      print(deepFoodDict[food])
     return deepFoodDict
 
 
