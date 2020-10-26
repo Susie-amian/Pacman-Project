@@ -160,6 +160,7 @@ class ClassicPlanAgent(CaptureAgent):
     """for (x,y) in self.deadEndPoses:
       fakeLay.layoutText[maxY - y][x] = 'x'"""
     print(newlay)
+    
 
 
     for enemy in self.enemies:
@@ -319,6 +320,7 @@ class ClassicPlanAgent(CaptureAgent):
       cur_pos = state.getAgentPosition(self.index)
 
       if cur_pos == end:
+        print("===323===", state, action)
         return state, action
       
       legalActions = state.getLegalActions(self.index)
