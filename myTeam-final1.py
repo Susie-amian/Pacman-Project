@@ -333,9 +333,6 @@ class ClassicPlanAgent(CaptureAgent):
         if coor not in explored:
           explored.append(coor)
           states.push((successor, action+[a]))
-    actions = gameState.getLegalActions(self.index)
-    #return random.choice(actions)
-    
    
   def chooseAction(self, gameState):
     """
@@ -438,14 +435,8 @@ class ClassicPlanAgent(CaptureAgent):
     isInImpasse = self.reachedImpasse(gameState, myPos)
     if isInImpasse:
       end = self.getFurtherestCell(myPos)
-      r = self.getImpassePath(gameState, end, myPos)
-      #print("434=== iimpasse path", states)
-      if r:
-        self.impassePath = r[1]
-         
-      else: 
-        self.impassePath = []
-      
+      states, self.impassePath = self.getImpassePath(gameState, end, myPos)
+      print("434=== iimpasse path", states)
       if self.impassePath:
         return self.impassePath.pop(0)
       return random.choice(actions)
@@ -499,14 +490,8 @@ class ClassicPlanAgent(CaptureAgent):
     if goHome and (notHome) and (not isCloseToFood):
       dist, end = self.distToHome[myPos]
       # BFS find shortest path to home
-      r = self.getBfsPath(gameState, end, myPos)
-      if r:
-
-          toAct = r[1].pop(0)
-      else: 
-        legalActions = myState.getLegalActions(self.index)
-        toAct = random.choice(legalActions)
-      
+      _, path = self.getBfsPath(gameState, end, myPos)
+      toAct = path.pop(0)
 
       # check if threatened by ghost
       threatToHome = self.checkStateSafe(gameState)
@@ -562,8 +547,6 @@ class ClassicPlanAgent(CaptureAgent):
         elif coor not in explored:
           explored.append(coor)
           states.push((successor, action+[a]))
-    actions = gameState.getLegalActions(self.index)
-    return random.choice(actions)
 
   def getFurtherestCell(self, curPos):
     maxDist = 0
@@ -1671,17 +1654,11 @@ class DefensiveReflexAgent(ClassicPlanAgent):
       goHome = self.needToCashIn(myPos, myState, self.minPelletsToCashIn, timeLeft)
       notHome = self.distToHome[myPos]
       isCloseToFood = self.isCloseToFood(gameState, actions)
-      
       if goHome and (notHome) and (not isCloseToFood):
         dist, end = self.distToHome[myPos]
         # BFS find shortest path to home
-        r = self.getBfsPath(gameState, end, myPos)
-        if r:
-
-          toAct = r[1].pop(0)
-        else: 
-          legalActions = myState.getLegalActions(self.index)
-          toAct = random.choice(legalActions)
+        _, path = self.getBfsPath(gameState, end, myPos)
+        toAct = path.pop(0)
 
         # check if threatened by ghost
         threatToHome = self.checkStateSafe(gameState)
