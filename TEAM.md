@@ -10,9 +10,9 @@
 
 **Team members:**
 
-* Student 1's 901054 - Shujin Zhang - shujinz@student.unimelb.edu.au - https://github.com/COMP90054-classroom/contest-hairline.git
-* Student 2's 817333 - Qinyu Bai - qinyub@student.unimelb.edu.au - https://github.com/COMP90054-classroom/contest-hairline.git
-* Student 3's 1014732 - BO LIU - blliu1@student.unimelb.edu.au - https://github.com/COMP90054-classroom/contest-hairline.git
+* Student 1's 901054 - Shujin Zhang - shujinz@student.unimelb.edu.au - https://github.com/Susie-amian
+* Student 2's 817333 - Qinyu Bai - qinyub@student.unimelb.edu.au - https://github.com/SkyeBai
+* Student 3's 1014732 - BO LIU - blliu1@student.unimelb.edu.au - https://github.com/BBLIU1
 
 Replace the lines above with the correct details of members. Delete or add lines as needed.
 
