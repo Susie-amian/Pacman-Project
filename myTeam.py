@@ -502,7 +502,7 @@ class ClassicPlanAgent(CaptureAgent):
       r = self.getBfsPath(gameState, end, myPos)
       if r:
 
-          toAct = r[1].pop(0)
+        toAct = r[1].pop(0)
       else: 
         legalActions = myState.getLegalActions(self.index)
         toAct = random.choice(legalActions)
