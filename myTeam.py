@@ -159,9 +159,7 @@ class ClassicPlanAgent(CaptureAgent):
       newlay += '\n'
     """for (x,y) in self.deadEndPoses:
       fakeLay.layoutText[maxY - y][x] = 'x'"""
-    print(newlay)
-    end = self.getFurtherestCell((13,1))
-    print("164",end)
+    
     
 
 
